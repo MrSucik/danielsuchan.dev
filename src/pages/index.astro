@@ -1,251 +1,98 @@
 ---
-// Component Imports
 import MainHead from "../components/MainHead.astro";
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 ---
 
 <html lang="en">
   <head>
     <MainHead
-      title="Daniel Suchan: Personal Site"
-      description="Daniel Suchan: Developer"
+      title="Daniel Suchan: Resume"
+      description="Daniel Suchan: Resume"
     />
-    <style>
-      .wrapper {
-        margin-top: 2em;
-        margin-bottom: 2em;
-      }
-
-      .hero {
-        position: relative;
-        overflow: hidden;
-      }
-
-      @media (min-width: 750px) {
-        .hero {
-          height: 45vw;
-        }
-      }
-
-      .img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .gradient,
-      .gradient2 {
-        background-image: url("/assets/mesh-gradient.jpg");
-        background-size: cover;
-        pointer-events: none;
-        mix-blend-mode: screen;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-      }
-
-      .gradient2 {
-        mix-blend-mode: multiply;
-        background-size: cover;
-      }
-
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        padding-left: 2rem;
-      }
-
-      @media (min-width: 750px) {
-        .overlay {
-          padding-left: 4rem;
-        }
-      }
-
-      .title {
-        font-weight: 900;
-        font-size: var(--f-u6);
-        margin-bottom: 0.5rem;
-        margin-top: 0;
-      }
-
-      @media (min-width: 750px) {
-        .title {
-          font-size: var(--f-u12);
-        }
-      }
-
-      .grid {
-        display: grid;
-        grid-gap: 2rem;
-      }
-
-      @media (min-width: 1200px) {
-        .grid {
-          grid-template-columns: 2fr 1fr;
-        }
-      }
-
-      .sectionTitle {
-        font-weight: 700;
-        font-size: var(--f-u8);
-        margin-top: 4rem;
-        margin-bottom: 2rem;
-      }
-
-      .roles {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5em;
-        font-size: var(--f-d1);
-      }
-
-      .role {
-        position: relative;
-        display: inline-block;
-        white-space: nowrap;
-        font-weight: 900;
-        color: var(--t-bg);
-        background-color: var(--t-fg);
-        padding: 0.25em 0.5em;
-        z-index: 2;
-      }
-
-      @media (min-width: 750px) {
-        .role {
-          font-size: var(--f-u3);
-        }
-      }
-
-      .role:nth-of-type(1) .invert {
-        background-color: var(--c-pink);
-      }
-
-      .role:nth-of-type(2) .invert {
-        background-color: var(--c-blue);
-      }
-
-      .role:nth-of-type(3) .invert {
-        background-color: var(--c-green);
-      }
-
-      .role:hover .invert {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-      }
-
-      .invert {
-        position: absolute;
-        color: var(--t-fg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        clip-path: polygon(0% 100%, 100% 100%, 100% 200%, 0% 200%);
-        transition: clip-path cubic-bezier(0.4, 0, 0.5, 1) 150ms;
-      }
-
-      .desc {
-        font-size: var(--f-u1);
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-      }
-
-      .subtitle {
-        display: block;
-        font-weight: 400;
-        font-size: var(--f-d6);
-        letter-spacing: -0.0625em;
-      }
-
-      .bio {
-        line-height: 2;
-        margin-bottom: 2rem;
-      }
-
-      .bio > span:first-of-type {
-        line-height: 1;
-        margin-bottom: 0.5em;
-        display: block;
-        font-weight: 700;
-        font-size: var(--f-u4);
-      }
-
-      .buttonContainer {
-        text-align: center;
-        margin-top: 2em;
-      }
-    </style>
   </head>
   <body>
-    <header class="hero">
-      <img
-        width="1600"
-        height="1131"
-        class="img"
-        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75"
-        srcset="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75 800w,https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75 1200w,https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=75 1600w,https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=2400&q=75 2400w"
-        sizes="(max-width: 800px) 800px, (max-width: 1200px) 1200px, (max-width: 1600px) 1600px, (max-width: 2400px) 2400px, 1200px"
-      />
-      <div class="gradient"></div>
-      <div class="gradient2"></div>
-      <div class="overlay">
-        <h1 class="title">
-          <small class="subtitle">The personal site of</small>Daniel Suchan
-        </h1>
-        <div class="roles">
-          <span class="role"
-            >👩‍💻 Developer <span class="invert">👩‍💻 Developer</span>
-          </span>
-          <span class="role"
-            >🎤 Speaker <span class="invert">🎤 Speaker</span>
-          </span>
-          <span class="role"
-            >✏️ Writer <span class="invert">✏️ Writer</span>
-          </span>
-        </div>
-        <p class="desc">Lover of dogs, roadtrips, and poetry.</p>
-      </div>
+    <header>
+      <img src="/assets/header-bg.jpg" alt="Space" />
     </header>
-    <main class="wrapper">
-      <div class="grid">
-        <div class="section">
-          <h3 class="sectionTitle">Selected Work</h3>
-          <div class="buttonContainer">
-            <a href="/projects/" class="button">View All</a>
-          </div>
-        </div>
-        <div class="section">
-          <h3 class="sectionTitle">About me</h3>
-          <p class="bio">
-            <span>Hello!</span> I’m Jeanine, and this is my website. It was made
-            using{" "}
-            <a
-              href="https://github.com/withastro/astro"
-              target="_blank"
-              rel="nofollow"
-            >
-              Astro</a
-            >, a new way to build static sites. This is just an example template
-            for you to modify.
-          </p>
-        </div>
-      </div>
+    <main>
+      <h1 id="resume">Resume</h1>
+      <blockquote>
+        <p>
+          I&#39;m a software engineer based in <strong>Brno</strong> with 5 years
+          of experience in the software industry.
+        </p>
+      </blockquote>
+      <p>
+        My focus area for the past few years has been front-end development with
+        bleeding edge technologies as well as known stacks.
+      </p>
+      <blockquote></blockquote>
+      <h1 id="-contact-information">☎️ Contact information</h1>
+      <p>📧 <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a></p>
+      <p>
+        🔗 <a href="https://www.linkedin.com/in/daniel-suchan-6b8611162/"
+          >LinkedIn</a>
+      </p>
+      <hr />
+      <h1 id="-work-experience">👨‍💻 <em>**</em>Work experience</h1>
+      <h2 id="frontend-developer">Frontend Developer</h2>
+      <p>
+        <strong>*STRV</strong>, Brno, Czech Republic – (June 2022 - present)*
+      </p>
+      <p>
+        Frontend engineer in the team responsible for delivering the next
+        unicorn. Currently working on web3 ticketing portal - Enter Events.
+      </p>
+      <h2 id="software-startup-founder">Software Startup Founder</h2>
+      <p>
+        <strong>*Syncoli</strong>, Brno, Czech Republic – (August 2020 -
+        present)*
+      </p>
+      <p>
+        CEO and CTO for a 5 member team providing modern digital signage
+        solutions with cutting-edge technology. I’m responsible for leading the
+        team, the software, and communication with customers (TS, React, Remix,
+        PostgreSQL, Cypress, NodeJS, Firebase, Python, GitHub Actions, Sentry)
+      </p>
+      <h2 id="full-stack-developer">Full-stack Developer</h2>
+      <p>
+        <strong>*Cantata Health</strong>, Brno and Ostrava, Czech Republic –
+        (March 2017 - April 2022)*
+      </p>
+      <p>
+        Together with my team, I analyzed, implemented, and deployed several
+        projects for a gigantic electronic health record system. Major of my
+        work during the last 3 years was on the frontend (TS, React, React
+        Native, REST, C#, <a href="http://asp.net/">ASP.NET</a>, MSSQL)
+      </p>
+      <hr />
+      <h2 id="-languages">🗣 Languages</h2>
+      <h3 id="czech-">Czech 🇨🇿</h3>
+      <p>Native speaker</p>
+      <h3 id="english-">English 🇺🇸</h3>
+      <p>Comfortable spoken and written</p>
+      <hr />
+      <h1 id="-hobbies">😼 Hobbies</h1>
+      <p>Petting cats</p>
+      <p>Billiard</p>
+      <p>Audiobooks about psychology</p>
+      <p>Cultivating relationships with people</p>
+      <hr />
+      <h1 id="-achievements">😎 Achievements</h1>
+      <p>
+        2017 <em>–</em> Allowed by Czech court to do business before the age of 18
+      </p>
+      <p>
+        2020 <em>–</em> Top 3 in the Czech national round of programming competition
+        for high schools
+      </p>
+      <p>
+        2022 <em>–</em> Moved 11000km away from my home to Indonesia to see what’s
+        up there
+      </p>
+      <p>
+        2022 <em>–</em> Realised that sharing technology knowledge is the key to
+        growth
+      </p>
     </main>
   </body>
 </html>
