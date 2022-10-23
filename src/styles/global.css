@@ -1,3 +1,8 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.81);
+}
 body {
   min-height: 100vh;
   margin: 0;
@@ -6,27 +11,27 @@ body {
     "Segoe UI Symbol";
 }
 
-* {
-  box-sizing: content-box;
-}
-
 img {
   max-width: 100%;
   height: auto;
 }
 
-.button {
-  display: inline-block;
-  border: 3px solid currentColor;
-  padding: 0.5em 1em;
-  font-weight: 700;
-  text-transform: uppercase;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-.wrapper {
-  max-width: 80em;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+p {
+  margin-block: 0.5rem;
+}
+
+hr {
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.13);
+}
+
+a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
 }

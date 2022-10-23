@@ -2,50 +2,47 @@
 import MainHead from "../components/MainHead.astro";
 ---
 
-<html lang="en">
+<html class="dark" lang="en">
   <head>
     <MainHead
       title="Daniel Suchan: Resume"
       description="Daniel Suchan: Resume"
     />
   </head>
-  <body>
-    <header>
-      <img src="/assets/header-bg.jpg" alt="Space" />
-    </header>
-    <main>
-      <h1 id="resume">Resume</h1>
-      <blockquote>
-        <p>
-          I&#39;m a software engineer based in <strong>Brno</strong> with 5 years
-          of experience in the software industry.
-        </p>
-      </blockquote>
-      <p>
+  <body class="dark:bg-dark-bg">
+    <header class="h-60 bg-header bg-cover bg-center"></header>
+    <main class="max-w-2xl m-auto">
+      <h1 class="text-4xl font-bold mt-6 mb-4">Resume</h1>
+      <p class="dark:border-l-white border-l-black border-l-2 pl-4">
+        I'm a software engineer based in <b>Brno</b> with 5 years of experience in
+        the software industry.
+        <br />
+        <br />
         My focus area for the past few years has been front-end development with
         bleeding edge technologies as well as known stacks.
       </p>
-      <blockquote></blockquote>
-      <h1 id="-contact-information">☎️ Contact information</h1>
-      <p>📧 <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a></p>
+      <h2 class="mt-10 mb-4 text-3xl font-semibold">☎️ Contact information</h2>
       <p>
-        🔗 <a href="https://www.linkedin.com/in/daniel-suchan-6b8611162/"
-          >LinkedIn</a>
+        📧 &nbsp; <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a>
+      </p>
+      <p>
+        🔗 &nbsp; <a href="https://www.linkedin.com/in/daniel-suchan-6b8611162/"
+          >LinkedIn</a
+        >
       </p>
       <hr />
-      <h1 id="-work-experience">👨‍💻 <em>**</em>Work experience</h1>
-      <h2 id="frontend-developer">Frontend Developer</h2>
-      <p>
-        <strong>*STRV</strong>, Brno, Czech Republic – (June 2022 - present)*
+      <h2 class="mt-10 mb-4 text-3xl font-semibold">👨‍💻 Work experience</h2>
+      <h3 class="text-2xl font-medium mt-8 mb-2">Frontend Developer</h3>
+      <p class="mb-2 mt-2 italic text-grey-text">
+        <b>STRV</b>, Brno, Czech Republic – (June 2022 - present)
       </p>
       <p>
         Frontend engineer in the team responsible for delivering the next
         unicorn. Currently working on web3 ticketing portal - Enter Events.
       </p>
-      <h2 id="software-startup-founder">Software Startup Founder</h2>
-      <p>
-        <strong>*Syncoli</strong>, Brno, Czech Republic – (August 2020 -
-        present)*
+      <h3 class="text-2xl font-medium mt-8 mb-2">Software Startup Founder</h3>
+      <p class="mb-2 mt-2 italic text-grey-text">
+        <b>Syncoli</b>, Brno, Czech Republic – (August 2020 - present)
       </p>
       <p>
         CEO and CTO for a 5 member team providing modern digital signage
@@ -53,31 +50,33 @@ import MainHead from "../components/MainHead.astro";
         team, the software, and communication with customers (TS, React, Remix,
         PostgreSQL, Cypress, NodeJS, Firebase, Python, GitHub Actions, Sentry)
       </p>
-      <h2 id="full-stack-developer">Full-stack Developer</h2>
-      <p>
-        <strong>*Cantata Health</strong>, Brno and Ostrava, Czech Republic –
-        (March 2017 - April 2022)*
+      <h3 class="text-2xl font-medium mt-8 mb-2">Full-stack Developer</h3>
+      <p class="mb-2 mt-2 italic text-grey-text">
+        <b>Cantata Health</b>, Brno and Ostrava, Czech Republic – (March 2017 -
+        April 2022)
       </p>
       <p>
         Together with my team, I analyzed, implemented, and deployed several
         projects for a gigantic electronic health record system. Major of my
         work during the last 3 years was on the frontend (TS, React, React
-        Native, REST, C#, <a href="http://asp.net/">ASP.NET</a>, MSSQL)
+        Native, REST, C#, ASP.NET, MSSQL)
       </p>
       <hr />
-      <h2 id="-languages">🗣 Languages</h2>
-      <h3 id="czech-">Czech 🇨🇿</h3>
+      <h2 class="mt-10 mb-4 text-3xl font-semibold">🗣 Languages</h2>
+      <h3></h3>
+      Czech 🇨🇿
       <p>Native speaker</p>
-      <h3 id="english-">English 🇺🇸</h3>
-      <p>Comfortable spoken and written</p>
-      <hr />
-      <h1 id="-hobbies">😼 Hobbies</h1>
+      <h3>
+        English 🇺🇸
+        <p>Comfortable spoken and written</p>
+        <hr />
+      </h3><h2 class="mt-10 mb-4 text-3xl font-semibold">😼 Hobbies</h2>
       <p>Petting cats</p>
       <p>Billiard</p>
       <p>Audiobooks about psychology</p>
       <p>Cultivating relationships with people</p>
       <hr />
-      <h1 id="-achievements">😎 Achievements</h1>
+      <h2 class="mt-10 mb-4 text-3xl font-semibold">😎 Achievements</h2>
       <p>
         2017 <em>–</em> Allowed by Czech court to do business before the age of 18
       </p>
