@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     colors: {
       "dark-bg": "#191919",
+      "grey-text": "rgba(155, 155, 155, 1)",
     },
     extend: {
       backgroundImage: {

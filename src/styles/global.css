@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.81)
+  color: rgba(255, 255, 255, 0.81);
 }
 body {
   min-height: 100vh;
@@ -20,4 +20,18 @@ img {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+p {
+  margin-block: 0.5rem;
+}
+
+hr {
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.13);
+}
+
+a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
 }
