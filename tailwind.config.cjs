@@ -6,6 +6,7 @@ module.exports = {
     colors: {
       "dark-bg": "#191919",
       "grey-text": "rgba(155, 155, 155, 1)",
+      "default-text": "rgba(255, 255, 255, 0.81)",
     },
     extend: {
       backgroundImage: {

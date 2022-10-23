@@ -1,7 +1,5 @@
 html {
   box-sizing: border-box;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.81);
 }
 body {
   min-height: 100vh;
@@ -20,10 +18,16 @@ img {
 *:before,
 *:after {
   box-sizing: inherit;
+  color: inherit;
 }
 
 p {
   margin-block: 0.5rem;
+}
+
+.stripe-left {
+  border-left: 2px solid #eaeaea;
+  padding-left: 1rem;
 }
 
 hr {
