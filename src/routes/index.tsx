@@ -113,14 +113,11 @@ function Index() {
       </p>
       <hr />
       <h2 className="mt-10 mb-4 text-3xl font-semibold">🗣 Languages</h2>
-      <h3></h3>
-      Czech 🇨🇿
+      <h3>Czech 🇨🇿</h3>
       <p>Native speaker</p>
-      <h3>
-        English 🇺🇸
-        <p>Comfortable spoken and written</p>
-        <hr />
-      </h3>
+      <h3>English 🇺🇸</h3>
+      <p>Comfortable spoken and written</p>
+      <hr />
       <h2 className="mt-10 mb-4 text-3xl font-semibold">😼 Hobbies</h2>
       <p>Petting cats</p>
       <p>Billiard</p>

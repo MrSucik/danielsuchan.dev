@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=22.13.0
+ARG NODE_VERSION=22.13.1
 FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="React"
@@ -13,7 +13,7 @@ WORKDIR /app
 ENV NODE_ENV="production"
 
 # Install pnpm
-ARG PNPM_VERSION=9.2.0
+ARG PNPM_VERSION=9.17.1
 RUN npm install -g pnpm@$PNPM_VERSION
 
 
@@ -39,7 +39,7 @@ RUN pnpm prune --prod
 
 
 # Final stage for app image
-FROM nginx
+FROM nginx:alpine
 
 # Copy built application
 COPY --from=build /app/dist /usr/share/nginx/html
