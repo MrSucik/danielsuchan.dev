@@ -4,9 +4,9 @@
 ARG NODE_VERSION=22.13.0
 FROM node:${NODE_VERSION}-slim AS base
 
-LABEL fly_launch_runtime="Astro"
+LABEL fly_launch_runtime="React"
 
-# Astro app lives here
+# React app lives here
 WORKDIR /app
 
 # Set production environment

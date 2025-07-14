@@ -4,11 +4,12 @@ Personal portfolio website showcasing my work and experience.
 
 ## Tech Stack
 
-- **Framework**: [Astro](https://astro.build/) v5.1.6 - A modern static site builder
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v3.4.17 with `@astrojs/tailwind` integration
+- **Framework**: [React](https://react.dev/) v18.3.1 with [TanStack Router](https://tanstack.com/router) v1.127.3 - Type-safe file-based routing
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v3.4.17 with PostCSS and Autoprefixer
+- **Build Tool**: [Vite](https://vitejs.dev/) v5.4.19 - Modern build tool and dev server
 - **Development Tools**:
   - [PNPM](https://pnpm.io/) - Fast, disk space efficient package manager
-  - [Prettier](https://prettier.io/) v3.4.2 with Astro plugin for code formatting
+  - [Prettier](https://prettier.io/) v3.4.2 for code formatting
   - TypeScript for type safety
 
 ## Development
@@ -22,7 +23,7 @@ Personal portfolio website showcasing my work and experience.
 2. Start the development server:
 
    ```bash
-   pnpm start
+   pnpm dev
    ```
 
 3. Build for production:
@@ -45,7 +46,7 @@ Personal portfolio website showcasing my work and experience.
 
 ## Code Quality
 
-- Prettier is configured with default settings plus the Astro plugin
+- Prettier is configured with default settings
 - Format code using:
   ```bash
   pnpm format
@@ -53,8 +54,8 @@ Personal portfolio website showcasing my work and experience.
 
 ## Project Structure
 
-The project follows Astro's recommended structure:
+The project follows TanStack Router's file-based routing structure:
 
-- `src/pages/` - Page components and routes
-- `src/components/` - Reusable UI components
-- `src/styles/` - Global styles and Tailwind configuration
+- `src/routes/` - Route components and configurations
+- `src/main.tsx` - Application entry point
+- `src/index.css` - Global styles and Tailwind directives

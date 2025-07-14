@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for the portfolio site */
+body {
+  @apply font-sans;
+}
+
+.dark {
+  @apply bg-dark-bg text-white;
+}
+
+/* Ensure links are styled properly */
+a {
+  @apply text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300;
+}
+
+/* Style the grey text */
+.text-grey-text {
+  @apply text-gray-500 dark:text-gray-400;
+}
