@@ -8,7 +8,7 @@ Personal portfolio website showcasing my work and experience.
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) v3.4.17 with PostCSS and Autoprefixer
 - **Build Tool**: [Vite](https://vitejs.dev/) v5.4.19 - Modern build tool and dev server
 - **Development Tools**:
-  - [PNPM](https://pnpm.io/) - Fast, disk space efficient package manager
+  - [NPM](https://www.npmjs.com/) - Node Package Manager
   - [Prettier](https://prettier.io/) v3.4.2 for code formatting
   - TypeScript for type safety
 
@@ -17,24 +17,24 @@ Personal portfolio website showcasing my work and experience.
 1. Install dependencies:
 
    ```bash
-   pnpm install
+   npm install
    ```
 
 2. Start the development server:
 
    ```bash
-   pnpm dev
+   npm run dev
    ```
 
 3. Build for production:
 
    ```bash
-   pnpm build
+   npm run build
    ```
 
 4. Preview production build:
    ```bash
-   pnpm preview
+   npm run preview
    ```
 
 ## Deployment
@@ -49,7 +49,7 @@ Personal portfolio website showcasing my work and experience.
 - Prettier is configured with default settings
 - Format code using:
   ```bash
-  pnpm format
+  npm run format
   ```
 
 ## Project Structure
