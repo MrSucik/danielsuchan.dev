@@ -39,10 +39,9 @@ Personal portfolio website showcasing my work and experience.
 
 ## Deployment
 
-- **Hosting**: [Fly.io](https://fly.io/) with auto-scaling configuration
+- **Hosting**: [Coolify](https://coolify.io/)
 - **Domain**: Registered on Google Domains
 - **Container**: Dockerized deployment with custom Dockerfile
-- **Region**: Primary deployment in Frankfurt (FRA)
 
 ## Code Quality
 
