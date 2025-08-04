@@ -49,7 +49,7 @@ function Index() {
         <b>Blaze Company</b>, Brno, Czech Republic – (January 2023 - present)
       </p>
       <p>Leading multiple development teams:</p>
-      <ul className="list-disc list-inside ml-4 mt-2">
+      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
         <li>
           <a
             href="https://rozpocetpro.cz"
