@@ -186,35 +186,43 @@ function Index() {
       </ul>
       <hr className="my-8" />
       <h2 className="mt-10 mb-4 text-3xl font-semibold">🗣 Languages</h2>
-      <h3>Czech 🇨🇿</h3>
-      <p>Native speaker</p>
-      <h3>English 🇺🇸</h3>
-      <p>Comfortable spoken and written</p>
+      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
+        <li>
+          <strong>Czech 🇨🇿</strong> - Native speaker
+        </li>
+        <li>
+          <strong>English 🇺🇸</strong> - Comfortable spoken and written
+        </li>
+      </ul>
       <hr className="my-8" />
       <h2 className="mt-10 mb-4 text-3xl font-semibold">😼 Hobbies</h2>
-      <p>Petting cats</p>
-      <p>Billiard</p>
-      <p>Audiobooks about psychology</p>
-      <p>Cultivating relationships with people</p>
-      <p>Big time traveller</p>
+      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
+        <li>Petting cats</li>
+        <li>Billiard</li>
+        <li>Audiobooks about psychology</li>
+        <li>Cultivating relationships with people</li>
+        <li>Big time traveller</li>
+      </ul>
       <hr className="my-8" />
       <h2 className="mt-10 mb-4 text-3xl font-semibold">😎 Achievements</h2>
-      <p>
-        2017 <em>–</em> Allowed by Czech court to do business before the age of
-        18
-      </p>
-      <p>
-        2020 <em>–</em> Top 3 in the Czech national round of programming
-        competition for high schools
-      </p>
-      <p>
-        2022 <em>–</em> Moved 11000km away from my home to Indonesia to see
-        what's up there
-      </p>
-      <p>
-        2022 <em>–</em> Realised that sharing technology knowledge is the key to
-        growth
-      </p>
+      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
+        <li>
+          2017 <em>–</em> Allowed by Czech court to do business before the age of
+          18
+        </li>
+        <li>
+          2020 <em>–</em> Top 3 in the Czech national round of programming
+          competition for high schools
+        </li>
+        <li>
+          2022 <em>–</em> Moved 11000km away from my home to Indonesia to see
+          what's up there
+        </li>
+        <li>
+          2022 <em>–</em> Realised that sharing technology knowledge is the key to
+          growth
+        </li>
+      </ul>
     </main>
   );
 }
