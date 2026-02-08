@@ -40,11 +40,15 @@ RUN npm prune --production
 
 
 # Final stage for app image
-FROM nginx:alpine
+FROM base
 
-# Copy built application
-COPY --from=build /app/dist /usr/share/nginx/html
+# Install serve globally
+RUN npm install -g serve
+
+# Copy built application and serve config
+COPY --from=build /app/dist /app/dist
+COPY serve.json /app/serve.json
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 80
-CMD [ "/usr/sbin/nginx", "-g", "daemon off;" ]
+EXPOSE 3000
+CMD [ "serve", "dist", "-l", "3000" ]

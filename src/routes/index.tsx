@@ -5,11 +5,13 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Daniel Suchan: Resume",
+        title:
+          "Daniel Suchan – Software Engineer & CTO | Brno, Czech Republic",
       },
       {
         name: "description",
-        content: "Daniel Suchan: Resume",
+        content:
+          "Software engineer and CTO based in Brno with 9+ years of experience. Co-Founder at blaze.codes, building products like rozpocetpro.cz, talentiqa.ai, and jarvischeck.com.",
       },
     ],
   }),
@@ -207,8 +209,8 @@ function Index() {
       <h2 className="mt-10 mb-4 text-3xl font-semibold">😎 Achievements</h2>
       <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
         <li>
-          2017 <em>–</em> Allowed by Czech court to do business before the age of
-          18
+          2017 <em>–</em> Allowed by Czech court to do business before the age
+          of 18
         </li>
         <li>
           2020 <em>–</em> Top 3 in the Czech national round of programming
@@ -219,8 +221,8 @@ function Index() {
           what's up there
         </li>
         <li>
-          2022 <em>–</em> Realised that sharing technology knowledge is the key to
-          growth
+          2022 <em>–</em> Realised that sharing technology knowledge is the key
+          to growth
         </li>
       </ul>
     </main>

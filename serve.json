@@ -1,0 +1,25 @@
+{
+  "headers": [
+    {
+      "source": "/assets/**",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "**/*.{svg,ico,png,jpg,jpeg,webp,gif}",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    },
+    {
+      "source": "{/robots.txt,/sitemap.xml}",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "**", "destination": "/index.html" }
+  ]
+}
