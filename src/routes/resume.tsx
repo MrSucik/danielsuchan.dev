@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Award, Briefcase, Globe, Heart, Mail, Wrench } from "lucide-react";
+import { Archive, ExternalLink, Wrench } from "lucide-react";
 
 export const Route = createFileRoute("/resume")({
   component: Resume,
@@ -10,322 +10,220 @@ export const Route = createFileRoute("/resume")({
       {
         name: "description",
         content:
-          "Professional resume of Daniel Suchan — CTO, Founder & Full-Stack Engineer with 9+ years of experience.",
+          "Past projects and maintained products by Daniel Suchan — CTO, Founder & Full-Stack Engineer.",
       },
       { property: "og:title", content: "Resume — Daniel Suchan" },
       {
         property: "og:description",
         content:
-          "Professional resume of Daniel Suchan — CTO, Founder & Full-Stack Engineer.",
+          "Past projects and maintained products by Daniel Suchan.",
       },
     ],
   }),
 });
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-function SectionHeading({
-  icon: Icon,
-  children,
-}: {
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-  children: React.ReactNode;
-}) {
-  return (
-    <motion.h2
-      className="mb-6 mt-12 flex items-center gap-3 text-2xl font-bold"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeUp}
-    >
-      <Icon size={24} className="text-amber-400" />
-      {children}
-    </motion.h2>
-  );
+interface Project {
+  name: string;
+  url: string;
+  role: string;
+  period: string;
+  description: string;
+  stack: string[];
 }
 
-function JobEntry({
-  title,
-  company,
-  url,
-  period,
-  location,
-  children,
-}: {
-  title: string;
-  company: string;
-  url?: string;
-  period: string;
-  location: string;
-  children: React.ReactNode;
-}) {
+const maintenanceProjects: Project[] = [
+  {
+    name: "jarvischeck.com",
+    url: "https://jarvischeck.com",
+    role: "Founder",
+    period: "January 2025 – present",
+    description:
+      "Website monitoring and alerting service platform. Full-stack SaaS handling uptime checks, notifications, and dashboards.",
+    stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
+  },
+  {
+    name: "syncoli.com",
+    url: "https://www.syncoli.com/",
+    role: "Founder",
+    period: "August 2020 – present",
+    description:
+      "Modern digital signage solutions platform. Led a team of 4, handling software, infrastructure, and customer relations.",
+    stack: ["TypeScript", "React", "Remix", "Rust", "PostgreSQL"],
+  },
+];
+
+const pastProjects: Project[] = [
+  {
+    name: "xalarm.cz",
+    url: "https://www.xalarm.cz/",
+    role: "Development Lead",
+    period: "December 2022 – September 2023",
+    description:
+      "Personal safety service with mobile application. Planned, developed, and deployed the full product.",
+    stack: ["React Native", "Next.js", "Firebase", "Expo", "Twilio"],
+  },
+  {
+    name: "enter.xyz",
+    url: "https://www.enter.xyz/",
+    role: "Frontend Developer at STRV",
+    period: "June 2022 – April 2024",
+    description:
+      "Frontend engineer responsible for delivering the next-generation web3 platform.",
+    stack: ["TypeScript", "React", "Remix", "GraphQL", "Vercel"],
+  },
+  {
+    name: "Cantata Health",
+    url: "",
+    role: "Full-stack Developer",
+    period: "March 2017 – April 2022",
+    description:
+      "Analyzed, implemented, and deployed several projects for a large electronic health record system. Major work during the last 3 years was on the frontend.",
+    stack: ["TypeScript", "React", "React Native", "C#", "ASP.NET", "MSSQL"],
+  },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.5, ease: "easeOut" },
+  }),
+};
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const content = (
+    <>
+      <div className="mb-3 flex items-start justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-white group-hover:text-amber-400 transition-colors">
+            {project.name}
+          </h3>
+          <p className="text-sm text-gray-500">{project.role}</p>
+        </div>
+        {project.url && (
+          <ExternalLink
+            size={16}
+            className="mt-1 text-gray-600 transition-colors group-hover:text-amber-400"
+          />
+        )}
+      </div>
+      <p className="mb-2 text-xs text-gray-500 italic">{project.period}</p>
+      <p className="mb-4 text-sm leading-relaxed text-gray-400">
+        {project.description}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {project.stack.map((tech) => (
+          <span
+            key={tech}
+            className="rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-gray-500"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </>
+  );
+
+  const className =
+    "group block rounded-xl border border-white/5 bg-white/[0.02] p-6 no-underline transition-colors hover:border-amber-400/30 hover:bg-white/[0.04]";
+
   return (
     <motion.div
-      className="mb-8 border-l-2 border-amber-400/30 pl-5"
+      custom={index}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-40px" }}
       variants={fadeUp}
     >
-      <h3 className="text-xl font-semibold">{title}</h3>
-      {url ? (
+      {project.url ? (
         <a
-          href={url}
+          href={project.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium tracking-wide"
+          className={className}
         >
-          {company}
+          {content}
         </a>
       ) : (
-        <p className="font-medium tracking-wide text-blue-400">{company}</p>
+        <div className={className}>{content}</div>
       )}
-      <p className="mt-1 text-sm italic text-gray-500">
-        {location} &mdash; {period}
-      </p>
-      <div className="mt-2 text-gray-300">{children}</div>
     </motion.div>
   );
 }
 
 function Resume() {
-  const yearsExperience = Math.round(new Date().getFullYear() - 2016);
-
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-5xl px-6 py-16">
       <motion.h1
         className="mb-4 text-4xl font-bold"
-        initial="hidden"
-        animate="visible"
-        variants={fadeUp}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
         Resume
       </motion.h1>
       <motion.p
-        className="mb-8 max-w-xl text-lg text-gray-400"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          ...fadeUp,
-          visible: {
-            ...fadeUp.visible,
-            transition: { delay: 0.1, duration: 0.5 },
-          },
-        }}
+        className="mb-12 max-w-xl text-lg text-gray-400"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
-        Software engineer based in Brno with {yearsExperience} years of
-        experience in the software industry.
+        Projects I'm maintaining and past work that shaped my engineering
+        career.
       </motion.p>
 
-      {/* Contact */}
-      <SectionHeading icon={Mail}>Contact</SectionHeading>
+      {/* Maintenance */}
+      <motion.div
+        className="mb-4 flex items-center gap-3"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+      >
+        <Wrench size={22} className="text-amber-400" />
+        <h2 className="text-2xl font-bold">In Maintenance</h2>
+      </motion.div>
       <motion.p
-        initial="hidden"
-        whileInView="visible"
+        className="mb-8 text-sm text-gray-500"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        variants={fadeUp}
+        transition={{ duration: 0.4, delay: 0.05 }}
       >
-        <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a>
+        Products I built and continue to run and maintain.
       </motion.p>
+      <div className="mb-16 grid gap-6 md:grid-cols-2">
+        {maintenanceProjects.map((project, i) => (
+          <ProjectCard key={project.name} project={project} index={i} />
+        ))}
+      </div>
 
-      {/* Work Experience */}
-      <SectionHeading icon={Briefcase}>Work Experience</SectionHeading>
-
-      <JobEntry
-        title="Co-Founder & CTO"
-        company="blaze.codes"
-        url="https://blaze.codes/"
-        period="January 2023 – present"
-        location="Brno, Czech Republic"
-      >
-        <p>Leading multiple development teams:</p>
-        <ul className="mt-2 list-inside list-disc space-y-1 pl-2">
-          <li>
-            <a
-              href="https://rozpocetpro.cz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              rozpocetpro.cz
-            </a>{" "}
-            – Development Lead
-          </li>
-          <li>
-            <a
-              href="https://talentiqa.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              talentiqa.ai
-            </a>{" "}
-            – Development Lead
-          </li>
-        </ul>
-      </JobEntry>
-
-      <JobEntry
-        title="Software Startup Founder"
-        company="jarvischeck.com"
-        url="https://jarvischeck.com"
-        period="January 2025 – present"
-        location="Brno, Czech Republic"
-      >
-        <p>
-          Building and maintaining a website monitoring and alerting service
-          platform. Responsible for full-stack development, infrastructure, and
-          business operations.
-        </p>
-      </JobEntry>
-
-      <JobEntry
-        title="Development Lead"
-        company="xalarm.cz"
-        url="https://www.xalarm.cz/"
-        period="December 2022 – September 2023"
-        location="Brno, Czech Republic"
-      >
-        <p>
-          Responsible for planning, developing, and deploying a new service with
-          mobile application for personal safety. (TS, React Native, NextJS,
-          Postgres, Firebase, NodeJS, Twillio, Vercel, Expo)
-        </p>
-      </JobEntry>
-
-      <JobEntry
-        title="Frontend Developer"
-        company="enter.xyz"
-        url="https://www.enter.xyz/"
-        period="June 2022 – April 2024"
-        location="Brno, Czech Republic"
-      >
-        <p>
-          Frontend engineer at STRV, responsible for delivering enter.xyz. (TS,
-          React, Remix, GraphQL, Vercel)
-        </p>
-      </JobEntry>
-
-      <JobEntry
-        title="Software Startup Founder"
-        company="syncoli.com"
-        url="https://www.syncoli.com/"
-        period="August 2020 – present"
-        location="Brno, Czech Republic"
-      >
-        <p>
-          Lead team of 4 members providing modern digital signage solutions.
-          Responsible for leading the team, the software, and customer
-          communication. (TS, React, Remix, PostgreSQL, Cypress, NodeJS,
-          Firebase, Python, GitHub Actions, Sentry, Rust). Currently in
-          maintenance mode.
-        </p>
-      </JobEntry>
-
-      <JobEntry
-        title="Full-stack Developer"
-        company="Cantata Health"
-        period="March 2017 – April 2022"
-        location="Brno and Ostrava, Czech Republic"
-      >
-        <p>
-          Analyzed, implemented, and deployed several projects for an electronic
-          health record system. Major work during the last 3 years was on the
-          frontend. (TS, React, React Native, REST, C#, ASP.NET, MSSQL)
-        </p>
-      </JobEntry>
-
-      {/* Maintaining */}
-      <SectionHeading icon={Wrench}>Maintaining</SectionHeading>
-      <motion.ul
-        className="list-inside list-disc space-y-2 pl-2"
-        initial="hidden"
-        whileInView="visible"
+      {/* Past Projects */}
+      <motion.div
+        className="mb-4 flex items-center gap-3"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        variants={fadeUp}
+        transition={{ duration: 0.4 }}
       >
-        <li>
-          <a
-            href="https://jarvischeck.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
-          >
-            jarvischeck.com
-          </a>{" "}
-          – Website monitoring and alerting
-        </li>
-        <li>
-          <a
-            href="https://www.syncoli.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
-          >
-            syncoli.com
-          </a>{" "}
-          – Digital signage solutions
-        </li>
-      </motion.ul>
-
-      {/* Languages */}
-      <SectionHeading icon={Globe}>Languages</SectionHeading>
-      <motion.ul
-        className="list-inside list-disc space-y-2 pl-2"
-        initial="hidden"
-        whileInView="visible"
+        <Archive size={22} className="text-amber-400" />
+        <h2 className="text-2xl font-bold">Past Projects</h2>
+      </motion.div>
+      <motion.p
+        className="mb-8 text-sm text-gray-500"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        variants={fadeUp}
+        transition={{ duration: 0.4, delay: 0.05 }}
       >
-        <li>
-          <strong>Czech</strong> – Native speaker
-        </li>
-        <li>
-          <strong>English</strong> – Comfortable spoken and written
-        </li>
-      </motion.ul>
-
-      {/* Hobbies */}
-      <SectionHeading icon={Heart}>Hobbies</SectionHeading>
-      <motion.ul
-        className="list-inside list-disc space-y-2 pl-2"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
-      >
-        <li>Petting cats</li>
-        <li>Billiard</li>
-        <li>Audiobooks about psychology</li>
-        <li>Cultivating relationships with people</li>
-        <li>Big time traveller</li>
-      </motion.ul>
-
-      {/* Achievements */}
-      <SectionHeading icon={Award}>Achievements</SectionHeading>
-      <motion.ul
-        className="list-inside list-disc space-y-2 pl-2"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
-      >
-        <li>
-          2017 – Allowed by Czech court to do business before the age of 18
-        </li>
-        <li>
-          2020 – Top 3 in the Czech national programming competition for high
-          schools
-        </li>
-        <li>2022 – Moved 11,000 km to Indonesia to see what's up there</li>
-        <li>
-          2022 – Realised that sharing technology knowledge is the key to growth
-        </li>
-      </motion.ul>
+        Previous roles and products I helped build.
+      </motion.p>
+      <div className="grid gap-6 md:grid-cols-2">
+        {pastProjects.map((project, i) => (
+          <ProjectCard key={project.name} project={project} index={i} />
+        ))}
+      </div>
     </main>
   );
 }
