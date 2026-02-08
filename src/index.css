@@ -1,39 +1,25 @@
 @import "tailwindcss";
 
-/* Custom styles for the portfolio site */
 body {
   font-family:
     ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.dark {
   background-color: #191919;
   color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure links are styled properly */
+/* Default link colors */
 a {
-  color: rgb(37 99 235);
-}
-
-a:hover {
-  color: rgb(30 64 175);
-}
-
-.dark a {
   color: rgb(96 165 250);
+  transition: color 0.15s ease;
 }
-
-.dark a:hover {
+a:hover {
   color: rgb(147 197 253);
 }
 
-/* Style the grey text */
-.text-grey-text {
-  color: rgb(107 114 128);
-}
-
-.dark .text-grey-text {
-  color: rgb(156 163 175);
+/* Nav links override — no default blue */
+nav a {
+  color: inherit;
 }

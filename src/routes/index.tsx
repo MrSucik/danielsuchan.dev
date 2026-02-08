@@ -1,228 +1,178 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { ArrowRight, Briefcase, Code2, Rocket, Users } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      {
-        title: "Daniel Suchan: Resume",
-      },
+      { title: "Daniel Suchan — CTO, Founder & Software Engineer" },
       {
         name: "description",
-        content: "Daniel Suchan: Resume",
+        content:
+          "CTO & Founder based in Brno, Czech Republic. Building startups, leading engineering teams, and crafting modern web applications.",
       },
+      {
+        property: "og:title",
+        content: "Daniel Suchan — CTO, Founder & Software Engineer",
+      },
+      {
+        property: "og:description",
+        content:
+          "CTO & Founder based in Brno, Czech Republic. Building startups, leading engineering teams, and crafting modern web applications.",
+      },
+      { property: "og:type", content: "website" },
     ],
   }),
 });
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
+  }),
+};
+
+const highlights = [
+  {
+    icon: Rocket,
+    title: "Startup Builder",
+    description:
+      "Founded multiple tech startups from scratch — from idea to production, handling product, engineering, and business.",
+  },
+  {
+    icon: Users,
+    title: "Engineering Leader",
+    description:
+      "Leading development teams as CTO at blaze.codes, coordinating cross-functional product delivery.",
+  },
+  {
+    icon: Code2,
+    title: "Full-Stack Engineer",
+    description:
+      "Deep expertise in React, TypeScript, Node.js, and modern cloud infrastructure with 9+ years of experience.",
+  },
+  {
+    icon: Briefcase,
+    title: "Product Thinker",
+    description:
+      "Bridging the gap between technical execution and product strategy to ship things that matter.",
+  },
+];
 
 function Index() {
   const yearsExperience = Math.round(new Date().getFullYear() - 2016);
 
   return (
-    <main className="max-w-2xl m-auto p-4">
-      <h1 className="text-4xl font-bold mt-6 mb-4">Resume - Daniel Suchan</h1>
-      <p className="dark:border-l-white border-l-black border-l-2 pl-4">
-        I'm a software engineer based in <b>Brno</b> with {yearsExperience}{" "}
-        years of experience in the software industry.
-        <br />
-      </p>
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">
-        ☎️ Contact information
-      </h2>
-      <p>
-        📧 &nbsp; <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a>
-      </p>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">
-        👨‍💻 Work experience
-      </h2>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Co-Founder & CTO</h3>
-      <a
-        href="https://blaze.codes/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        blaze.codes
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Blaze Company</b>, Brno, Czech Republic – (January 2023 - present)
-      </p>
-      <p>Leading multiple development teams:</p>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <a
-            href="https://rozpocetpro.cz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
+    <main>
+      {/* Hero */}
+      <section className="mx-auto max-w-5xl px-6 pb-20 pt-24 md:pt-32">
+        <motion.p
+          className="mb-4 text-sm font-medium uppercase tracking-widest text-amber-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          CTO &middot; Founder &middot; Engineer
+        </motion.p>
+        <motion.h1
+          className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-6xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Hi, I'm <span className="text-amber-400">Daniel Suchan</span>
+        </motion.h1>
+        <motion.p
+          className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-400 md:text-xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          I build startups and lead engineering teams from Brno, Czech Republic.
+          With {yearsExperience} years in the industry, I turn ideas into
+          products — from architecture to deployment.
+        </motion.p>
+        <motion.div
+          className="flex flex-wrap gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 rounded-lg bg-amber-400 px-6 py-3 text-sm font-semibold text-black no-underline transition-colors hover:bg-amber-300"
           >
-            rozpocetpro.cz
-          </a>{" "}
-          - Development Lead
-        </li>
-        <li>
-          <a
-            href="https://talentiqa.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
+            View Projects <ArrowRight size={16} />
+          </Link>
+          <Link
+            to="/resume"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white no-underline transition-colors hover:border-white/40 hover:bg-white/5"
           >
-            talentiqa.ai
-          </a>{" "}
-          - Development Lead
-        </li>
-      </ul>
+            Read Resume
+          </Link>
+        </motion.div>
+      </section>
 
-      <h3 className="text-2xl font-medium mt-8 mb-2">
-        Software Startup Founder
-      </h3>
-      <a
-        href="https://jarvischeck.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        jarvischeck.com
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>JarvisCheck</b>, Brno, Czech Republic – (January 2025 - present)
-      </p>
-      <p>
-        Building and maintaining a website monitoring and alerting service
-        platform. Responsible for full-stack development, infrastructure, and
-        business operations.
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Development Lead</h3>
-      <a
-        href="https://www.xalarm.cz/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        xalarm.cz
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>XALARM</b>, Brno, Czech Republic – (December 2022 - September 2023)
-      </p>
-      <p>
-        Responsible for planning, developing, and deploying a new service with
-        mobile application for personal safety. (TS, React Native, NextJS,
-        Postgres, Firebase, NodeJS, Twillio, Vercel, Expo)
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Frontend Developer</h3>
-      <a
-        href="https://www.enter.xyz/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        enter.xyz
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>STRV</b>, Brno, Czech Republic – (June 2022 - April 2024)
-      </p>
-      <p>
-        Frontend engineer in the team responsible for delivering the next
-        unicorn - enter.xyz (TS, React, Remix, GraphQL, Vercel)
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">
-        Software Startup Founder
-      </h3>
-      <a
-        href="https://www.syncoli.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        syncoli.com
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Syncoli</b>, Brno, Czech Republic – (August 2020 - present)
-      </p>
-      <p>
-        Lead team of 4 members providing modern digital signage solutions with
-        cutting-edge technology. I'm responsible for leading the team, the
-        software, and communication with customers (TS, React, Remix,
-        PostgreSQL, Cypress, NodeJS, Firebase, Python, GitHub Actions, Sentry,
-        Rust). Currently in maintenance mode and no longer actively developed.
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Full-stack Developer</h3>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Cantata Health</b>, Brno and Ostrava, Czech Republic – (March 2017 -
-        April 2022)
-      </p>
-      <p>
-        Together with my team, I analyzed, implemented, and deployed several
-        projects for a gigantic electronic health record system. Major of my
-        work during the last 3 years was on the frontend (TS, React, React
-        Native, REST, C#, ASP.NET, MSSQL)
-      </p>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">🛠 Maintaining</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <a
-            href="https://jarvischeck.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
-          >
-            jarvischeck.com
-          </a>{" "}
-          - Website monitoring and alerting service
-        </li>
-        <li>
-          <a
-            href="https://www.syncoli.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
-          >
-            syncoli.com
-          </a>{" "}
-          - Modern digital signage solutions platform
-        </li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">🗣 Languages</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <strong>Czech 🇨🇿</strong> - Native speaker
-        </li>
-        <li>
-          <strong>English 🇺🇸</strong> - Comfortable spoken and written
-        </li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">😼 Hobbies</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>Petting cats</li>
-        <li>Billiard</li>
-        <li>Audiobooks about psychology</li>
-        <li>Cultivating relationships with people</li>
-        <li>Big time traveller</li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">😎 Achievements</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          2017 <em>–</em> Allowed by Czech court to do business before the age of
-          18
-        </li>
-        <li>
-          2020 <em>–</em> Top 3 in the Czech national round of programming
-          competition for high schools
-        </li>
-        <li>
-          2022 <em>–</em> Moved 11000km away from my home to Indonesia to see
-          what's up there
-        </li>
-        <li>
-          2022 <em>–</em> Realised that sharing technology knowledge is the key to
-          growth
-        </li>
-      </ul>
+      {/* Highlights */}
+      <section className="border-t border-white/10 bg-[#141414]">
+        <div className="mx-auto grid max-w-5xl gap-8 px-6 py-20 md:grid-cols-2">
+          {highlights.map((item, i) => (
+            <motion.div
+              key={item.title}
+              className="rounded-xl border border-white/5 bg-white/[0.02] p-6"
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={fadeUp}
+            >
+              <item.icon className="mb-4 text-amber-400" size={28} />
+              <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
+              <p className="text-sm leading-relaxed text-gray-400">
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mx-auto max-w-5xl px-6 py-20 text-center">
+        <motion.h2
+          className="mb-4 text-2xl font-bold md:text-3xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={0}
+        >
+          Want to work together?
+        </motion.h2>
+        <motion.p
+          className="mb-8 text-gray-400"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={1}
+        >
+          I'm always open to interesting projects and conversations.
+        </motion.p>
+        <motion.a
+          href="mailto:mr.sucik@gmail.com"
+          className="inline-flex items-center gap-2 rounded-lg bg-amber-400 px-6 py-3 text-sm font-semibold text-black no-underline transition-colors hover:bg-amber-300"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={2}
+        >
+          Get in Touch <ArrowRight size={16} />
+        </motion.a>
+      </section>
     </main>
   );
 }
