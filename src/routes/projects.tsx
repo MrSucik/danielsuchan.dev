@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { ServiceUptime } from "../components/ServiceUptime";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
@@ -166,6 +167,8 @@ function Projects() {
           </motion.a>
         ))}
       </div>
+
+      <ServiceUptime />
     </main>
   );
 }
