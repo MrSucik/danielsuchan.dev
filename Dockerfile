@@ -42,6 +42,11 @@ RUN npm prune --production
 # Final stage for app image
 FROM base
 
+# Install curl for healthchecks
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install serve globally
 RUN npm install -g serve
 
