@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { ArrowRight, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -13,6 +15,16 @@ export const Route = createFileRoute("/")({
         content:
           "Software engineer and CTO based in Brno with 9+ years of experience. Co-Founder at blaze.codes, building products like rozpocetpro.cz, talentiqa.ai, and jarvischeck.com.",
       },
+      {
+        property: "og:title",
+        content: "Daniel Suchan — CTO, Founder & Software Engineer",
+      },
+      {
+        property: "og:description",
+        content:
+          "CTO & Founder based in Brno, Czech Republic. Building startups, leading engineering teams, and crafting modern web applications.",
+      },
+      { property: "og:type", content: "website" },
     ],
   }),
 });
@@ -21,210 +33,57 @@ function Index() {
   const yearsExperience = Math.round(new Date().getFullYear() - 2016);
 
   return (
-    <main className="max-w-2xl m-auto p-4">
-      <h1 className="text-4xl font-bold mt-6 mb-4">Resume - Daniel Suchan</h1>
-      <p className="dark:border-l-white border-l-black border-l-2 pl-4">
-        I'm a software engineer based in <b>Brno</b> with {yearsExperience}{" "}
-        years of experience in the software industry.
-        <br />
-      </p>
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">
-        ☎️ Contact information
-      </h2>
-      <p>
-        📧 &nbsp; <a href="mailto:mr.sucik@gmail.com">mr.sucik@gmail.com</a>
-      </p>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">
-        👨‍💻 Work experience
-      </h2>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Co-Founder & CTO</h3>
-      <a
-        href="https://blaze.codes/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        blaze.codes
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Blaze Company</b>, Brno, Czech Republic – (January 2023 - present)
-      </p>
-      <p>Leading multiple development teams:</p>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <a
-            href="https://rozpocetpro.cz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            rozpocetpro.cz
-          </a>{" "}
-          - Development Lead
-        </li>
-        <li>
-          <a
-            href="https://talentiqa.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            talentiqa.ai
-          </a>{" "}
-          - Development Lead
-        </li>
-      </ul>
+    <main className="flex h-full flex-1 flex-col justify-center">
+      <section className="mx-auto w-full max-w-5xl px-6">
+        <motion.p
+          className="mb-4 text-xs text-[var(--comment)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          {"// "}Founder &middot; Engineer &middot; Brno, CZ
+        </motion.p>
 
-      <h3 className="text-2xl font-medium mt-8 mb-2">
-        Software Startup Founder
-      </h3>
-      <a
-        href="https://jarvischeck.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        jarvischeck.com
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>JarvisCheck</b>, Brno, Czech Republic – (January 2025 - present)
-      </p>
-      <p>
-        Building and maintaining a website monitoring and alerting service
-        platform. Responsible for full-stack development, infrastructure, and
-        business operations.
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Development Lead</h3>
-      <a
-        href="https://www.xalarm.cz/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        xalarm.cz
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>XALARM</b>, Brno, Czech Republic – (December 2022 - September 2023)
-      </p>
-      <p>
-        Responsible for planning, developing, and deploying a new service with
-        mobile application for personal safety. (TS, React Native, NextJS,
-        Postgres, Firebase, NodeJS, Twillio, Vercel, Expo)
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Frontend Developer</h3>
-      <a
-        href="https://www.enter.xyz/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        enter.xyz
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>STRV</b>, Brno, Czech Republic – (June 2022 - April 2024)
-      </p>
-      <p>
-        Frontend engineer in the team responsible for delivering the next
-        unicorn - enter.xyz (TS, React, Remix, GraphQL, Vercel)
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">
-        Software Startup Founder
-      </h3>
-      <a
-        href="https://www.syncoli.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-bold tracking-wide"
-      >
-        syncoli.com
-      </a>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Syncoli</b>, Brno, Czech Republic – (August 2020 - present)
-      </p>
-      <p>
-        Lead team of 4 members providing modern digital signage solutions with
-        cutting-edge technology. I'm responsible for leading the team, the
-        software, and communication with customers (TS, React, Remix,
-        PostgreSQL, Cypress, NodeJS, Firebase, Python, GitHub Actions, Sentry,
-        Rust). Currently in maintenance mode and no longer actively developed.
-      </p>
-      <h3 className="text-2xl font-medium mt-8 mb-2">Full-stack Developer</h3>
-      <p className="mb-2 mt-2 italic text-grey-text">
-        <b>Cantata Health</b>, Brno and Ostrava, Czech Republic – (March 2017 -
-        April 2022)
-      </p>
-      <p>
-        Together with my team, I analyzed, implemented, and deployed several
-        projects for a gigantic electronic health record system. Major of my
-        work during the last 3 years was on the frontend (TS, React, React
-        Native, REST, C#, ASP.NET, MSSQL)
-      </p>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">🛠 Maintaining</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <a
-            href="https://jarvischeck.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
+        <motion.h1
+          className="text-4xl font-bold leading-tight tracking-tight text-[var(--text-bright)] md:text-6xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+        >
+          Daniel <span className="text-[var(--accent)]">Suchan</span>
+        </motion.h1>
+
+        <motion.p
+          className="mt-6 max-w-lg text-sm leading-relaxed text-[var(--text-muted)]"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+        >
+          I build startups and lead engineering teams. With{" "}
+          {yearsExperience} years in the industry, I turn ideas into
+          products — from architecture to deployment.
+        </motion.p>
+
+        <motion.div
+          className="mt-8 flex flex-wrap gap-3"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+        >
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 rounded-md bg-[var(--accent)] px-5 py-2.5 text-xs font-semibold text-[var(--bg)] no-underline transition-opacity hover:opacity-90"
           >
-            jarvischeck.com
-          </a>{" "}
-          - Website monitoring and alerting service
-        </li>
-        <li>
+            Projects <ArrowRight size={13} />
+          </Link>
           <a
-            href="https://www.syncoli.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
+            href="mailto:mr.sucik@gmail.com"
+            className="inline-flex items-center gap-2 rounded-md border border-[var(--border-hover)] px-5 py-2.5 text-xs text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           >
-            syncoli.com
-          </a>{" "}
-          - Modern digital signage solutions platform
-        </li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">🗣 Languages</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          <strong>Czech 🇨🇿</strong> - Native speaker
-        </li>
-        <li>
-          <strong>English 🇺🇸</strong> - Comfortable spoken and written
-        </li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">😼 Hobbies</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>Petting cats</li>
-        <li>Billiard</li>
-        <li>Audiobooks about psychology</li>
-        <li>Cultivating relationships with people</li>
-        <li>Big time traveller</li>
-      </ul>
-      <hr className="my-8" />
-      <h2 className="mt-10 mb-4 text-3xl font-semibold">😎 Achievements</h2>
-      <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
-        <li>
-          2017 <em>–</em> Allowed by Czech court to do business before the age
-          of 18
-        </li>
-        <li>
-          2020 <em>–</em> Top 3 in the Czech national round of programming
-          competition for high schools
-        </li>
-        <li>
-          2022 <em>–</em> Moved 11000km away from my home to Indonesia to see
-          what's up there
-        </li>
-        <li>
-          2022 <em>–</em> Realised that sharing technology knowledge is the key
-          to growth
-        </li>
-      </ul>
+            <Mail size={13} /> Contact
+          </a>
+        </motion.div>
+      </section>
     </main>
   );
 }
