@@ -94,7 +94,16 @@ const statusBadge: Record<Project["status"], string> = {
   Completed: "badge-completed",
 };
 
-function UptimeIndicator({ service }: { service: Service }) {
+function UptimeIndicator({ service }: { service?: Service }) {
+  if (!service) {
+    return (
+      <div className="mt-3 flex items-center gap-2 border-t border-[var(--border)] pt-3">
+        <span className="inline-block size-1.5 shrink-0 rounded-full bg-[var(--text-dim)]" />
+        <span className="text-[10px] text-[var(--text-dim)]">Not monitored</span>
+      </div>
+    );
+  }
+
   const uptimeColor =
     service.uptime >= 99.9
       ? "var(--success)"
@@ -212,7 +221,7 @@ function Projects() {
                 ))}
               </div>
 
-              {service && <UptimeIndicator service={service} />}
+              {loaded && <UptimeIndicator service={service} />}
             </motion.a>
           );
         })}
