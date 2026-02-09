@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const API_URL =
-  import.meta.env.VITE_API_URL ?? "https://jarvis.danielsuchan.dev";
+  import.meta.env.VITE_API_URL ?? "https://jarvis-api.danielsuchan.dev";
 
 const formSchema = z.object({
   email: z
