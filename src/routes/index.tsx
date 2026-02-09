@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -77,10 +77,12 @@ function Index() {
             Projects <ArrowRight size={13} />
           </Link>
           <a
-            href="mailto:mr.sucik@gmail.com"
+            href="https://calendly.com/mr-sucik"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md border border-[var(--border-hover)] px-5 py-2.5 text-xs text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
           >
-            <Mail size={13} /> Contact
+            <Calendar size={13} /> Book a call
           </a>
         </motion.div>
       </section>
