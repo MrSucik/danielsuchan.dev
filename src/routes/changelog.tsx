@@ -2,27 +2,27 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/blog")({
-  component: Blog,
+export const Route = createFileRoute("/changelog")({
+  component: Changelog,
   head: () => ({
     meta: [
-      { title: "Blog — Daniel Suchan" },
+      { title: "Changelog — Daniel Suchan" },
       {
         name: "description",
         content:
-          "Thoughts on startups, engineering leadership, and building software products.",
+          "Updates on projects, releases, and what I'm building.",
       },
-      { property: "og:title", content: "Blog — Daniel Suchan" },
+      { property: "og:title", content: "Changelog — Daniel Suchan" },
       {
         property: "og:description",
         content:
-          "Thoughts on startups, engineering leadership, and building software products.",
+          "Updates on projects, releases, and what I'm building.",
       },
     ],
   }),
 });
 
-function Blog() {
+function Changelog() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-16 md:py-24">
       <motion.p
@@ -31,7 +31,7 @@ function Blog() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        {"// "}Writing
+        {"// "}Updates
       </motion.p>
       <motion.h1
         className="text-3xl font-bold tracking-tight text-[var(--text-bright)] md:text-5xl"
@@ -39,7 +39,7 @@ function Blog() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.05 }}
       >
-        Blog
+        Changelog
       </motion.h1>
       <motion.p
         className="mt-4 mb-12 max-w-lg text-sm text-[var(--text-muted)]"
@@ -47,8 +47,7 @@ function Blog() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
       >
-        Thoughts on startups, engineering leadership, and building software
-        products.
+        Updates on projects, releases, and what I'm building.
       </motion.p>
 
       <motion.div
@@ -61,8 +60,7 @@ function Blog() {
           Coming Soon
         </p>
         <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-[var(--text-muted)]">
-          Working on articles about startup building, engineering
-          leadership, and the tech behind my projects.
+          Documenting project updates, new releases, and what I'm working on.
         </p>
         <Link
           to="/"
