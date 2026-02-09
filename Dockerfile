@@ -56,4 +56,4 @@ COPY serve.json /app/serve.json
 
 # Start the server, using PORT env var (Coolify sets PORT=80)
 EXPOSE 3000
-CMD serve dist -l ${PORT:-3000}
+CMD serve dist -s -l ${PORT:-3000}
