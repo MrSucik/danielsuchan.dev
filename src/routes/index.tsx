@@ -41,7 +41,7 @@ function Index() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          {"// "}Founder &middot; Engineer &middot; Brno, CZ
+          {"// "}Founder &middot; Engineer &middot; Czech Republic
         </motion.p>
 
         <motion.h1
