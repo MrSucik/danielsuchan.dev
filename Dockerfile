@@ -42,9 +42,9 @@ RUN npm prune --production
 # Final stage for app image
 FROM base
 
-# Install curl for healthchecks
+# Install curl and wget for healthchecks
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl && \
+    apt-get install --no-install-recommends -y curl wget && \
     rm -rf /var/lib/apt/lists/*
 
 # Install serve globally
@@ -54,6 +54,6 @@ RUN npm install -g serve
 COPY --from=build /app/dist /app/dist
 COPY serve.json /app/serve.json
 
-# Start the server by default, this can be overwritten at runtime
+# Start the server, using PORT env var (Coolify sets PORT=80)
 EXPOSE 3000
-CMD [ "serve", "dist", "-l", "3000" ]
+CMD serve dist -l ${PORT:-3000}
