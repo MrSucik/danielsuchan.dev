@@ -122,6 +122,24 @@ const projects: Project[] = [
     stack: ["TypeScript", "React", "Hono", "PostgreSQL", "AI/ML"],
     status: "Active",
   },
+  {
+    name: "it.blaze.codes",
+    url: "https://it.blaze.codes",
+    role: "Co-Founder & CTO",
+    description:
+      "Self-hosted PaaS for deploying containerized applications. Deploy Docker containers to your own servers with GitHub integration, automatic SSL, and real-time metrics.",
+    stack: ["TypeScript", "React", "Hono", "Docker", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "inside.blaze.codes",
+    url: "https://inside.blaze.codes",
+    role: "Co-Founder & CTO",
+    description:
+      "Internal operations panel for managing employees and workspace resources at Blaze.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
 ];
 
 const statusBadge: Record<Project["status"], string> = {
