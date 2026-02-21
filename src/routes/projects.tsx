@@ -113,6 +113,15 @@ const projects: Project[] = [
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
     status: "Active",
   },
+  {
+    name: "jarvis.blaze.codes",
+    url: "https://jarvis.blaze.codes",
+    role: "Founder",
+    description:
+      "AI-powered personal productivity and life management platform. Track tasks, health, finances, goals, and more — all in one place.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL", "AI/ML"],
+    status: "Active",
+  },
 ];
 
 const statusBadge: Record<Project["status"], string> = {
