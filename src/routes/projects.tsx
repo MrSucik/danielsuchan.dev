@@ -125,7 +125,7 @@ const projects: Project[] = [
   {
     name: "it.blaze.codes",
     url: "https://it.blaze.codes",
-    role: "Co-Founder & CTO",
+    role: "Product & Development",
     description:
       "Self-hosted PaaS for deploying containerized applications. Deploy Docker containers to your own servers with GitHub integration, automatic SSL, and real-time metrics.",
     stack: ["TypeScript", "React", "Hono", "Docker", "PostgreSQL"],
@@ -134,7 +134,7 @@ const projects: Project[] = [
   {
     name: "inside.blaze.codes",
     url: "https://inside.blaze.codes",
-    role: "Co-Founder & CTO",
+    role: "Product & Development",
     description:
       "Internal operations panel for managing employees and workspace resources at Blaze.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
