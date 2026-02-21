@@ -86,6 +86,33 @@ const projects: Project[] = [
     stack: ["React Native", "Next.js", "Firebase", "Expo"],
     status: "Completed",
   },
+  {
+    name: "nemoskop.cz",
+    url: "https://nemoskop.cz",
+    role: "Founder",
+    description:
+      "Comprehensive real estate analysis platform for the Czech Republic. Aggregates pricing, crime, amenities, and transport data into a single map-based tool.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "uniklo.cz",
+    url: "https://uniklo.cz",
+    role: "Founder",
+    description:
+      "Data breach checker for Czech users. Free lookup against 947 known breaches with 17B+ records to verify email and password exposure.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "dotacni-sniper.cz",
+    url: "https://dotacni-sniper.cz",
+    role: "Founder",
+    description:
+      "Subsidy finder for Czech housing associations. Helps SVJ and residential buildings discover eligible grants and funding in under 2 minutes.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
 ];
 
 const statusBadge: Record<Project["status"], string> = {
