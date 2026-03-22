@@ -173,6 +173,15 @@ const projects: Project[] = [
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
     status: "Active",
   },
+  {
+    name: "suchan.capital",
+    url: "https://suchan.capital",
+    role: "Founder",
+    description:
+      "Algorithmic trading fund building track record. News-driven crypto scalping and event-driven equity trading powered by AI. Registered under ČNB §15 ZISIF.",
+    stack: ["TypeScript", "React", "Bun", "SQLite", "AI/ML"],
+    status: "Active",
+  },
 ];
 
 const statusBadge: Record<Project["status"], string> = {
