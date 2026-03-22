@@ -1,30 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { JsonLd } from "../components/JsonLd";
+import { buildHeadMeta } from "../lib/seo";
+import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
 
 export const Route = createFileRoute("/changelog")({
   component: Changelog,
   head: () => ({
-    meta: [
-      { title: "Changelog — Daniel Suchan" },
-      {
-        name: "description",
-        content:
-          "Updates on projects, releases, and what I'm building.",
-      },
-      { property: "og:title", content: "Changelog — Daniel Suchan" },
-      {
-        property: "og:description",
-        content:
-          "Updates on projects, releases, and what I'm building.",
-      },
-    ],
+    meta: buildHeadMeta({
+      title: "Changelog – Daniel Suchan | Updates & Releases",
+      description:
+        "Latest updates on projects, releases, and technical decisions from Daniel Suchan.",
+      path: "/changelog",
+    }),
   }),
 });
 
 function Changelog() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-16 md:py-24">
+      <JsonLd data={webPageSchema({ name: "Changelog", description: "Latest updates on projects, releases, and technical decisions from Daniel Suchan.", path: "/changelog" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "Changelog", path: "/changelog" }])} />
       <motion.p
         className="mb-3 text-xs text-[var(--comment)]"
         initial={{ opacity: 0 }}
