@@ -139,7 +139,7 @@ async function prerender() {
       const url = `http://localhost:${PORT}${route.path}`;
 
       console.log(`  Rendering ${route.path}...`);
-      await page.goto(url, { waitUntil: "networkidle" });
+      await page.goto(url, { waitUntil: "domcontentloaded", timeout: 15000 });
       await page.waitForTimeout(500);
 
       let html = await page.content();
