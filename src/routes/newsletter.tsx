@@ -6,6 +6,9 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { JsonLd } from "../components/JsonLd";
+import { buildHeadMeta } from "../lib/seo";
+import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
 
 const API_URL =
   import.meta.env.VITE_API_URL ?? "https://jarvis-api.danielsuchan.dev";
@@ -23,20 +26,12 @@ type FormData = z.infer<typeof formSchema>;
 export const Route = createFileRoute("/newsletter")({
   component: Newsletter,
   head: () => ({
-    meta: [
-      { title: "Newsletter — Daniel Suchan" },
-      {
-        name: "description",
-        content:
-          "Subscribe to get updates on startups, engineering, and new projects from Daniel Suchan.",
-      },
-      { property: "og:title", content: "Newsletter — Daniel Suchan" },
-      {
-        property: "og:description",
-        content:
-          "Subscribe to get updates on startups, engineering, and new projects from Daniel Suchan.",
-      },
-    ],
+    meta: buildHeadMeta({
+      title: "Newsletter – Daniel Suchan | Engineering Updates",
+      description:
+        "Subscribe to engineering and startup updates from Daniel Suchan, CTO and Co-Founder at blaze.codes.",
+      path: "/newsletter",
+    }),
   }),
 });
 
@@ -89,6 +84,8 @@ function Newsletter() {
 
   return (
     <main className="mx-auto max-w-xl px-6 py-16 md:py-24">
+      <JsonLd data={webPageSchema({ name: "Newsletter", description: "Subscribe to engineering and startup updates from Daniel Suchan.", path: "/newsletter" })} />
+      <JsonLd data={breadcrumbSchema([{ name: "Newsletter", path: "/newsletter" }])} />
       <motion.p
         className="mb-3 text-xs text-[var(--comment)]"
         initial={{ opacity: 0 }}

@@ -1,31 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
+import { JsonLd } from "../components/JsonLd";
+import { buildHeadMeta } from "../lib/seo";
+import { profilePageSchema } from "../lib/schemas";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
-    meta: [
-      {
-        title:
-          "Daniel Suchan – Software Engineer & CTO | Brno, Czech Republic",
-      },
-      {
-        name: "description",
-        content:
-          "Software engineer and CTO based in Brno with 9+ years of experience. Co-Founder at blaze.codes, building products like rozpocetpro.cz, talentiqa.ai, and jarvischeck.com.",
-      },
-      {
-        property: "og:title",
-        content: "Daniel Suchan — CTO, Founder & Software Engineer",
-      },
-      {
-        property: "og:description",
-        content:
-          "CTO & Founder based in Brno, Czech Republic. Building startups, leading engineering teams, and crafting modern web applications.",
-      },
-      { property: "og:type", content: "website" },
-    ],
+    meta: buildHeadMeta({
+      title: "Daniel Suchan – Software Engineer & CTO | Brno",
+      description:
+        "Software engineer and CTO based in Brno. Co-Founder at blaze.codes, building SaaS products and leading engineering teams across 17+ projects.",
+      path: "/",
+    }),
   }),
 });
 
@@ -34,6 +22,7 @@ function Index() {
 
   return (
     <main className="flex h-full flex-1 flex-col justify-center">
+      <JsonLd data={profilePageSchema()} />
       <section className="mx-auto w-full max-w-5xl px-6">
         <motion.p
           className="mb-4 text-xs text-[var(--comment)]"

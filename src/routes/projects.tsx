@@ -1,35 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Activity, ArrowUpRight } from "lucide-react";
+import { JsonLd } from "../components/JsonLd";
+import { buildHeadMeta } from "../lib/seo";
+import { breadcrumbSchema, projectsSchema } from "../lib/schemas";
+import type { Project } from "../lib/types";
 import { useServiceStatus, type Service } from "../hooks/useServiceStatus";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
   head: () => ({
-    meta: [
-      { title: "Projects — Daniel Suchan" },
-      {
-        name: "description",
-        content:
-          "Projects built and led by Daniel Suchan — from SaaS platforms to enterprise applications.",
-      },
-      { property: "og:title", content: "Projects — Daniel Suchan" },
-      {
-        property: "og:description",
-        content: "Projects built and led by Daniel Suchan.",
-      },
-    ],
+    meta: buildHeadMeta({
+      title: "Projects – Daniel Suchan | SaaS, Apps & Platforms",
+      description:
+        "17 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
+      path: "/projects",
+    }),
   }),
 });
-
-interface Project {
-  name: string;
-  url: string;
-  role: string;
-  description: string;
-  stack: string[];
-  status: "Active" | "Maintenance" | "Completed";
-}
 
 const projects: Project[] = [
   {
@@ -51,6 +39,15 @@ const projects: Project[] = [
     status: "Active",
   },
   {
+    name: "rozpocetpro.cz",
+    url: "https://rozpocetpro.cz",
+    role: "Development Lead",
+    description:
+      "AI tool for construction budgets and price quotes. Database of 300,000+ items, OTSKP classification, export to Excel/PDF/XML. Budget in minutes instead of days.",
+    stack: ["TypeScript", "React", "AI/ML", "Node.js", "PostgreSQL"],
+    status: "Active",
+  },
+  {
     name: "talentiqa.ai",
     url: "https://talentiqa.ai",
     role: "Development Lead",
@@ -60,31 +57,49 @@ const projects: Project[] = [
     status: "Completed",
   },
   {
-    name: "rozpocetpro.cz",
-    url: "https://rozpocetpro.cz",
+    name: "IZZY",
+    url: "https://izzy.cz",
     role: "Development Lead",
     description:
-      "Budget management platform for Czech organizations. Leading the full development lifecycle from planning to deployment.",
-    stack: ["TypeScript", "React", "AI/ML", "Node.js", "PostgreSQL"],
+      "Platform for cleaning services. Mobile and web app connecting customers with professional cleaners. Booking, chat, ratings, and insurance.",
+    stack: ["TypeScript", "React Native", "Node.js", "PostgreSQL"],
     status: "Active",
   },
   {
-    name: "syncoli.com",
-    url: "https://www.syncoli.com/",
-    role: "Founder",
-    description:
-      "Modern digital signage solutions platform. Led a team of 4, handling software, infrastructure, and customer relations.",
-    stack: ["TypeScript", "React", "Remix", "Rust", "PostgreSQL"],
-    status: "Maintenance",
-  },
-  {
-    name: "xalarm.cz",
-    url: "https://www.xalarm.cz/",
+    name: "ArchiPad",
+    url: "https://archipad.com",
     role: "Development Lead",
     description:
-      "Personal safety service with mobile application. Planned, developed, and deployed the full product.",
-    stack: ["React Native", "Next.js", "Firebase", "Expo"],
-    status: "Completed",
+      "Construction project management and architecture tools. Documentation, coordination, and communication for project teams.",
+    stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "Motion Coach",
+    url: "https://motioncoach.app",
+    role: "Development Lead",
+    description:
+      "AI fitness app for real-time movement analysis. Exercise tracking via phone camera with instant feedback on form quality and rep counting.",
+    stack: ["TypeScript", "React Native", "AI/ML", "Node.js"],
+    status: "Active",
+  },
+  {
+    name: "MUNI Polygraf",
+    url: "https://polygraf.muni.cz",
+    role: "Development Lead",
+    description:
+      "Internal accessibility tool for Masaryk University. Support for students and employees with disabilities, specialized resources and accommodations.",
+    stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "ECHO",
+    url: "https://aplikaceecho.cz",
+    role: "Development Lead",
+    description:
+      "App for searching for missing persons. Connected to Czech Police database with real-time notifications about endangered children and seniors.",
+    stack: ["TypeScript", "React Native", "Node.js", "PostgreSQL"],
+    status: "Active",
   },
   {
     name: "nemoskop.cz",
@@ -121,6 +136,24 @@ const projects: Project[] = [
       "AI-powered personal productivity and life management platform. Track tasks, health, finances, goals, and more — all in one place.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL", "AI/ML"],
     status: "Active",
+  },
+  {
+    name: "syncoli.com",
+    url: "https://www.syncoli.com/",
+    role: "Founder",
+    description:
+      "Modern digital signage solutions platform. Led a team of 4, handling software, infrastructure, and customer relations.",
+    stack: ["TypeScript", "React", "Remix", "Rust", "PostgreSQL"],
+    status: "Maintenance",
+  },
+  {
+    name: "xalarm.cz",
+    url: "https://www.xalarm.cz/",
+    role: "Development Lead",
+    description:
+      "Personal safety service with mobile application. Planned, developed, and deployed the full product.",
+    stack: ["React Native", "Next.js", "Firebase", "Expo"],
+    status: "Completed",
   },
   {
     name: "it.blaze.codes",
@@ -204,6 +237,8 @@ function Projects() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 md:py-24">
+      <JsonLd data={projectsSchema(projects)} />
+      <JsonLd data={breadcrumbSchema([{ name: "Projects", path: "/projects" }])} />
       <motion.p
         className="mb-3 text-xs text-[var(--comment)]"
         initial={{ opacity: 0 }}
