@@ -48,8 +48,9 @@ function Index() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          I build startups and lead engineering teams. With{" "}
-          {yearsExperience} years in the industry, I turn ideas into
+          I build startups, lead engineering teams, and run an{" "}
+          <a href="https://suchan.capital" target="_blank" rel="noopener noreferrer" className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]">algorithmic investment fund</a>.
+          With {yearsExperience} years in the industry, I turn ideas into
           products — from architecture to deployment.
         </motion.p>
 
