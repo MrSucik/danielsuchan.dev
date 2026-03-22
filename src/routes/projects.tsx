@@ -129,8 +129,8 @@ const projects: Project[] = [
     status: "Active",
   },
   {
-    name: "jarvis.blaze.codes",
-    url: "https://jarvis.blaze.codes",
+    name: "dzarvis.com",
+    url: "https://dzarvis.com",
     role: "Founder",
     description:
       "AI-powered personal productivity and life management platform. Track tasks, health, finances, goals, and more — all in one place.",
