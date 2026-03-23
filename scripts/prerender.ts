@@ -1,12 +1,13 @@
-import { chromium } from "playwright";
-import { createServer } from "node:http";
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
+/**
+ * SEO prerender — creates per-route index.html copies with correct <head> meta tags.
+ * Does NOT render the body (avoids React hydration mismatch).
+ * The SPA handles body rendering client-side.
+ */
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DIST_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
-const PORT = 4173;
-
 const SITE_URL = "https://danielsuchan.dev";
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
@@ -27,7 +28,7 @@ const ROUTES: RouteSEO[] = [
     path: "/projects",
     title: "Projects \u2013 Daniel Suchan | SaaS, Apps & Platforms",
     description:
-      "17 products and platforms built, co-founded, or led by Daniel Suchan \u2014 from AI tools to enterprise apps.",
+      "18 products and platforms built, co-founded, or led by Daniel Suchan \u2014 from AI tools to enterprise apps.",
   },
   {
     path: "/changelog",
@@ -66,7 +67,10 @@ function buildSeoHead(seo: RouteSEO): string {
     <meta name="twitter:image:alt" content="${seo.title}">`;
 }
 
-function cleanAndInjectHead(html: string, seo: RouteSEO): string {
+function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
+  let html = baseHtml;
+
+  // Remove existing meta tags that we'll replace
   const tagsToRemove = [
     /<title>[^<]*<\/title>/g,
     /<meta name="description"[^>]*>/g,
@@ -80,99 +84,37 @@ function cleanAndInjectHead(html: string, seo: RouteSEO): string {
     html = html.replace(pattern, "");
   }
 
+  // Inject route-specific SEO tags after viewport meta
   const seoHead = buildSeoHead(seo);
   html = html.replace(
     /(<meta name="viewport"[^>]*>)/,
     `$1\n${seoHead}`,
   );
 
+  // Clean up extra blank lines
   html = html.replace(/\n\s*\n\s*\n/g, "\n\n");
   return html;
 }
 
-function createStaticServer(distDir: string, templatePath: string, port: number) {
-  const mimeTypes: Record<string, string> = {
-    ".html": "text/html",
-    ".js": "application/javascript",
-    ".css": "text/css",
-    ".json": "application/json",
-    ".png": "image/png",
-    ".svg": "image/svg+xml",
-    ".woff2": "font/woff2",
-  };
+function prerender() {
+  console.log("SEO prerender (head-only, no Playwright)...");
 
-  const server = createServer((req, res) => {
-    const url = req.url ?? "/";
-    const filePath = join(distDir, url === "/" ? "index.html" : url);
+  const baseHtml = readFileSync(join(DIST_DIR, "index.html"), "utf-8");
 
-    try {
-      const content = readFileSync(filePath);
-      const ext = filePath.substring(filePath.lastIndexOf("."));
-      res.writeHead(200, { "Content-Type": mimeTypes[ext] ?? "application/octet-stream" });
-      res.end(content);
-    } catch {
-      // SPA fallback: always serve the ORIGINAL template, not a prerendered version
-      const fallback = readFileSync(templatePath);
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(fallback);
-    }
-  });
+  for (const route of ROUTES) {
+    const html = injectSeoHead(baseHtml, route);
 
-  return new Promise<typeof server>((resolve) => {
-    server.listen(port, () => resolve(server));
-  });
-}
+    const outputPath =
+      route.path === "/"
+        ? join(DIST_DIR, "index.html")
+        : join(DIST_DIR, route.path.slice(1), "index.html");
 
-async function prerender() {
-  console.log("Starting prerender...");
-
-  // Save the original index.html as a template before any modifications
-  const templatePath = join(DIST_DIR, "_template.html");
-  copyFileSync(join(DIST_DIR, "index.html"), templatePath);
-
-  const server = await createStaticServer(DIST_DIR, templatePath, PORT);
-  const browser = await chromium.launch();
-
-  try {
-    for (const route of ROUTES) {
-      const page = await browser.newPage();
-      const url = `http://localhost:${PORT}${route.path}`;
-
-      console.log(`  Rendering ${route.path}...`);
-      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 }).catch(() => {
-        console.log(`    networkidle timeout for ${route.path}, continuing...`);
-      });
-      await page.waitForTimeout(1000);
-
-      let html = await page.content();
-      html = cleanAndInjectHead(html, route);
-
-      const outputPath =
-        route.path === "/"
-          ? join(DIST_DIR, "index.html")
-          : join(DIST_DIR, route.path.slice(1), "index.html");
-
-      mkdirSync(dirname(outputPath), { recursive: true });
-      writeFileSync(outputPath, `<!DOCTYPE html>\n${html}`);
-      console.log(`  Wrote ${outputPath}`);
-
-      await page.close();
-    }
-  } finally {
-    await browser.close();
-    server.close();
+    mkdirSync(dirname(outputPath), { recursive: true });
+    writeFileSync(outputPath, html);
+    console.log(`  ${route.path} → ${outputPath}`);
   }
 
-  // Clean up template
-  try {
-    const { unlinkSync } = await import("node:fs");
-    unlinkSync(templatePath);
-  } catch {}
-
-  console.log("Prerender complete!");
+  console.log("Done!");
 }
 
-prerender().catch((err) => {
-  console.error("Prerender failed:", err);
-  process.exit(1);
-});
+prerender();

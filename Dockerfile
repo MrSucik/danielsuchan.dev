@@ -21,16 +21,13 @@ FROM base AS build
 # Set NODE_ENV to development for the build stage to install all dependencies
 ENV NODE_ENV="development"
 
-# Install packages needed to build node modules and Playwright
+# Install packages needed to build node modules
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
 # Install node modules (including dev dependencies)
 COPY package.json package-lock.json* ./
 RUN npm ci
-
-# Install Playwright Chromium for prerendering
-RUN npx playwright install --with-deps chromium
 
 # Copy application code
 COPY . .
