@@ -5,7 +5,8 @@ import { JsonLd } from "../components/JsonLd";
 import { buildHeadMeta } from "../lib/seo";
 import { breadcrumbSchema, projectsSchema } from "../lib/schemas";
 import type { Project } from "../lib/types";
-import { useServiceStatus, type Service } from "../hooks/useServiceStatus";
+import { useServiceStatus } from "../hooks/useServiceStatus";
+import { UptimeTimeline } from "../components/UptimeTimeline";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
@@ -208,57 +209,6 @@ const statusBadge: Record<Project["status"], string> = {
   Completed: "badge-completed",
 };
 
-function UptimeIndicator({ service }: { service?: Service }) {
-  if (!service) {
-    return (
-      <div className="mt-3 flex items-center gap-2 border-t border-[var(--border)] pt-3">
-        <span className="inline-block size-1.5 shrink-0 rounded-full bg-[var(--text-dim)]" />
-        <span className="text-[10px] text-[var(--text-dim)]">Not monitored</span>
-      </div>
-    );
-  }
-
-  const uptimeColor =
-    service.uptime >= 99.9
-      ? "var(--success)"
-      : service.uptime >= 99
-        ? "var(--warning)"
-        : "var(--error)";
-
-  const statusDot =
-    service.status === "OK"
-      ? "bg-[var(--success)]"
-      : service.status === "ERROR"
-        ? "bg-[var(--error)]"
-        : service.status === "WARNING"
-          ? "bg-[var(--warning)]"
-          : "bg-[var(--text-dim)]";
-
-  return (
-    <motion.div
-      className="mt-3 flex items-center gap-2 border-t border-[var(--border)] pt-3"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, delay: 0.3 }}
-    >
-      <span className={`inline-block size-1.5 shrink-0 rounded-full ${statusDot}`} />
-      <div className="flex min-w-0 flex-1 items-center gap-2">
-        <span className="text-[10px] text-[var(--text-dim)]">
-          {service.status === "OK" ? "Operational" : service.status === "ERROR" ? "Down" : "Degraded"}
-        </span>
-        {service.avgResponseTime !== null && (
-          <span className="text-[10px] text-[var(--text-dim)]">
-            {Math.round(service.avgResponseTime)}ms
-          </span>
-        )}
-      </div>
-      <span className="text-[11px] font-medium" style={{ color: uptimeColor }}>
-        {service.uptime.toFixed(2)}%
-      </span>
-    </motion.div>
-  );
-}
-
 function Projects() {
   const { loaded, getServiceForUrl } = useServiceStatus();
 
@@ -337,7 +287,7 @@ function Projects() {
                 ))}
               </div>
 
-              {loaded && <UptimeIndicator service={service} />}
+              {loaded && <UptimeTimeline service={service} />}
             </motion.a>
           );
         })}
