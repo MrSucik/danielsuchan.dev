@@ -139,8 +139,10 @@ async function prerender() {
       const url = `http://localhost:${PORT}${route.path}`;
 
       console.log(`  Rendering ${route.path}...`);
-      await page.goto(url, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await page.waitForTimeout(500);
+      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 }).catch(() => {
+        console.log(`    networkidle timeout for ${route.path}, continuing...`);
+      });
+      await page.waitForTimeout(1000);
 
       let html = await page.content();
       html = cleanAndInjectHead(html, route);
