@@ -13,7 +13,7 @@ export const Route = createFileRoute("/projects")({
     meta: buildHeadMeta({
       title: "Projects – Daniel Suchan | SaaS, Apps & Platforms",
       description:
-        "17 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
+        "20 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
       path: "/projects",
     }),
   }),
@@ -111,20 +111,38 @@ const projects: Project[] = [
     status: "Active",
   },
   {
-    name: "uniklo.cz",
-    url: "https://uniklo.cz",
-    role: "Founder",
-    description:
-      "Data breach checker for Czech users. Free lookup against 947 known breaches with 17B+ records to verify email and password exposure.",
-    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
-    status: "Active",
-  },
-  {
     name: "dotacni-sniper.cz",
     url: "https://dotacni-sniper.cz",
     role: "Founder",
     description:
       "Subsidy finder for Czech housing associations. Helps SVJ and residential buildings discover eligible grants and funding in under 2 minutes.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "morivo.cz",
+    url: "https://morivo.cz",
+    role: "Founder",
+    description:
+      "Real estate marketplace for the Czech market. Connecting buyers and sellers with streamlined property listings and search.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "suchanpro.cz",
+    url: "https://suchanpro.cz",
+    role: "Founder",
+    description:
+      "Professional services platform. Providing expert consulting and development services for businesses.",
+    stack: ["TypeScript", "React", "Hono"],
+    status: "Active",
+  },
+  {
+    name: "pandidorty.cz",
+    url: "https://pandidorty.cz",
+    role: "Founder",
+    description:
+      "E-commerce platform for the Czech market. Online store with product catalog, ordering, and delivery management.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
     status: "Active",
   },
@@ -136,24 +154,6 @@ const projects: Project[] = [
       "AI-powered personal productivity and life management platform. Track tasks, health, finances, goals, and more — all in one place.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL", "AI/ML"],
     status: "Active",
-  },
-  {
-    name: "syncoli.com",
-    url: "https://www.syncoli.com/",
-    role: "Founder",
-    description:
-      "Modern digital signage solutions platform. Led a team of 4, handling software, infrastructure, and customer relations.",
-    stack: ["TypeScript", "React", "Remix", "Rust", "PostgreSQL"],
-    status: "Maintenance",
-  },
-  {
-    name: "xalarm.cz",
-    url: "https://www.xalarm.cz/",
-    role: "Development Lead",
-    description:
-      "Personal safety service with mobile application. Planned, developed, and deployed the full product.",
-    stack: ["React Native", "Next.js", "Firebase", "Expo"],
-    status: "Completed",
   },
   {
     name: "it.blaze.codes",
@@ -171,6 +171,24 @@ const projects: Project[] = [
     description:
       "Internal operations panel for managing employees and workspace resources at Blaze.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "uniklo.cz",
+    url: "https://uniklo.cz",
+    role: "Founder",
+    description:
+      "Data breach checker for Czech users. Free lookup against 947 known breaches with 17B+ records to verify email and password exposure.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "syncoli.com",
+    url: "https://www.syncoli.com/",
+    role: "Founder",
+    description:
+      "Digital signage platform. Cloud-managed content scheduling and display management for screens in retail, offices, and public spaces.",
+    stack: ["TypeScript", "React", "Node.js"],
     status: "Active",
   },
   {

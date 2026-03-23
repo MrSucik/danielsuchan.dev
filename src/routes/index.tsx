@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
     meta: buildHeadMeta({
       title: "Daniel Suchan – Software Engineer & CTO | Brno",
       description:
-        "Software engineer and CTO based in Brno. Co-Founder at blaze.codes, building SaaS products and leading engineering teams across 17+ projects.",
+        "Software engineer and CTO based in Brno. Co-Founder at blaze.codes, building SaaS products and leading engineering teams across 20+ projects.",
       path: "/",
     }),
   }),
