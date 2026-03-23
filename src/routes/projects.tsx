@@ -13,7 +13,7 @@ export const Route = createFileRoute("/projects")({
     meta: buildHeadMeta({
       title: "Projects – Daniel Suchan | SaaS, Apps & Platforms",
       description:
-        "17 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
+        "21 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
       path: "/projects",
     }),
   }),
@@ -147,13 +147,40 @@ const projects: Project[] = [
     status: "Maintenance",
   },
   {
-    name: "xalarm.cz",
-    url: "https://www.xalarm.cz/",
+    name: "enter.xyz",
+    url: "https://enter.xyz",
     role: "Development Lead",
     description:
-      "Personal safety service with mobile application. Planned, developed, and deployed the full product.",
-    stack: ["React Native", "Next.js", "Firebase", "Expo"],
-    status: "Completed",
+      "Blockchain-based event ticketing platform. NFT digital collectibles replace traditional tickets, enabling organizers to build fan communities and reward loyalty.",
+    stack: ["TypeScript", "React", "Remix", "Web3"],
+    status: "Active",
+  },
+  {
+    name: "morivo.cz",
+    url: "https://morivo.cz",
+    role: "Development Lead",
+    description:
+      "Performance design and advertising creative agency. Data-driven approach to visual design and ad creatives that convert.",
+    stack: ["TypeScript", "React", "Node.js"],
+    status: "Active",
+  },
+  {
+    name: "suchanpro.cz",
+    url: "https://suchanpro.cz",
+    role: "Founder",
+    description:
+      "Business management platform for small companies. Projects, inventory, suppliers, documents, and team coordination in one place.",
+    stack: ["TypeScript", "React", "tRPC", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "pandidorty.cz",
+    url: "https://pandidorty.cz",
+    role: "Development Lead",
+    description:
+      "Custom cake and pastry ordering platform for a bakery in Ostrava. Online showcase and order management for weddings, birthdays, and special occasions.",
+    stack: ["TypeScript", "React", "React Router", "Cloudflare"],
+    status: "Active",
   },
   {
     name: "it.blaze.codes",
