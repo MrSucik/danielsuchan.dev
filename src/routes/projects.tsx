@@ -13,7 +13,7 @@ export const Route = createFileRoute("/projects")({
     meta: buildHeadMeta({
       title: "Projects – Daniel Suchan | SaaS, Apps & Platforms",
       description:
-        "18 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
+        "20 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
       path: "/projects",
     }),
   }),
@@ -171,6 +171,24 @@ const projects: Project[] = [
     description:
       "Internal operations panel for managing employees and workspace resources at Blaze.",
     stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "uniklo.cz",
+    url: "https://uniklo.cz",
+    role: "Founder",
+    description:
+      "Data breach checker for Czech users. Free lookup against 947 known breaches with 17B+ records to verify email and password exposure.",
+    stack: ["TypeScript", "React", "Hono", "PostgreSQL"],
+    status: "Active",
+  },
+  {
+    name: "syncoli.com",
+    url: "https://www.syncoli.com/",
+    role: "Founder",
+    description:
+      "Digital signage platform. Cloud-managed content scheduling and display management for screens in retail, offices, and public spaces.",
+    stack: ["TypeScript", "React", "Node.js"],
     status: "Active",
   },
   {
