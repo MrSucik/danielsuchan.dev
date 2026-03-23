@@ -67,7 +67,7 @@ const projects: Project[] = [
   },
   {
     name: "ArchiPad",
-    url: "https://archipad.com",
+    url: "https://archipad.blaze.codes",
     role: "Development Lead",
     description:
       "Construction project management and architecture tools. Documentation, coordination, and communication for project teams.",
