@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npx tsx scripts/prerender.ts",
+    "build": "vite build",
+    "build:prerender": "vite build && npx tsx scripts/prerender.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
