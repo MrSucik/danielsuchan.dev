@@ -2,16 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import { JsonLd } from "../components/JsonLd";
-import { buildHeadMeta } from "../lib/seo";
 import { profilePageSchema } from "../lib/schemas";
+import { buildHeadMeta } from "../lib/seo";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: buildHeadMeta({
-      title: "Daniel Suchan – Software Engineer & CTO | Brno",
+      title: "Daniel Suchan – Engineer building production AI systems | Brno",
       description:
-        "Software engineer and CTO based in Brno. Co-Founder at blaze.codes, building SaaS products and leading engineering teams across 20+ projects.",
+        "Software engineer based in Brno. Building Dzarvis (multi-agent assistant on Claude) and shipping production AI infrastructure. CTO at Blaze, 8+ years writing code.",
       path: "/",
     }),
   }),
@@ -30,7 +30,7 @@ function Index() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          {"// "}Founder &middot; Engineer &middot; Czech Republic
+          {"// "}Engineer &middot; Builder &middot; Brno, Czech Republic
         </motion.p>
 
         <motion.h1
@@ -43,15 +43,33 @@ function Index() {
         </motion.h1>
 
         <motion.p
-          className="mt-6 max-w-lg text-sm leading-relaxed text-[var(--text-muted)]"
+          className="mt-6 max-w-xl text-sm leading-relaxed text-[var(--text-muted)]"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          I build startups, lead engineering teams, and run an{" "}
-          <a href="https://suchan.capital" target="_blank" rel="noopener noreferrer" className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]">algorithmic investment fund</a>.
-          With {yearsExperience} years in the industry, I turn ideas into
-          products — from architecture to deployment.
+          I build production AI systems. Currently shipping{" "}
+          <a
+            href="https://dzarvis.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
+          >
+            Dzarvis
+          </a>{" "}
+          — a multi-agent assistant on Claude with a 208-tool MCP server,
+          dual-review verification, and cost-flat routing at $6/day per active
+          user. {yearsExperience} years writing code, started at 16 with Czech
+          court permission. CTO at Blaze, also running an{" "}
+          <a
+            href="https://suchan.capital"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
+          >
+            algorithmic trading fund
+          </a>
+          .
         </motion.p>
 
         <motion.div

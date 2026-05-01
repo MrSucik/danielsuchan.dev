@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "date": "2026-05-01",
+      "shipments": [
+        {
+          "project": "danielsuchan-dev",
+          "bullets": [
+            "Repositioned home page hero around Dzarvis as the flagship project",
+            "Pulled Dzarvis to position #1 on /projects with full technical description",
+            "Added skill-curated /changelog (this page) — daily-shipping log across all projects",
+            "Shipped /writing with full markdown rendering and two technical post drafts: agent sandboxes infrastructure + multi-agent subagent orchestration",
+            "Added prose-post styles for long-form technical writing (code blocks, tables, blockquotes)"
+          ]
+        }
+      ]
+    }
+  ]
+}

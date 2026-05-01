@@ -56,7 +56,8 @@
   a:hover {
     color: var(--accent-hover);
   }
-  nav a, footer a {
+  nav a,
+  footer a {
     color: inherit;
   }
 }
@@ -103,13 +104,131 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-dim);
+  border-radius: 3px;
+}
+
+.prose-post {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+}
+.prose-post p {
+  margin-bottom: 1.25em;
+}
+.prose-post h1,
+.prose-post h2,
+.prose-post h3,
+.prose-post h4 {
+  color: var(--text-bright);
+  font-weight: 700;
+  margin-top: 2.25em;
+  margin-bottom: 0.75em;
+  letter-spacing: -0.01em;
+}
+.prose-post h2 {
+  font-size: 18px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4em;
+}
+.prose-post h3 {
+  font-size: 15px;
+}
+.prose-post ul,
+.prose-post ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+.prose-post ul li {
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+}
+.prose-post ol li {
+  list-style-type: decimal;
+  margin-bottom: 0.5em;
+}
+.prose-post a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--border-hover);
+  text-underline-offset: 3px;
+}
+.prose-post a:hover {
+  text-decoration-color: var(--accent);
+}
+.prose-post code {
+  background: rgba(99, 109, 131, 0.15);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: var(--text-bright);
+}
+.prose-post pre {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1em;
+  overflow-x: auto;
+  margin-bottom: 1.25em;
+  font-size: 12px;
+}
+.prose-post pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+.prose-post strong {
+  color: var(--text-bright);
+  font-weight: 700;
+}
+.prose-post em {
+  font-style: italic;
+}
+.prose-post hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5em 0;
+}
+.prose-post blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1em;
+  margin: 1.25em 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.prose-post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25em;
+  font-size: 12px;
+}
+.prose-post th,
+.prose-post td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+.prose-post th {
+  background: var(--bg-elevated);
+  color: var(--text-bright);
+  font-weight: 700;
+}

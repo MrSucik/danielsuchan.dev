@@ -9,12 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WritingRouteImport } from './routes/writing'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WritingSlugRouteImport } from './routes/writing.$slug'
 
+const WritingRoute = WritingRouteImport.update({
+  id: '/writing',
+  path: '/writing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -40,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WritingSlugRoute = WritingSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => WritingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
+  '/writing': typeof WritingRouteWithChildren
+  '/writing/$slug': typeof WritingSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
+  '/writing': typeof WritingRouteWithChildren
+  '/writing/$slug': typeof WritingSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +78,37 @@ export interface FileRoutesById {
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
+  '/writing': typeof WritingRouteWithChildren
+  '/writing/$slug': typeof WritingSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/404' | '/changelog' | '/newsletter' | '/projects'
+  fullPaths:
+    | '/'
+    | '/404'
+    | '/changelog'
+    | '/newsletter'
+    | '/projects'
+    | '/writing'
+    | '/writing/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/404' | '/changelog' | '/newsletter' | '/projects'
-  id: '__root__' | '/' | '/404' | '/changelog' | '/newsletter' | '/projects'
+  to:
+    | '/'
+    | '/404'
+    | '/changelog'
+    | '/newsletter'
+    | '/projects'
+    | '/writing'
+    | '/writing/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/404'
+    | '/changelog'
+    | '/newsletter'
+    | '/projects'
+    | '/writing'
+    | '/writing/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +117,18 @@ export interface RootRouteChildren {
   ChangelogRoute: typeof ChangelogRoute
   NewsletterRoute: typeof NewsletterRoute
   ProjectsRoute: typeof ProjectsRoute
+  WritingRoute: typeof WritingRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/writing': {
+      id: '/writing'
+      path: '/writing'
+      fullPath: '/writing'
+      preLoaderRoute: typeof WritingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -116,8 +164,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/writing/$slug': {
+      id: '/writing/$slug'
+      path: '/$slug'
+      fullPath: '/writing/$slug'
+      preLoaderRoute: typeof WritingSlugRouteImport
+      parentRoute: typeof WritingRoute
+    }
   }
 }
+
+interface WritingRouteChildren {
+  WritingSlugRoute: typeof WritingSlugRoute
+}
+
+const WritingRouteChildren: WritingRouteChildren = {
+  WritingSlugRoute: WritingSlugRoute,
+}
+
+const WritingRouteWithChildren =
+  WritingRoute._addFileChildren(WritingRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -125,6 +191,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChangelogRoute: ChangelogRoute,
   NewsletterRoute: NewsletterRoute,
   ProjectsRoute: ProjectsRoute,
+  WritingRoute: WritingRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -20,3 +20,9 @@ pnpm-debug.log*
 
 # worktrees
 .worktrees/
+
+# playwright MCP scratch
+.playwright-mcp/
+
+# screenshots
+newsletter-*.png

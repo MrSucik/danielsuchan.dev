@@ -2,19 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Activity, ArrowUpRight } from "lucide-react";
 import { JsonLd } from "../components/JsonLd";
-import { buildHeadMeta } from "../lib/seo";
-import { breadcrumbSchema, projectsSchema } from "../lib/schemas";
-import type { Project } from "../lib/types";
-import { useServiceStatus } from "../hooks/useServiceStatus";
 import { UptimeTimeline } from "../components/UptimeTimeline";
+import { useServiceStatus } from "../hooks/useServiceStatus";
+import { breadcrumbSchema, projectsSchema } from "../lib/schemas";
+import { buildHeadMeta } from "../lib/seo";
+import type { Project } from "../lib/types";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
   head: () => ({
     meta: buildHeadMeta({
-      title: "Projects – Daniel Suchan | SaaS, Apps & Platforms",
+      title: "Projects – Daniel Suchan | Dzarvis, AI infrastructure, SaaS",
       description:
-        "20 products and platforms built, co-founded, or led by Daniel Suchan — from AI tools to enterprise apps.",
+        "Production AI systems and 20+ products shipped, co-founded, or led by Daniel Suchan — including Dzarvis (multi-agent assistant on Claude), Rozpocetpro (AI construction budgeting), and Talentiqa (AI hiring).",
       path: "/projects",
     }),
   }),
@@ -22,7 +22,24 @@ export const Route = createFileRoute("/projects")({
 
 const projects: Project[] = [
   {
-    name: "blaze.codes",
+    name: "dzarvis.com",
+    url: "https://dzarvis.com",
+    role: "Founder & Sole Engineer",
+    description:
+      "Multi-agent assistant on Claude. Orchestrator routes between 14-20 narrow subagents per user via LLM classification. 208-tool MCP server. Dual-review verification with fail-safe defaults for high-stakes domains. Cost-flat at $6/day per active user via multi-model routing (Gemini Flash Lite + Claude Sonnet + Perplexity Sonar + OpenRouter fallback).",
+    stack: [
+      "TypeScript",
+      "Claude",
+      "MCP",
+      "OpenRouter",
+      "Gemini",
+      "PostgreSQL",
+      "Hono",
+    ],
+    status: "Active",
+  },
+  {
+    name: "Blaze",
     url: "https://blaze.codes/",
     role: "Co-Founder & CTO",
     description:
@@ -148,15 +165,6 @@ const projects: Project[] = [
     status: "Active",
   },
   {
-    name: "dzarvis.com",
-    url: "https://dzarvis.com",
-    role: "Founder",
-    description:
-      "AI-powered personal productivity and life management platform. Track tasks, health, finances, goals, and more — all in one place.",
-    stack: ["TypeScript", "React", "Hono", "PostgreSQL", "AI/ML"],
-    status: "Active",
-  },
-  {
     name: "it.blaze.codes",
     url: "https://it.blaze.codes",
     role: "Product & Development",
@@ -215,7 +223,9 @@ function Projects() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 md:py-24">
       <JsonLd data={projectsSchema(projects)} />
-      <JsonLd data={breadcrumbSchema([{ name: "Projects", path: "/projects" }])} />
+      <JsonLd
+        data={breadcrumbSchema([{ name: "Projects", path: "/projects" }])}
+      />
       <motion.p
         className="mb-3 text-xs text-[var(--comment)]"
         initial={{ opacity: 0 }}
