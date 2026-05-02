@@ -40,7 +40,7 @@ export const STATIC_ROUTES: RouteSEO[] = [
     title:
       "Writing – Daniel Suchan | Multi-agent systems, AI infrastructure",
     description:
-      "Technical writing on building production AI systems — agent sandboxes, multi-agent orchestration, dual-review verification, and the lessons from shipping Dzarvis.",
+      "Technical writing on building production AI systems — agent sandboxes, multi-agent orchestration, and the lessons from shipping Dzarvis.",
     lastmod: "2026-05-02",
     changefreq: "weekly",
     priority: 0.8,
@@ -75,8 +75,8 @@ export const POST_ROUTES: RouteSEO[] = [
     path: "/writing/agent-sandboxes-infra",
     title: "How to design agent sandboxes infra – Daniel Suchan",
     description:
-      "What it actually takes to run untrusted agent code safely — sandbox isolation patterns (OS-level vs process-level vs network-level), when to use which, security boundaries, and the cost-vs-safety tradeoffs I hit while building Dzarvis.",
-    lastmod: "2026-05-01",
+      "What it actually takes to run untrusted agent code safely — sandbox isolation patterns, security boundaries, and the cost-vs-safety tradeoffs from production agent infrastructure work.",
+    lastmod: "2026-05-02",
     changefreq: "monthly",
     priority: 0.7,
     noindex: true,
@@ -84,10 +84,10 @@ export const POST_ROUTES: RouteSEO[] = [
   {
     path: "/writing/subagent-orchestration",
     title:
-      "How I orchestrate 14-20 narrow subagents per user via LLM classification – Daniel Suchan",
+      "How I orchestrate narrow subagents via LLM classification – Daniel Suchan",
     description:
-      "Routing logic without hand-rolled if/else — how Dzarvis decides which subagent to spin up, when to spawn vs reuse, working memory across sessions, and the part nobody writes about — when NOT to call the model at all.",
-    lastmod: "2026-05-01",
+      "Routing logic without hand-rolled if/else — how a multi-agent harness decides which subagent to spin up, when to spawn vs reuse, and the part nobody writes about — when NOT to call the model at all.",
+    lastmod: "2026-05-02",
     changefreq: "monthly",
     priority: 0.7,
     noindex: true,

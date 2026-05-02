@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const yearsExperience = Math.round(new Date().getFullYear() - 2016);
+  const yearsExperience = new Date().getFullYear() - 2017;
 
   return (
     <main className="flex h-full flex-1 flex-col justify-center">
@@ -57,10 +57,9 @@ function Index() {
           >
             Dzarvis
           </a>{" "}
-          — a multi-agent assistant on Claude with a 208-tool MCP server,
-          dual-review verification, and cost-flat routing at $6/day per active
-          user. {yearsExperience} years writing code, started at 16 with Czech
-          court permission. CTO at Blaze, also running an{" "}
+          — a multi-agent assistant on Claude, in stealth and fine-tuning with
+          15 companies. {yearsExperience} years writing code, started at 16
+          with Czech court permission. CTO at Blaze, also running an{" "}
           <a
             href="https://suchan.capital"
             target="_blank"

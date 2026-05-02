@@ -26,13 +26,11 @@ const projects: Project[] = [
     url: "https://dzarvis.com",
     role: "Founder & Sole Engineer",
     description:
-      "Multi-agent assistant on Claude. Orchestrator routes between 14-20 narrow subagents per user via LLM classification. 208-tool MCP server. Dual-review verification with fail-safe defaults for high-stakes domains. Cost-flat at $6/day per active user via multi-model routing (Gemini Flash Lite + Claude Sonnet + Perplexity Sonar + OpenRouter fallback).",
+      "Multi-agent assistant on Claude. Multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
     stack: [
       "TypeScript",
       "Claude",
       "MCP",
-      "OpenRouter",
-      "Gemini",
       "PostgreSQL",
       "Hono",
     ],

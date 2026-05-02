@@ -100,6 +100,25 @@ const BANNED_STRINGS: Array<{ needle: string; reason: string }> = [
     needle: "leading engineering teams across 17+ projects",
     reason: "stale homepage description",
   },
+  // Unverified Dzarvis specifics — see user_bio_canonical.md "NEVER claim" list.
+  { needle: "$6/day", reason: "unverified Dzarvis pricing claim" },
+  { needle: "14-20", reason: "unverified subagent count claim" },
+  {
+    needle: "dual-review verification",
+    reason: "unverified Dzarvis feature claim",
+  },
+  {
+    needle: "content-hash cache",
+    reason: "unverified Dzarvis feature claim",
+  },
+  {
+    needle: "Per-domain trigger detection",
+    reason: "unverified Dzarvis feature claim",
+  },
+  {
+    needle: "Gemini Flash Lite + Claude Sonnet",
+    reason: "unverified model-routing specifics",
+  },
 ];
 
 function walkHtml(dir: string, files: string[] = []): string[] {
