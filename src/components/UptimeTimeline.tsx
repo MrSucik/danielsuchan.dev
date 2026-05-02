@@ -38,7 +38,8 @@ function generateDayStatuses(
     const idx =
       DAYS - 1 - ((seed * (i + 1) * 7 + i * 13) % Math.max(DAYS / 2, 1));
     const safeIdx = Math.max(0, Math.min(DAYS - 1, idx));
-    days[safeIdx] = i === 0 && service.status === "ERROR" ? "incident" : "partial";
+    days[safeIdx] =
+      i === 0 && service.status === "ERROR" ? "incident" : "partial";
   }
 
   // If currently down, always mark today (last segment)

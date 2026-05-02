@@ -7,8 +7,8 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { JsonLd } from "../components/JsonLd";
-import { buildHeadMeta } from "../lib/seo";
 import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
+import { buildHeadMeta } from "../lib/seo";
 
 const API_URL =
   import.meta.env.VITE_API_URL ?? "https://jarvis-api.danielsuchan.dev";
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/newsletter")({
     meta: buildHeadMeta({
       title: "Newsletter – Daniel Suchan | Engineering Updates",
       description:
-        "Subscribe to engineering and startup updates from Daniel Suchan, CTO and Co-Founder at blaze.codes.",
+        "Subscribe to engineering updates from Daniel Suchan, engineer building production AI systems.",
       path: "/newsletter",
     }),
   }),
@@ -84,8 +84,17 @@ function Newsletter() {
 
   return (
     <main className="mx-auto max-w-xl px-6 py-16 md:py-24">
-      <JsonLd data={webPageSchema({ name: "Newsletter", description: "Subscribe to engineering and startup updates from Daniel Suchan.", path: "/newsletter" })} />
-      <JsonLd data={breadcrumbSchema([{ name: "Newsletter", path: "/newsletter" }])} />
+      <JsonLd
+        data={webPageSchema({
+          name: "Newsletter",
+          description:
+            "Subscribe to engineering and startup updates from Daniel Suchan.",
+          path: "/newsletter",
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([{ name: "Newsletter", path: "/newsletter" }])}
+      />
       <motion.p
         className="mb-3 text-xs text-[var(--comment)]"
         initial={{ opacity: 0 }}
@@ -108,8 +117,8 @@ function Newsletter() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
       >
-        Occasional updates on startups, engineering, and new projects. No
-        spam, unsubscribe anytime.
+        Occasional updates on startups, engineering, and new projects. No spam,
+        unsubscribe anytime.
       </motion.p>
 
       <motion.div
@@ -128,8 +137,8 @@ function Newsletter() {
               </p>
             </div>
             <p className="mt-3 text-xs text-[var(--text-muted)]">
-              Thanks for subscribing. I'll send updates when there's
-              something worth sharing.
+              Thanks for subscribing. I'll send updates when there's something
+              worth sharing.
             </p>
             <Link
               to="/"
@@ -167,7 +176,11 @@ function Newsletter() {
             <div
               aria-hidden="true"
               tabIndex={-1}
-              style={{ position: "absolute", opacity: 0, pointerEvents: "none" }}
+              style={{
+                position: "absolute",
+                opacity: 0,
+                pointerEvents: "none",
+              }}
             >
               <input
                 {...register("website")}
@@ -188,9 +201,7 @@ function Newsletter() {
               />
             )}
 
-            {error && (
-              <p className="text-xs text-[var(--error)]">{error}</p>
-            )}
+            {error && <p className="text-xs text-[var(--error)]">{error}</p>}
 
             <button
               type="submit"

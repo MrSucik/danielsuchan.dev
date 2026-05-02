@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? "https://jarvischeck.com";
-const STATUS_PAGE_SLUG =
-  import.meta.env.VITE_STATUS_PAGE_SLUG ?? "personal";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://jarvischeck.com";
+const STATUS_PAGE_SLUG = import.meta.env.VITE_STATUS_PAGE_SLUG ?? "personal";
 
 export interface Service {
   name: string;

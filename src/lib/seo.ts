@@ -9,7 +9,13 @@ interface PageSEO {
   ogImage?: string;
 }
 
-export function buildHeadMeta({ title, description, path, ogType = "website", ogImage = DEFAULT_OG_IMAGE }: PageSEO) {
+export function buildHeadMeta({
+  title,
+  description,
+  path,
+  ogType = "website",
+  ogImage = DEFAULT_OG_IMAGE,
+}: PageSEO) {
   const url = `${SITE_URL}${path}`;
 
   return [

@@ -2,7 +2,11 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 const socialLinks = [
   { href: "https://github.com/MrSucik", icon: Github, label: "GitHub" },
-  { href: "https://www.linkedin.com/in/daniel-suchan-6b8611162/", icon: Linkedin, label: "LinkedIn" },
+  {
+    href: "https://www.linkedin.com/in/daniel-suchan-6b8611162/",
+    icon: Linkedin,
+    label: "LinkedIn",
+  },
   { href: "mailto:mr.sucik@gmail.com", icon: Mail, label: "Email" },
 ];
 

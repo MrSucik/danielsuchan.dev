@@ -4,7 +4,11 @@ import { ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { JsonLd } from "../components/JsonLd";
-import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
+import {
+  blogPostingSchema,
+  breadcrumbSchema,
+  webPageSchema,
+} from "../lib/schemas";
 import { buildHeadMeta } from "../lib/seo";
 import { getPost } from "../lib/writing-posts";
 
@@ -47,6 +51,15 @@ function WritingPost() {
           name: post.title,
           description: post.teaser,
           path: `/writing/${post.slug}`,
+        })}
+      />
+      <JsonLd
+        data={blogPostingSchema({
+          title: post.title,
+          description: post.teaser,
+          slug: post.slug,
+          datePublished: post.date,
+          status: post.status,
         })}
       />
       <JsonLd

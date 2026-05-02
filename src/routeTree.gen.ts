@@ -8,182 +8,182 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as WritingRouteImport } from './routes/writing'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as NewsletterRouteImport } from './routes/newsletter'
-import { Route as ChangelogRouteImport } from './routes/changelog'
-import { Route as R404RouteImport } from './routes/404'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as WritingSlugRouteImport } from './routes/writing.$slug'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as R404RouteImport } from "./routes/404";
+import { Route as ChangelogRouteImport } from "./routes/changelog";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as NewsletterRouteImport } from "./routes/newsletter";
+import { Route as ProjectsRouteImport } from "./routes/projects";
+import { Route as WritingRouteImport } from "./routes/writing";
+import { Route as WritingSlugRouteImport } from "./routes/writing.$slug";
 
 const WritingRoute = WritingRouteImport.update({
-  id: '/writing',
-  path: '/writing',
+  id: "/writing",
+  path: "/writing",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+  id: "/projects",
+  path: "/projects",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const NewsletterRoute = NewsletterRouteImport.update({
-  id: '/newsletter',
-  path: '/newsletter',
+  id: "/newsletter",
+  path: "/newsletter",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ChangelogRoute = ChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
+  id: "/changelog",
+  path: "/changelog",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const R404Route = R404RouteImport.update({
-  id: '/404',
-  path: '/404',
+  id: "/404",
+  path: "/404",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const WritingSlugRoute = WritingSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
+  id: "/$slug",
+  path: "/$slug",
   getParentRoute: () => WritingRoute,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/404': typeof R404Route
-  '/changelog': typeof ChangelogRoute
-  '/newsletter': typeof NewsletterRoute
-  '/projects': typeof ProjectsRoute
-  '/writing': typeof WritingRouteWithChildren
-  '/writing/$slug': typeof WritingSlugRoute
+  "/": typeof IndexRoute;
+  "/404": typeof R404Route;
+  "/changelog": typeof ChangelogRoute;
+  "/newsletter": typeof NewsletterRoute;
+  "/projects": typeof ProjectsRoute;
+  "/writing": typeof WritingRouteWithChildren;
+  "/writing/$slug": typeof WritingSlugRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/404': typeof R404Route
-  '/changelog': typeof ChangelogRoute
-  '/newsletter': typeof NewsletterRoute
-  '/projects': typeof ProjectsRoute
-  '/writing': typeof WritingRouteWithChildren
-  '/writing/$slug': typeof WritingSlugRoute
+  "/": typeof IndexRoute;
+  "/404": typeof R404Route;
+  "/changelog": typeof ChangelogRoute;
+  "/newsletter": typeof NewsletterRoute;
+  "/projects": typeof ProjectsRoute;
+  "/writing": typeof WritingRouteWithChildren;
+  "/writing/$slug": typeof WritingSlugRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/404': typeof R404Route
-  '/changelog': typeof ChangelogRoute
-  '/newsletter': typeof NewsletterRoute
-  '/projects': typeof ProjectsRoute
-  '/writing': typeof WritingRouteWithChildren
-  '/writing/$slug': typeof WritingSlugRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/404": typeof R404Route;
+  "/changelog": typeof ChangelogRoute;
+  "/newsletter": typeof NewsletterRoute;
+  "/projects": typeof ProjectsRoute;
+  "/writing": typeof WritingRouteWithChildren;
+  "/writing/$slug": typeof WritingSlugRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/404'
-    | '/changelog'
-    | '/newsletter'
-    | '/projects'
-    | '/writing'
-    | '/writing/$slug'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/404"
+    | "/changelog"
+    | "/newsletter"
+    | "/projects"
+    | "/writing"
+    | "/writing/$slug";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/404'
-    | '/changelog'
-    | '/newsletter'
-    | '/projects'
-    | '/writing'
-    | '/writing/$slug'
+    | "/"
+    | "/404"
+    | "/changelog"
+    | "/newsletter"
+    | "/projects"
+    | "/writing"
+    | "/writing/$slug";
   id:
-    | '__root__'
-    | '/'
-    | '/404'
-    | '/changelog'
-    | '/newsletter'
-    | '/projects'
-    | '/writing'
-    | '/writing/$slug'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/404"
+    | "/changelog"
+    | "/newsletter"
+    | "/projects"
+    | "/writing"
+    | "/writing/$slug";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  R404Route: typeof R404Route
-  ChangelogRoute: typeof ChangelogRoute
-  NewsletterRoute: typeof NewsletterRoute
-  ProjectsRoute: typeof ProjectsRoute
-  WritingRoute: typeof WritingRouteWithChildren
+  IndexRoute: typeof IndexRoute;
+  R404Route: typeof R404Route;
+  ChangelogRoute: typeof ChangelogRoute;
+  NewsletterRoute: typeof NewsletterRoute;
+  ProjectsRoute: typeof ProjectsRoute;
+  WritingRoute: typeof WritingRouteWithChildren;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/writing': {
-      id: '/writing'
-      path: '/writing'
-      fullPath: '/writing'
-      preLoaderRoute: typeof WritingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/newsletter': {
-      id: '/newsletter'
-      path: '/newsletter'
-      fullPath: '/newsletter'
-      preLoaderRoute: typeof NewsletterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/changelog': {
-      id: '/changelog'
-      path: '/changelog'
-      fullPath: '/changelog'
-      preLoaderRoute: typeof ChangelogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/404': {
-      id: '/404'
-      path: '/404'
-      fullPath: '/404'
-      preLoaderRoute: typeof R404RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/writing/$slug': {
-      id: '/writing/$slug'
-      path: '/$slug'
-      fullPath: '/writing/$slug'
-      preLoaderRoute: typeof WritingSlugRouteImport
-      parentRoute: typeof WritingRoute
-    }
+    "/writing": {
+      id: "/writing";
+      path: "/writing";
+      fullPath: "/writing";
+      preLoaderRoute: typeof WritingRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/projects": {
+      id: "/projects";
+      path: "/projects";
+      fullPath: "/projects";
+      preLoaderRoute: typeof ProjectsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/newsletter": {
+      id: "/newsletter";
+      path: "/newsletter";
+      fullPath: "/newsletter";
+      preLoaderRoute: typeof NewsletterRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/changelog": {
+      id: "/changelog";
+      path: "/changelog";
+      fullPath: "/changelog";
+      preLoaderRoute: typeof ChangelogRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/404": {
+      id: "/404";
+      path: "/404";
+      fullPath: "/404";
+      preLoaderRoute: typeof R404RouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/writing/$slug": {
+      id: "/writing/$slug";
+      path: "/$slug";
+      fullPath: "/writing/$slug";
+      preLoaderRoute: typeof WritingSlugRouteImport;
+      parentRoute: typeof WritingRoute;
+    };
   }
 }
 
 interface WritingRouteChildren {
-  WritingSlugRoute: typeof WritingSlugRoute
+  WritingSlugRoute: typeof WritingSlugRoute;
 }
 
 const WritingRouteChildren: WritingRouteChildren = {
   WritingSlugRoute: WritingSlugRoute,
-}
+};
 
 const WritingRouteWithChildren =
-  WritingRoute._addFileChildren(WritingRouteChildren)
+  WritingRoute._addFileChildren(WritingRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -192,7 +192,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsletterRoute: NewsletterRoute,
   ProjectsRoute: ProjectsRoute,
   WritingRoute: WritingRouteWithChildren,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

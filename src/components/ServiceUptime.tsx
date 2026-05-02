@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { Activity, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const API_URL =
-  import.meta.env.VITE_API_URL ?? "https://jarvischeck.com";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://jarvischeck.com";
 
 const STATUS_PAGE_SLUG = import.meta.env.VITE_STATUS_PAGE_SLUG ?? "personal";
 
@@ -98,9 +97,7 @@ export function ServiceUptime() {
     >
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <p className="mb-2 text-xs text-[var(--comment)]">
-            {"// "}Uptime
-          </p>
+          <p className="mb-2 text-xs text-[var(--comment)]">{"// "}Uptime</p>
           <h2 className="text-lg font-bold tracking-tight text-[var(--text-bright)]">
             Service Status
           </h2>

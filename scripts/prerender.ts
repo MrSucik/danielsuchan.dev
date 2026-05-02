@@ -2,62 +2,27 @@
  * SEO prerender — creates per-route index.html copies with correct <head> meta tags.
  * Does NOT render the body (avoids React hydration mismatch).
  * The SPA handles body rendering client-side.
+ *
+ * Routes are sourced from scripts/site-routes.ts (single source of truth).
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { ALL_ROUTES, type RouteSEO } from "./site-routes.ts";
 
 const DIST_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const SITE_URL = "https://danielsuchan.dev";
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
-interface RouteSEO {
-  path: string;
-  title: string;
-  description: string;
-}
-
-const ROUTES: RouteSEO[] = [
-  {
-    path: "/",
-    title: "Daniel Suchan \u2013 Engineer building production AI systems | Brno",
-    description:
-      "Software engineer based in Brno. Building Dzarvis (multi-agent assistant on Claude) and shipping production AI infrastructure. CTO at Blaze, 8+ years writing code.",
-  },
-  {
-    path: "/projects",
-    title:
-      "Projects \u2013 Daniel Suchan | Dzarvis, AI infrastructure, SaaS",
-    description:
-      "Production AI systems and 20+ products shipped, co-founded, or led by Daniel Suchan \u2014 including Dzarvis (multi-agent assistant on Claude), Rozpocetpro (AI construction budgeting), and Talentiqa (AI hiring).",
-  },
-  {
-    path: "/writing",
-    title:
-      "Writing \u2013 Daniel Suchan | Multi-agent systems, AI infrastructure",
-    description:
-      "Technical writing on building production AI systems \u2014 agent sandboxes, multi-agent orchestration, dual-review verification, and the lessons from shipping Dzarvis.",
-  },
-  {
-    path: "/changelog",
-    title: "Changelog \u2013 Daniel Suchan | Daily shipping log",
-    description:
-      "Daily log of features Daniel Suchan ships across Dzarvis, Blaze, JarvisCheck, and 20+ other projects.",
-  },
-  {
-    path: "/newsletter",
-    title: "Newsletter \u2013 Daniel Suchan | Engineering Updates",
-    description:
-      "Subscribe to engineering and startup updates from Daniel Suchan, engineer building production AI systems.",
-  },
-];
-
 function buildSeoHead(seo: RouteSEO): string {
   const url = `${SITE_URL}${seo.path}`;
+  const robots = seo.noindex
+    ? `\n    <meta name="robots" content="noindex,follow">`
+    : "";
   return `    <title>${seo.title}</title>
     <meta name="description" content="${seo.description}">
     <meta name="author" content="Daniel Suchan">
-    <link rel="canonical" href="${url}">
+    <link rel="canonical" href="${url}">${robots}
     <meta property="og:type" content="website">
     <meta property="og:url" content="${url}">
     <meta property="og:title" content="${seo.title}">
@@ -78,11 +43,11 @@ function buildSeoHead(seo: RouteSEO): string {
 function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
   let html = baseHtml;
 
-  // Remove existing meta tags that we'll replace
   const tagsToRemove = [
     /<title>[^<]*<\/title>/g,
     /<meta name="description"[^>]*>/g,
     /<meta name="author"[^>]*>/g,
+    /<meta name="robots"[^>]*>/g,
     /<link rel="canonical"[^>]*>/g,
     /<meta property="og:[^>]*>/g,
     /<meta name="twitter:[^>]*>/g,
@@ -92,14 +57,12 @@ function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
     html = html.replace(pattern, "");
   }
 
-  // Inject route-specific SEO tags after viewport meta
   const seoHead = buildSeoHead(seo);
   html = html.replace(
     /(<meta name="viewport"[^>]*>)/,
     `$1\n${seoHead}`,
   );
 
-  // Clean up extra blank lines
   html = html.replace(/\n\s*\n\s*\n/g, "\n\n");
   return html;
 }
@@ -109,7 +72,7 @@ function prerender() {
 
   const baseHtml = readFileSync(join(DIST_DIR, "index.html"), "utf-8");
 
-  for (const route of ROUTES) {
+  for (const route of ALL_ROUTES) {
     const html = injectSeoHead(baseHtml, route);
 
     const outputPath =
@@ -122,7 +85,7 @@ function prerender() {
     console.log(`  ${route.path} → ${outputPath}`);
   }
 
-  console.log("Done!");
+  console.log(`Done! Prerendered ${ALL_ROUTES.length} routes.`);
 }
 
 prerender();
