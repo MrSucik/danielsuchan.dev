@@ -20,27 +20,35 @@ interface RouteSEO {
 const ROUTES: RouteSEO[] = [
   {
     path: "/",
-    title: "Daniel Suchan \u2013 Software Engineer & CTO | Brno",
+    title: "Daniel Suchan \u2013 Engineer building production AI systems | Brno",
     description:
-      "Software engineer and CTO based in Brno. Co-Founder at blaze.codes, building SaaS products and leading engineering teams across 17+ projects.",
+      "Software engineer based in Brno. Building Dzarvis (multi-agent assistant on Claude) and shipping production AI infrastructure. CTO at Blaze, 8+ years writing code.",
   },
   {
     path: "/projects",
-    title: "Projects \u2013 Daniel Suchan | SaaS, Apps & Platforms",
+    title:
+      "Projects \u2013 Daniel Suchan | Dzarvis, AI infrastructure, SaaS",
     description:
-      "18 products and platforms built, co-founded, or led by Daniel Suchan \u2014 from AI tools to enterprise apps.",
+      "Production AI systems and 20+ products shipped, co-founded, or led by Daniel Suchan \u2014 including Dzarvis (multi-agent assistant on Claude), Rozpocetpro (AI construction budgeting), and Talentiqa (AI hiring).",
+  },
+  {
+    path: "/writing",
+    title:
+      "Writing \u2013 Daniel Suchan | Multi-agent systems, AI infrastructure",
+    description:
+      "Technical writing on building production AI systems \u2014 agent sandboxes, multi-agent orchestration, dual-review verification, and the lessons from shipping Dzarvis.",
   },
   {
     path: "/changelog",
-    title: "Changelog \u2013 Daniel Suchan | Updates & Releases",
+    title: "Changelog \u2013 Daniel Suchan | Daily shipping log",
     description:
-      "Latest updates on projects, releases, and technical decisions from Daniel Suchan.",
+      "Daily log of features Daniel Suchan ships across Dzarvis, Blaze, JarvisCheck, and 20+ other projects.",
   },
   {
     path: "/newsletter",
     title: "Newsletter \u2013 Daniel Suchan | Engineering Updates",
     description:
-      "Subscribe to engineering and startup updates from Daniel Suchan, CTO and Co-Founder at blaze.codes.",
+      "Subscribe to engineering and startup updates from Daniel Suchan, engineer building production AI systems.",
   },
 ];
 
