@@ -82,29 +82,33 @@ This server is the natural expression of that knowledge — and a proof of work.
 
 ## Deployment
 
-### First-time deploy
+Deployed as a Docker container on the Hetzner Coolify host. The included `Dockerfile` produces a small Node 22 Alpine image; Coolify handles TLS via Let's Encrypt and routes `mcp.danielsuchan.dev` to the container via Traefik.
 
-1. Install wrangler: `pnpm install` (from repo root)
-2. Authenticate: `wrangler login`
-3. Set your Cloudflare account ID in `wrangler.toml` or via `CLOUDFLARE_ACCOUNT_ID` env var
-4. Deploy: `pnpm --filter @danielsuchan/mcp deploy`
+### First-time deploy (Coolify UI)
 
-### Add DNS CNAME (manual step in Cloudflare dashboard)
+1. In Coolify dashboard → **+ New Resource** → **Public Repository**
+2. Repository: `https://github.com/MrSucik/danielsuchan.dev`, branch `master`
+3. Build pack: **Dockerfile**
+4. Base directory: `packages/mcp`
+5. Dockerfile location: `packages/mcp/Dockerfile`
+6. Domain: `mcp.danielsuchan.dev` — Coolify will request a Let's Encrypt cert automatically
+7. Port: `3000`
+8. Healthcheck: `GET /` returns 200
+9. Click **Deploy**
 
-After deploying, add a CNAME record in Cloudflare DNS:
-- **Type:** CNAME
-- **Name:** `mcp`
-- **Target:** `mcp.danielsuchan.dev.cdn.cloudflare.net` (Cloudflare will fill this automatically when the Worker route is active)
-- **Proxy status:** Proxied (orange cloud)
+### DNS
 
-The `[[routes]]` block in `wrangler.toml` handles routing once the CNAME exists.
+Point `mcp.danielsuchan.dev` at the Hetzner host IP via an `A` record at whichever DNS provider hosts `danielsuchan.dev`. No proxying or tunnel needed — Coolify's Traefik handles HTTPS directly on port 443.
 
 ### Local dev
 
 ```bash
 cd packages/mcp
-pnpm dev
-# Server runs at http://localhost:8787
+pnpm install
+pnpm build
+PORT=3000 pnpm start
+# Server runs at http://localhost:3000
+curl http://localhost:3000/
 ```
 
 ### Verify deploy
