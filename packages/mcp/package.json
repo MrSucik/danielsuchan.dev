@@ -12,7 +12,8 @@
   "dependencies": {
     "@hono/mcp": "^0.1.4",
     "@modelcontextprotocol/sdk": "^1.12.0",
-    "hono": "^4.7.11"
+    "hono": "^4.7.11",
+    "zod": "^3.25.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250508.0",
