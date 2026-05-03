@@ -15,8 +15,11 @@ import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LabsIndexRouteImport } from './routes/labs.index'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as WritingSlugRouteImport } from './routes/writing.$slug'
+import { Route as LabsMcpRouteImport } from './routes/labs.mcp'
+import { Route as LabsDecomposerRouteImport } from './routes/labs.decomposer'
 import { Route as CaseStudiesDzarvisRouteImport } from './routes/case-studies.dzarvis'
 
 const WritingRoute = WritingRouteImport.update({
@@ -49,6 +52,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsIndexRoute = LabsIndexRouteImport.update({
+  id: '/labs/',
+  path: '/labs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
   id: '/case-studies/',
   path: '/case-studies/',
@@ -58,6 +66,16 @@ const WritingSlugRoute = WritingSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => WritingRoute,
+} as any)
+const LabsMcpRoute = LabsMcpRouteImport.update({
+  id: '/labs/mcp',
+  path: '/labs/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsDecomposerRoute = LabsDecomposerRouteImport.update({
+  id: '/labs/decomposer',
+  path: '/labs/decomposer',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CaseStudiesDzarvisRoute = CaseStudiesDzarvisRouteImport.update({
   id: '/case-studies/dzarvis',
@@ -73,8 +91,11 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
   '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
+  '/labs/decomposer': typeof LabsDecomposerRoute
+  '/labs/mcp': typeof LabsMcpRoute
   '/writing/$slug': typeof WritingSlugRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/labs/': typeof LabsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +105,11 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
   '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
+  '/labs/decomposer': typeof LabsDecomposerRoute
+  '/labs/mcp': typeof LabsMcpRoute
   '/writing/$slug': typeof WritingSlugRoute
   '/case-studies': typeof CaseStudiesIndexRoute
+  '/labs': typeof LabsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +120,11 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
   '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
+  '/labs/decomposer': typeof LabsDecomposerRoute
+  '/labs/mcp': typeof LabsMcpRoute
   '/writing/$slug': typeof WritingSlugRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/labs/': typeof LabsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +136,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/writing'
     | '/case-studies/dzarvis'
+    | '/labs/decomposer'
+    | '/labs/mcp'
     | '/writing/$slug'
     | '/case-studies/'
+    | '/labs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +150,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/writing'
     | '/case-studies/dzarvis'
+    | '/labs/decomposer'
+    | '/labs/mcp'
     | '/writing/$slug'
     | '/case-studies'
+    | '/labs'
   id:
     | '__root__'
     | '/'
@@ -131,8 +164,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/writing'
     | '/case-studies/dzarvis'
+    | '/labs/decomposer'
+    | '/labs/mcp'
     | '/writing/$slug'
     | '/case-studies/'
+    | '/labs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,7 +179,10 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   WritingRoute: typeof WritingRouteWithChildren
   CaseStudiesDzarvisRoute: typeof CaseStudiesDzarvisRoute
+  LabsDecomposerRoute: typeof LabsDecomposerRoute
+  LabsMcpRoute: typeof LabsMcpRoute
   CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  LabsIndexRoute: typeof LabsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -190,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/labs/': {
+      id: '/labs/'
+      path: '/labs'
+      fullPath: '/labs/'
+      preLoaderRoute: typeof LabsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/case-studies/': {
       id: '/case-studies/'
       path: '/case-studies'
@@ -203,6 +249,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/writing/$slug'
       preLoaderRoute: typeof WritingSlugRouteImport
       parentRoute: typeof WritingRoute
+    }
+    '/labs/mcp': {
+      id: '/labs/mcp'
+      path: '/labs/mcp'
+      fullPath: '/labs/mcp'
+      preLoaderRoute: typeof LabsMcpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/decomposer': {
+      id: '/labs/decomposer'
+      path: '/labs/decomposer'
+      fullPath: '/labs/decomposer'
+      preLoaderRoute: typeof LabsDecomposerRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/case-studies/dzarvis': {
       id: '/case-studies/dzarvis'
@@ -233,7 +293,10 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   WritingRoute: WritingRouteWithChildren,
   CaseStudiesDzarvisRoute: CaseStudiesDzarvisRoute,
+  LabsDecomposerRoute: LabsDecomposerRoute,
+  LabsMcpRoute: LabsMcpRoute,
   CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  LabsIndexRoute: LabsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
