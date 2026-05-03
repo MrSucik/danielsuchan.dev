@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Activity, ArrowUpRight } from "lucide-react";
 import { JsonLd } from "../components/JsonLd";
@@ -29,6 +29,7 @@ const projects: Project[] = [
       "Multi-agent assistant on Claude. Multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
     stack: ["TypeScript", "Claude", "MCP", "PostgreSQL", "Hono"],
     status: "Active",
+    caseStudyPath: "/case-studies/dzarvis",
   },
   {
     name: "Blaze",
@@ -296,6 +297,18 @@ function Projects() {
               </div>
 
               {loaded && project.url && <UptimeTimeline service={service} />}
+
+              {project.caseStudyPath && (
+                <div className="mt-3 pt-3 border-t border-[var(--border)]">
+                  <Link
+                    to={project.caseStudyPath as "/case-studies/dzarvis"}
+                    className="inline-flex items-center gap-1 text-[11px] text-[var(--accent)] no-underline transition-colors hover:text-[var(--accent-hover)]"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Case Study <ArrowUpRight size={10} />
+                  </Link>
+                </div>
+              )}
             </>
           );
 
