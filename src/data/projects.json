@@ -11,7 +11,6 @@
     },
     {
       "name": "Blaze",
-      "url": "https://blaze.codes/",
       "role": "Co-Founder & CTO",
       "description": "Software development company leading multiple product teams. Building and shipping products for clients and internal ventures.",
       "stack": ["TypeScript", "React", "Node.js", "PostgreSQL"],

@@ -105,7 +105,6 @@ function buildProfile(projects: Project[]) {
       {
         name: "Blaze",
         position: "Co-Founder & CTO",
-        url: "https://blaze.codes",
         startDate: "2022-01",
         summary:
           "Software development company leading multiple product teams. Building and shipping products for clients and internal ventures.",
