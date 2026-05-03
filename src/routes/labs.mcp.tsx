@@ -138,6 +138,19 @@ function McpInspectorPage() {
   const [showFallbackBanner, setShowFallbackBanner] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const streamingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
+
+  // Clean up streaming interval on unmount
+  useEffect(() => {
+    return () => {
+      if (streamingIntervalRef.current !== null) {
+        clearInterval(streamingIntervalRef.current);
+        streamingIntervalRef.current = null;
+      }
+    };
+  }, []);
 
   // Probe server on mount
   useEffect(() => {
@@ -207,7 +220,11 @@ function McpInspectorPage() {
         // Simulate streaming for nicer UX
         let i = 0;
         const chars = fallback.split("");
-        const interval = setInterval(() => {
+        // Clear any existing streaming interval before starting a new one
+        if (streamingIntervalRef.current !== null) {
+          clearInterval(streamingIntervalRef.current);
+        }
+        streamingIntervalRef.current = setInterval(() => {
           i += 3;
           const partial = chars.slice(0, i).join("");
           setMessages((prev) =>
@@ -218,7 +235,10 @@ function McpInspectorPage() {
             ),
           );
           if (i >= chars.length) {
-            clearInterval(interval);
+            if (streamingIntervalRef.current !== null) {
+              clearInterval(streamingIntervalRef.current);
+              streamingIntervalRef.current = null;
+            }
             setMessages((prev) =>
               prev.map((m) =>
                 m.id === assistantId ? { ...m, streaming: false } : m,
