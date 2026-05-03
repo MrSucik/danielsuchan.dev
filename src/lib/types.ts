@@ -1,6 +1,6 @@
 export interface Project {
   name: string;
-  url: string;
+  url?: string;
   role: string;
   description: string;
   stack: string[];

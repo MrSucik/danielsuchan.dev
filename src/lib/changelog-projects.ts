@@ -22,7 +22,6 @@ export const changelogProjects: Record<string, ChangelogProjectMeta> = {
   morivo: { name: "morivo.cz", url: "https://morivo.cz" },
   suchanpro: { name: "suchanpro.cz", url: "https://suchanpro.cz" },
   pandidorty: { name: "pandidorty.cz", url: "https://pandidorty.cz" },
-  "it-blaze": { name: "it.blaze.codes", url: "https://it.blaze.codes" },
   "inside-blaze": {
     name: "inside.blaze.codes",
     url: "https://inside.blaze.codes",

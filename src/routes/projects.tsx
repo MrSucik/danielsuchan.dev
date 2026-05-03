@@ -27,13 +27,7 @@ const projects: Project[] = [
     role: "Founder & Sole Engineer",
     description:
       "Multi-agent assistant on Claude. Multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
-    stack: [
-      "TypeScript",
-      "Claude",
-      "MCP",
-      "PostgreSQL",
-      "Hono",
-    ],
+    stack: ["TypeScript", "Claude", "MCP", "PostgreSQL", "Hono"],
     status: "Active",
   },
   {
@@ -163,15 +157,6 @@ const projects: Project[] = [
     status: "Active",
   },
   {
-    name: "it.blaze.codes",
-    url: "https://it.blaze.codes",
-    role: "Product & Development",
-    description:
-      "Self-hosted PaaS for deploying containerized applications. Deploy Docker containers to your own servers with GitHub integration, automatic SSL, and real-time metrics.",
-    stack: ["TypeScript", "React", "Hono", "Docker", "PostgreSQL"],
-    status: "Active",
-  },
-  {
     name: "inside.blaze.codes",
     url: "https://inside.blaze.codes",
     role: "Product & Development",
@@ -206,6 +191,14 @@ const projects: Project[] = [
       "Algorithmic trading fund building track record. News-driven crypto scalping and event-driven equity trading powered by AI. Registered under ČNB §15 ZISIF.",
     stack: ["TypeScript", "React", "Bun", "SQLite", "AI/ML"],
     status: "Active",
+  },
+  {
+    name: "Cantata Health",
+    role: "Frontend & Mobile Lead, 2017–2022",
+    description:
+      "US healthcare enterprise application. Led frontend web + mobile development on a platform older than I was at the time — joined at 16 with Czech court permission to work on a US healthcare project. Products built then are still in production today.",
+    stack: ["TypeScript", "React", "React Native", "Node.js"],
+    status: "Completed",
   },
 ];
 
@@ -251,33 +244,40 @@ function Projects() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {projects.map((project, i) => {
-          const service = loaded ? getServiceForUrl(project.url) : undefined;
+          const service =
+            loaded && project.url ? getServiceForUrl(project.url) : undefined;
+          const motionProps = {
+            initial: { opacity: 0, y: 20 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, margin: "-40px" },
+            transition: { delay: i * 0.06, duration: 0.4 },
+          } as const;
+          const baseClass =
+            "group block rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-6 no-underline transition-all duration-200";
+          const linkHoverClass =
+            "hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/80";
 
-          return (
-            <motion.a
-              key={project.name}
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-6 no-underline transition-all duration-200 hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/80"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.06, duration: 0.4 }}
-            >
+          const cardBody = (
+            <>
               <div className="mb-3 flex items-start justify-between">
                 <div>
-                  <h2 className="text-sm font-semibold text-[var(--text-bright)] transition-colors group-hover:text-[var(--accent)]">
+                  <h2
+                    className={`text-sm font-semibold text-[var(--text-bright)] transition-colors${
+                      project.url ? " group-hover:text-[var(--accent)]" : ""
+                    }`}
+                  >
                     {project.name}
                   </h2>
                   <p className="mt-0.5 text-[11px] text-[var(--comment)]">
                     {project.role}
                   </p>
                 </div>
-                <ArrowUpRight
-                  size={14}
-                  className="mt-0.5 text-[var(--text-dim)] transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)]"
-                />
+                {project.url && (
+                  <ArrowUpRight
+                    size={14}
+                    className="mt-0.5 text-[var(--text-dim)] transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)]"
+                  />
+                )}
               </div>
 
               <p className="mb-4 text-xs leading-relaxed text-[var(--text-muted)]">
@@ -295,8 +295,29 @@ function Projects() {
                 ))}
               </div>
 
-              {loaded && <UptimeTimeline service={service} />}
+              {loaded && project.url && <UptimeTimeline service={service} />}
+            </>
+          );
+
+          return project.url ? (
+            <motion.a
+              key={project.name}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${baseClass} ${linkHoverClass}`}
+              {...motionProps}
+            >
+              {cardBody}
             </motion.a>
+          ) : (
+            <motion.div
+              key={project.name}
+              className={baseClass}
+              {...motionProps}
+            >
+              {cardBody}
+            </motion.div>
           );
         })}
       </div>
