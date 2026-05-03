@@ -7,9 +7,13 @@ export function personSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Daniel Suchan",
+    givenName: "Daniel",
+    familyName: "Suchan",
     url: SITE_URL,
     email: "mr.sucik@gmail.com",
     jobTitle: "Co-Founder & CTO",
+    description:
+      "Engineer building production AI systems. Building Dzarvis — a multi-agent assistant on Claude. CTO at Blaze. 8+ years writing production code, started at 16 with Czech court permission.",
     worksFor: {
       "@type": "Organization",
       name: "Blaze Company",
@@ -20,10 +24,29 @@ export function personSchema() {
       addressLocality: "Brno",
       addressCountry: "CZ",
     },
+    nationality: {
+      "@type": "Country",
+      name: "Czech Republic",
+    },
     knowsLanguage: ["cs", "en"],
+    knowsAbout: [
+      "AI engineering",
+      "Multi-agent systems",
+      "Model Context Protocol (MCP)",
+      "Claude API",
+      "TypeScript",
+      "React",
+      "React Native",
+      "Node.js",
+      "Hono",
+      "PostgreSQL",
+      "Production AI infrastructure",
+      "Algorithmic trading",
+    ],
     sameAs: [
       "https://www.linkedin.com/in/daniel-suchan-6b8611162/",
       "https://github.com/MrSucik",
+      "https://dzarvis.com",
     ],
   };
 }

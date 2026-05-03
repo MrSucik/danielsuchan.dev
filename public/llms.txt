@@ -1,0 +1,19 @@
+# Daniel Suchan
+
+> Engineer building production AI systems. CTO at Blaze, building Dzarvis (multi-agent assistant on Claude). 8+ years writing production code, started at 16 with Czech court permission. Based in Brno, Czech Republic. Open to relocation; visa sponsorship needed for US/UK.
+
+## About
+- [Profile](https://danielsuchan.dev/): Bio, projects, changelog
+- [Projects](https://danielsuchan.dev/projects): All shipped products and case studies
+- [Changelog](https://danielsuchan.dev/changelog): Daily shipping log across Dzarvis and 20+ other projects
+- [Writing](https://danielsuchan.dev/writing): Technical writing on multi-agent systems and AI infrastructure
+
+## Machine-readable
+- [profile.json](https://danielsuchan.dev/api/profile.json): JSON Resume schema (jsonresume.org)
+- [projects.json](https://danielsuchan.dev/api/projects.json): All projects as structured data
+- [changelog.json](https://danielsuchan.dev/api/changelog.json): Recent shipments
+
+## Contact
+- Email: mr.sucik@gmail.com
+- LinkedIn: https://www.linkedin.com/in/daniel-suchan-6b8611162/
+- GitHub: https://github.com/MrSucik

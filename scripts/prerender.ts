@@ -1,5 +1,8 @@
 /**
- * SEO prerender — creates per-route index.html copies with correct <head> meta tags.
+ * SEO prerender — creates per-route index.html copies with correct <head> meta tags
+ * AND per-route JSON-LD structured data so non-JS crawlers (CCBot, basic LLM
+ * scrapers) see Person + page-type schemas without executing the SPA.
+ *
  * Does NOT render the body (avoids React hydration mismatch).
  * The SPA handles body rendering client-side.
  *
@@ -8,7 +11,17 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import projectsData from "../src/data/projects.json" with { type: "json" };
+import type { Project } from "../src/lib/types.ts";
 import { ALL_ROUTES, type RouteSEO } from "./site-routes.ts";
+import {
+  blogPostingSchema,
+  breadcrumbSchema,
+  personSchema,
+  profilePageSchema,
+  projectsSchema,
+  webPageSchema,
+} from "../src/lib/schemas.ts";
 
 const DIST_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const SITE_URL = "https://danielsuchan.dev";
@@ -40,6 +53,104 @@ function buildSeoHead(seo: RouteSEO): string {
     <meta name="twitter:image:alt" content="${seo.title}">`;
 }
 
+function ldJsonScript(data: Record<string, unknown>): string {
+  // Hardcoded structured data (never user input). Defense-in-depth: escape
+  // `<` so a stray `</script>` substring in future data cannot break out.
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
+  return `    <script type="application/ld+json">${json}</script>`;
+}
+
+
+const projects = (projectsData as { projects: Project[] }).projects;
+
+function buildJsonLd(seo: RouteSEO): string {
+  const blocks: string[] = [ldJsonScript(personSchema())];
+
+  if (seo.path === "/") {
+    blocks.push(ldJsonScript(profilePageSchema()));
+  } else if (seo.path === "/projects") {
+    blocks.push(ldJsonScript(projectsSchema(projects)));
+    blocks.push(
+      ldJsonScript(breadcrumbSchema([{ name: "Projects", path: "/projects" }])),
+    );
+  } else if (seo.path === "/changelog") {
+    blocks.push(
+      ldJsonScript(
+        webPageSchema({
+          name: "Changelog",
+          description: seo.description,
+          path: "/changelog",
+        }),
+      ),
+    );
+    blocks.push(
+      ldJsonScript(
+        breadcrumbSchema([{ name: "Changelog", path: "/changelog" }]),
+      ),
+    );
+  } else if (seo.path === "/writing") {
+    blocks.push(
+      ldJsonScript(
+        webPageSchema({
+          name: "Writing",
+          description: seo.description,
+          path: "/writing",
+        }),
+      ),
+    );
+    blocks.push(
+      ldJsonScript(breadcrumbSchema([{ name: "Writing", path: "/writing" }])),
+    );
+  } else if (seo.path === "/newsletter") {
+    blocks.push(
+      ldJsonScript(
+        webPageSchema({
+          name: "Newsletter",
+          description: seo.description,
+          path: "/newsletter",
+        }),
+      ),
+    );
+    blocks.push(
+      ldJsonScript(
+        breadcrumbSchema([{ name: "Newsletter", path: "/newsletter" }]),
+      ),
+    );
+  } else if (seo.path.startsWith("/writing/")) {
+    const slug = seo.path.replace("/writing/", "");
+    blocks.push(
+      ldJsonScript(
+        webPageSchema({
+          name: seo.title,
+          description: seo.description,
+          path: seo.path,
+        }),
+      ),
+    );
+    blocks.push(
+      ldJsonScript(
+        blogPostingSchema({
+          title: seo.title,
+          description: seo.description,
+          slug,
+          datePublished: seo.lastmod ?? new Date().toISOString().slice(0, 10),
+          status: seo.noindex ? "drafting" : "published",
+        }),
+      ),
+    );
+    blocks.push(
+      ldJsonScript(
+        breadcrumbSchema([
+          { name: "Writing", path: "/writing" },
+          { name: seo.title, path: seo.path },
+        ]),
+      ),
+    );
+  }
+
+  return blocks.join("\n");
+}
+
 function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
   let html = baseHtml;
 
@@ -51,6 +162,7 @@ function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
     /<link rel="canonical"[^>]*>/g,
     /<meta property="og:[^>]*>/g,
     /<meta name="twitter:[^>]*>/g,
+    /<script type="application\/ld\+json">[\s\S]*?<\/script>/g,
   ];
 
   for (const pattern of tagsToRemove) {
@@ -58,9 +170,10 @@ function injectSeoHead(baseHtml: string, seo: RouteSEO): string {
   }
 
   const seoHead = buildSeoHead(seo);
+  const ldBlock = buildJsonLd(seo);
   html = html.replace(
     /(<meta name="viewport"[^>]*>)/,
-    `$1\n${seoHead}`,
+    `$1\n${seoHead}\n${ldBlock}`,
   );
 
   html = html.replace(/\n\s*\n\s*\n/g, "\n\n");
