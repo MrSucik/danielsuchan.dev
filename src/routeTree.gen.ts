@@ -15,7 +15,9 @@ import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as WritingSlugRouteImport } from './routes/writing.$slug'
+import { Route as CaseStudiesDzarvisRouteImport } from './routes/case-studies.dzarvis'
 
 const WritingRoute = WritingRouteImport.update({
   id: '/writing',
@@ -47,10 +49,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WritingSlugRoute = WritingSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => WritingRoute,
+} as any)
+const CaseStudiesDzarvisRoute = CaseStudiesDzarvisRouteImport.update({
+  id: '/case-studies/dzarvis',
+  path: '/case-studies/dzarvis',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -60,7 +72,9 @@ export interface FileRoutesByFullPath {
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
+  '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
   '/writing/$slug': typeof WritingSlugRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +83,9 @@ export interface FileRoutesByTo {
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
+  '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
   '/writing/$slug': typeof WritingSlugRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +95,9 @@ export interface FileRoutesById {
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
+  '/case-studies/dzarvis': typeof CaseStudiesDzarvisRoute
   '/writing/$slug': typeof WritingSlugRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +108,9 @@ export interface FileRouteTypes {
     | '/newsletter'
     | '/projects'
     | '/writing'
+    | '/case-studies/dzarvis'
     | '/writing/$slug'
+    | '/case-studies/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +119,9 @@ export interface FileRouteTypes {
     | '/newsletter'
     | '/projects'
     | '/writing'
+    | '/case-studies/dzarvis'
     | '/writing/$slug'
+    | '/case-studies'
   id:
     | '__root__'
     | '/'
@@ -108,7 +130,9 @@ export interface FileRouteTypes {
     | '/newsletter'
     | '/projects'
     | '/writing'
+    | '/case-studies/dzarvis'
     | '/writing/$slug'
+    | '/case-studies/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,6 +142,8 @@ export interface RootRouteChildren {
   NewsletterRoute: typeof NewsletterRoute
   ProjectsRoute: typeof ProjectsRoute
   WritingRoute: typeof WritingRouteWithChildren
+  CaseStudiesDzarvisRoute: typeof CaseStudiesDzarvisRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,12 +190,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/writing/$slug': {
       id: '/writing/$slug'
       path: '/$slug'
       fullPath: '/writing/$slug'
       preLoaderRoute: typeof WritingSlugRouteImport
       parentRoute: typeof WritingRoute
+    }
+    '/case-studies/dzarvis': {
+      id: '/case-studies/dzarvis'
+      path: '/case-studies/dzarvis'
+      fullPath: '/case-studies/dzarvis'
+      preLoaderRoute: typeof CaseStudiesDzarvisRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -192,6 +232,8 @@ const rootRouteChildren: RootRouteChildren = {
   NewsletterRoute: NewsletterRoute,
   ProjectsRoute: ProjectsRoute,
   WritingRoute: WritingRouteWithChildren,
+  CaseStudiesDzarvisRoute: CaseStudiesDzarvisRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

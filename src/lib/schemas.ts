@@ -137,3 +137,39 @@ export function webPageSchema({
     url: `${SITE_URL}${path}`,
   };
 }
+
+export function dzarvisCaseStudySchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechnicalArticle",
+    headline: "Dzarvis — A multi-agent assistant on Claude",
+    description:
+      "Architecture write-up for Dzarvis: a multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server, in stealth fine-tuning with a focus group of 15 companies.",
+    url: `${SITE_URL}/case-studies/dzarvis`,
+    datePublished: "2025-05-03",
+    dateModified: "2025-05-03",
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: "Daniel Suchan",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Daniel Suchan",
+      url: SITE_URL,
+    },
+    about: {
+      "@type": "SoftwareApplication",
+      name: "Dzarvis",
+      url: "https://dzarvis.com",
+      description:
+        "Multi-agent assistant on Claude. Multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server.",
+      applicationCategory: "BusinessApplication",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/case-studies/dzarvis`,
+    },
+  };
+}

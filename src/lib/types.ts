@@ -5,6 +5,7 @@ export interface Project {
   description: string;
   stack: string[];
   status: "Active" | "Maintenance" | "Completed";
+  caseStudyPath?: string;
 }
 
 export interface ChangelogShipment {
