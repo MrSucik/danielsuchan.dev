@@ -1,0 +1,137 @@
+[
+  {
+    "task": "Plan a trip to Tokyo for a week",
+    "tokens": ["plan", "trip", "tokyo", "week", "travel", "japan", "vacation", "holiday"],
+    "agents": [
+      { "name": "flights-agent", "role": "Search and book round-trip flights, compare airlines and prices" },
+      { "name": "hotels-agent", "role": "Find and reserve accommodation matching budget and location preferences" },
+      { "name": "calendar-agent", "role": "Block travel dates, set reminders for check-in times and transfers" },
+      { "name": "research-agent", "role": "Curate a day-by-day itinerary with sights, restaurants, and transport tips" },
+      { "name": "tasks-agent", "role": "Create a pre-departure checklist: passport, travel insurance, currency" }
+    ],
+    "graph": "graph LR\n  flights-agent --> calendar-agent\n  hotels-agent --> calendar-agent\n  calendar-agent --> research-agent\n  research-agent --> tasks-agent"
+  },
+  {
+    "task": "Set up a SaaS with auth and billing",
+    "tokens": ["setup", "saas", "auth", "billing", "authentication", "stripe", "payments", "software", "product", "launch"],
+    "agents": [
+      { "name": "scaffolding-agent", "role": "Bootstrap project structure, CI/CD, environment configuration" },
+      { "name": "auth-config-agent", "role": "Configure OAuth providers, JWT tokens, session management" },
+      { "name": "stripe-integration-agent", "role": "Set up products, pricing plans, webhooks, and billing portal" },
+      { "name": "deploy-agent", "role": "Provision infrastructure, set up DNS, SSL, and production environment" }
+    ],
+    "graph": "graph LR\n  scaffolding-agent --> auth-config-agent\n  scaffolding-agent --> stripe-integration-agent\n  auth-config-agent --> deploy-agent\n  stripe-integration-agent --> deploy-agent"
+  },
+  {
+    "task": "Triage my unread emails",
+    "tokens": ["triage", "unread", "emails", "inbox", "email", "messages", "sort", "organize", "mail"],
+    "agents": [
+      { "name": "emails-classify-agent", "role": "Read and categorize each email by urgency, sender, and topic" },
+      { "name": "emails-action-agent", "role": "Draft replies for messages requiring a response, archive noise" },
+      { "name": "tasks-create-agent", "role": "Convert action items from emails into tracked tasks with due dates" }
+    ],
+    "graph": "graph LR\n  emails-classify-agent --> emails-action-agent\n  emails-classify-agent --> tasks-create-agent\n  emails-action-agent --> tasks-create-agent"
+  },
+  {
+    "task": "Research a company before a sales call",
+    "tokens": ["research", "company", "sales", "call", "prospect", "crm", "linkedin", "meeting", "outreach"],
+    "agents": [
+      { "name": "web-research-agent", "role": "Scrape company website, product pages, pricing, and recent news" },
+      { "name": "linkedin-agent", "role": "Pull key decision-makers, roles, and recent activity from LinkedIn" },
+      { "name": "news-agent", "role": "Fetch recent press mentions, funding rounds, and industry signals" },
+      { "name": "summary-agent", "role": "Produce a one-page brief with talking points and risk flags" }
+    ],
+    "graph": "graph LR\n  web-research-agent --> summary-agent\n  linkedin-agent --> summary-agent\n  news-agent --> summary-agent"
+  },
+  {
+    "task": "Reconcile my month-end finances",
+    "tokens": ["reconcile", "month", "finances", "financial", "bank", "accounting", "bookkeeping", "invoices", "expenses", "budget"],
+    "agents": [
+      { "name": "bank-sync-agent", "role": "Pull all transactions from connected bank accounts and cards" },
+      { "name": "categorize-agent", "role": "Assign expense categories using merchant names and spending patterns" },
+      { "name": "expense-agent", "role": "Match receipts and expenses to submitted expense reports" },
+      { "name": "invoice-match-agent", "role": "Cross-reference outgoing invoices with received payments" }
+    ],
+    "graph": "graph LR\n  bank-sync-agent --> categorize-agent\n  bank-sync-agent --> invoice-match-agent\n  categorize-agent --> expense-agent\n  expense-agent --> invoice-match-agent"
+  },
+  {
+    "task": "Plan and ship a feature",
+    "tokens": ["plan", "ship", "feature", "implement", "develop", "build", "code", "release", "deploy", "development"],
+    "agents": [
+      { "name": "spec-agent", "role": "Write a detailed spec from requirements: acceptance criteria, edge cases" },
+      { "name": "architecture-agent", "role": "Design data models, API contracts, and component boundaries" },
+      { "name": "implementation-agent", "role": "Write the production code following the architecture blueprint" },
+      { "name": "review-agent", "role": "Run automated review: type safety, test coverage, security, performance" },
+      { "name": "docs-agent", "role": "Generate changelog entry, API docs, and update README" }
+    ],
+    "graph": "graph LR\n  spec-agent --> architecture-agent\n  architecture-agent --> implementation-agent\n  implementation-agent --> review-agent\n  review-agent --> docs-agent"
+  },
+  {
+    "task": "Compose and send a personalized cold-email batch",
+    "tokens": ["compose", "send", "personalized", "cold", "email", "batch", "outreach", "prospecting", "leads", "newsletter"],
+    "agents": [
+      { "name": "research-agent", "role": "Pull context on each recipient: role, company news, shared connections" },
+      { "name": "personalization-agent", "role": "Generate unique opening lines and value props per recipient" },
+      { "name": "compose-agent", "role": "Assemble full email drafts with subject lines and CTAs" },
+      { "name": "send-agent", "role": "Send in batches with throttling, track opens and replies" }
+    ],
+    "graph": "graph LR\n  research-agent --> personalization-agent\n  personalization-agent --> compose-agent\n  compose-agent --> send-agent"
+  },
+  {
+    "task": "Daily standup prep",
+    "tokens": ["daily", "standup", "prep", "morning", "briefing", "scrum", "meeting", "status", "update", "team"],
+    "agents": [
+      { "name": "calendar-agent", "role": "Pull today's meetings, deadlines, and blocked time from calendar" },
+      { "name": "tasks-agent", "role": "Surface overdue tasks, today's priorities, and blockers" },
+      { "name": "slack-search-agent", "role": "Find overnight messages that need a response or decision" },
+      { "name": "format-agent", "role": "Compose a concise standup summary: done, doing, blockers" }
+    ],
+    "graph": "graph LR\n  calendar-agent --> format-agent\n  tasks-agent --> format-agent\n  slack-search-agent --> format-agent"
+  },
+  {
+    "task": "Find subscription waste",
+    "tokens": ["find", "subscription", "waste", "cancel", "recurring", "spending", "subscriptions", "billing", "saas", "cut"],
+    "agents": [
+      { "name": "bank-sync-agent", "role": "Fetch all transactions from bank and card accounts" },
+      { "name": "categorize-recurring-agent", "role": "Identify recurring charges by merchant, amount, and cadence" },
+      { "name": "comparison-agent", "role": "Flag duplicate tools, unused services, and price-increase candidates" },
+      { "name": "cancel-recommendations-agent", "role": "Rank subscriptions by cancellation ROI, draft cancellation emails" }
+    ],
+    "graph": "graph LR\n  bank-sync-agent --> categorize-recurring-agent\n  categorize-recurring-agent --> comparison-agent\n  comparison-agent --> cancel-recommendations-agent"
+  },
+  {
+    "task": "Debug a production incident",
+    "tokens": ["debug", "production", "incident", "outage", "error", "bug", "crash", "fix", "alert", "sentry", "logs", "monitor"],
+    "agents": [
+      { "name": "logs-agent", "role": "Tail error logs around the incident window, extract stack traces" },
+      { "name": "metrics-agent", "role": "Pull CPU, memory, latency, and error-rate graphs from the incident period" },
+      { "name": "recent-deploys-agent", "role": "List commits and config changes deployed in the last 24 hours" },
+      { "name": "hypothesis-agent", "role": "Correlate signals and generate ranked root-cause hypotheses" },
+      { "name": "fix-agent", "role": "Propose the minimal code change or rollback to restore service" }
+    ],
+    "graph": "graph LR\n  logs-agent --> hypothesis-agent\n  metrics-agent --> hypothesis-agent\n  recent-deploys-agent --> hypothesis-agent\n  hypothesis-agent --> fix-agent"
+  },
+  {
+    "task": "Onboard a new team member",
+    "tokens": ["onboard", "new", "team", "member", "hire", "employee", "welcome", "access", "permissions", "setup"],
+    "agents": [
+      { "name": "accounts-agent", "role": "Provision email, Slack, GitHub, and internal tool access" },
+      { "name": "calendar-agent", "role": "Schedule intro meetings with key team members for week one" },
+      { "name": "docs-agent", "role": "Share relevant wikis, runbooks, and architecture overviews" },
+      { "name": "tasks-agent", "role": "Create onboarding checklist with week-one goals and check-ins" }
+    ],
+    "graph": "graph LR\n  accounts-agent --> calendar-agent\n  accounts-agent --> docs-agent\n  calendar-agent --> tasks-agent\n  docs-agent --> tasks-agent"
+  },
+  {
+    "task": "Write a technical blog post",
+    "tokens": ["write", "technical", "blog", "post", "article", "publish", "content", "writing", "documentation"],
+    "agents": [
+      { "name": "research-agent", "role": "Gather existing literature, related posts, and factual sources" },
+      { "name": "outline-agent", "role": "Structure the post: intro, sections, key takeaways, conclusion" },
+      { "name": "draft-agent", "role": "Write full draft including code examples and diagrams" },
+      { "name": "review-agent", "role": "Edit for clarity, check code accuracy, suggest headline variants" },
+      { "name": "publish-agent", "role": "Format for CMS, add SEO metadata, schedule or publish" }
+    ],
+    "graph": "graph LR\n  research-agent --> outline-agent\n  outline-agent --> draft-agent\n  draft-agent --> review-agent\n  review-agent --> publish-agent"
+  }
+]

@@ -173,3 +173,70 @@ export function dzarvisCaseStudySchema() {
     },
   };
 }
+
+export function labsIndexSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Labs – Live Demos and Tools by Daniel Suchan",
+    description:
+      "Interactive demos of multi-agent orchestration, MCP tooling, and AI infrastructure built by Daniel Suchan.",
+    url: `${SITE_URL}/labs`,
+    author: { "@type": "Person", name: "Daniel Suchan", url: SITE_URL },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "SoftwareApplication",
+            name: "Subagent Task Decomposer",
+            url: `${SITE_URL}/labs/decomposer`,
+            description:
+              "Visualize how a Dzarvis-style multi-agent system decomposes any task into specialized subagents.",
+            applicationCategory: "DeveloperApplication",
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "SoftwareApplication",
+            name: "MCP Inspector",
+            url: `${SITE_URL}/labs/mcp`,
+            description:
+              "Live chat interface to Daniel's public MCP server — routed through the Model Context Protocol.",
+            applicationCategory: "DeveloperApplication",
+          },
+        },
+      ],
+    },
+  };
+}
+
+export function labsDemoSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    url: `${SITE_URL}${path}`,
+    applicationCategory: "DeveloperApplication",
+    author: { "@type": "Person", name: "Daniel Suchan", url: SITE_URL },
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+}
