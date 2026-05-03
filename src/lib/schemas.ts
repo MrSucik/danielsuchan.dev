@@ -17,7 +17,6 @@ export function personSchema() {
     worksFor: {
       "@type": "Organization",
       name: "Blaze Company",
-      url: "https://blaze.codes",
     },
     address: {
       "@type": "PostalAddress",

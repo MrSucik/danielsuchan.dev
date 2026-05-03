@@ -63,6 +63,52 @@ export const STATIC_ROUTES: RouteSEO[] = [
     changefreq: "monthly",
     priority: 0.6,
   },
+  {
+    path: "/case-studies",
+    title: "Case Studies – Daniel Suchan | AI systems architecture",
+    description:
+      "Long-form architecture write-ups on production AI systems built by Daniel Suchan — starting with Dzarvis, a multi-agent assistant on Claude.",
+    lastmod: "2026-05-02",
+    changefreq: "monthly",
+    priority: 0.7,
+  },
+  {
+    path: "/case-studies/dzarvis",
+    title:
+      "Dzarvis — Multi-agent assistant on Claude | Case Study – Daniel Suchan",
+    description:
+      "Architecture write-up for Dzarvis: a multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
+    lastmod: "2026-05-02",
+    changefreq: "monthly",
+    priority: 0.7,
+  },
+  {
+    path: "/labs",
+    title: "Labs – Daniel Suchan | Live demos and interactive tools",
+    description:
+      "Interactive demos of multi-agent orchestration, MCP tooling, and AI infrastructure built by Daniel Suchan. Try the subagent decomposer or inspect the MCP server live.",
+    lastmod: "2026-05-02",
+    changefreq: "monthly",
+    priority: 0.7,
+  },
+  {
+    path: "/labs/decomposer",
+    title: "Subagent Task Decomposer – Labs | Daniel Suchan",
+    description:
+      "Type any task and see how a Dzarvis-style multi-agent system decomposes it into narrow specialized subagents with a live dependency graph.",
+    lastmod: "2026-05-02",
+    changefreq: "monthly",
+    priority: 0.6,
+  },
+  {
+    path: "/labs/mcp",
+    title: "MCP Inspector – Labs | Daniel Suchan",
+    description:
+      "Chat directly with Daniel's public MCP server. Ask about Dzarvis, his projects, or his background — routed through a live Model Context Protocol endpoint.",
+    lastmod: "2026-05-02",
+    changefreq: "monthly",
+    priority: 0.6,
+  },
 ];
 
 /**
