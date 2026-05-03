@@ -6,7 +6,8 @@
       "role": "Founder & Sole Engineer",
       "description": "Multi-agent assistant on Claude. Multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
       "stack": ["TypeScript", "Claude", "MCP", "PostgreSQL", "Hono"],
-      "status": "Active"
+      "status": "Active",
+      "caseStudyPath": "/case-studies/dzarvis"
     },
     {
       "name": "Blaze",

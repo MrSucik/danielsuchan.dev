@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Activity, ArrowUpRight } from "lucide-react";
 import { JsonLd } from "../components/JsonLd";
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/projects")({
 });
 
 const projects = projectsData.projects as Project[];
+
 
 const statusBadge: Record<Project["status"], string> = {
   Active: "badge-active",
@@ -117,6 +118,18 @@ function Projects() {
               </div>
 
               {loaded && project.url && <UptimeTimeline service={service} />}
+
+              {project.caseStudyPath && (
+                <div className="mt-3 pt-3 border-t border-[var(--border)]">
+                  <Link
+                    to={project.caseStudyPath as "/case-studies/dzarvis"}
+                    className="inline-flex items-center gap-1 text-[11px] text-[var(--accent)] no-underline transition-colors hover:text-[var(--accent-hover)]"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Case Study <ArrowUpRight size={10} />
+                  </Link>
+                </div>
+              )}
             </>
           );
 

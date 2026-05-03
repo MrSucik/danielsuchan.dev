@@ -10,7 +10,11 @@
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
     "lint": "biome lint .",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "mcp:dev": "pnpm --filter @danielsuchan/mcp dev",
+    "mcp:deploy": "pnpm --filter @danielsuchan/mcp deploy",
+    "mcp:typecheck": "pnpm --filter @danielsuchan/mcp typecheck",
+    "mcp:test": "pnpm --filter @danielsuchan/mcp test"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
