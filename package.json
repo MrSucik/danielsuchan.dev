@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsx scripts/prerender.ts && tsx scripts/sitemap.ts && tsx scripts/verify-content.ts",
+    "build": "vite build && tsx scripts/prerender.ts && tsx scripts/sitemap.ts && tsx scripts/build-public-data.ts && tsx scripts/verify-content.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
