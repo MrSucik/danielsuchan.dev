@@ -14,7 +14,10 @@
     "mcp:dev": "pnpm --filter @danielsuchan/mcp dev",
     "mcp:deploy": "pnpm --filter @danielsuchan/mcp deploy",
     "mcp:typecheck": "pnpm --filter @danielsuchan/mcp typecheck",
-    "mcp:test": "pnpm --filter @danielsuchan/mcp test"
+    "mcp:test": "pnpm --filter @danielsuchan/mcp test",
+    "deploy:pages": "wrangler pages deploy dist --project-name=danielsuchan-dev --branch=main",
+    "deploy:worker": "pnpm --filter @danielsuchan/mcp deploy",
+    "deploy:all": "pnpm build && pnpm deploy:pages && pnpm deploy:worker"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -44,6 +47,7 @@
     "tsx": "^4.21.0",
     "typescript": "^5.9.2",
     "vite": "^7.0.6",
-    "vite-plugin-compression2": "^2.5.3"
+    "vite-plugin-compression2": "^2.5.3",
+    "wrangler": "^4.19.0"
   }
 }
