@@ -5,7 +5,7 @@
  * writing posts, case-study content, and labs metadata as JSON files inside
  * packages/mcp/src/. Run this script when adding/editing any of those.
  *
- * Producesfor Worker bundling:
+ * Produces for Worker bundling:
  *   packages/mcp/src/writing.json    — all blog posts (frontmatter + body)
  *   packages/mcp/src/case-studies.json — long-form case studies
  *   packages/mcp/src/labs.json        — labs demos metadata

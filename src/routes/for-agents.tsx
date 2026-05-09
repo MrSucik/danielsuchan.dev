@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Copy } from "lucide-react";
+import { Check, Copy, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { JsonLd } from "../components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
 import { buildHeadMeta } from "../lib/seo";
@@ -289,6 +290,19 @@ function Bullet({ q, tool, note }: { q: string; tool: string; note?: string }) {
 }
 
 function CodeBlock({ children }: { children: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(children);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard permission denied or unsupported context — silently no-op;
+      // user can still select-and-copy from the visible <pre>.
+    }
+  };
+
   return (
     <div className="relative">
       <pre className="overflow-x-auto rounded-md border border-[var(--border)] bg-[var(--bg-elevated)] p-4 text-xs leading-relaxed text-[var(--text-muted)]">
@@ -296,11 +310,11 @@ function CodeBlock({ children }: { children: string }) {
       </pre>
       <button
         type="button"
-        className="absolute right-2 top-2 rounded p-1 text-[var(--text-dim)] hover:text-[var(--text)]"
-        onClick={() => navigator.clipboard.writeText(children)}
-        aria-label="Copy"
+        className="absolute right-2 top-2 rounded p-1 text-[var(--text-dim)] transition-colors hover:text-[var(--text)]"
+        onClick={handleCopy}
+        aria-label={copied ? "Copied" : "Copy"}
       >
-        <Copy size={12} />
+        {copied ? <Check size={12} /> : <Copy size={12} />}
       </button>
     </div>
   );
