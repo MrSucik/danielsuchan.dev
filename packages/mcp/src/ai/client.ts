@@ -2,6 +2,7 @@
 // Kept provider-agnostic via the `AIBinding` interface so the same tools could
 // later target Ollama, Workers AI Gateway, or another backend with one swap.
 
+import type { BudgetStore } from "./budget.js";
 import { type ModelKey, resolveModel } from "./models.js";
 
 // Subset of the Workers AI binding we actually use. Duck-typed so tests can
@@ -10,10 +11,16 @@ export type AIBinding = {
   run: (model: string, inputs: unknown, options?: unknown) => Promise<unknown>;
 };
 
-// Worker bindings shape. Colocated here so both index.ts and tools.ts can
+// Worker bindings shape. Colocated here so index.ts and tools.ts can
 // import a single source of truth.
+//
+// AI_BUDGET and MAX_AI_CALLS_PER_DAY are optional at the type level so tests
+// and local dev don't need to provide them — the budget guard treats a
+// missing KV namespace as "no gating" and logs a warning at startup.
 export type Bindings = {
   AI: AIBinding;
+  AI_BUDGET?: BudgetStore;
+  MAX_AI_CALLS_PER_DAY?: string;
 };
 
 export type ChatMessage = {
@@ -39,7 +46,9 @@ export async function runChat(
 ): Promise<string> {
   const {
     model,
-    maxTokens = 1024,
+    // Tighter than the SDK default to keep per-call neuron cost low. Tools
+    // can override per-call when they legitimately need longer output.
+    maxTokens = 512,
     temperature = 0.2,
     json = false,
     timeoutMs = DEFAULT_TIMEOUT_MS,

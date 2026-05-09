@@ -63,6 +63,48 @@ describe("registerAiTools — registration", () => {
   });
 });
 
+describe("budget gate", () => {
+  it("denies tool calls once daily budget is reached and does not call the AI binding", async () => {
+    const today = `ai_calls:${new Date().toISOString().slice(0, 10)}`;
+    const ai: AIBinding = { run: vi.fn().mockResolvedValue({ response: "ok" }) };
+    const server = new McpServer({ name: "test", version: "0.0.1" });
+    registerAiTools(server, {
+      AI: ai,
+      AI_BUDGET: {
+        get: vi.fn(async (k: string) => (k === today ? "5" : null)),
+        put: vi.fn(),
+      },
+      MAX_AI_CALLS_PER_DAY: "5",
+    });
+    const result = await tool(server, "ai_ask")({ question: "hi" });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toMatch(/daily budget/i);
+    expect(ai.run).not.toHaveBeenCalled();
+  });
+
+  it("allows the call and increments the counter when under budget", async () => {
+    const today = `ai_calls:${new Date().toISOString().slice(0, 10)}`;
+    const store = new Map<string, string>([[today, "2"]]);
+    const ai: AIBinding = { run: vi.fn().mockResolvedValue({ response: "ok" }) };
+    const put = vi.fn(async (k: string, v: string) => {
+      store.set(k, v);
+    });
+    const server = new McpServer({ name: "test", version: "0.0.1" });
+    registerAiTools(server, {
+      AI: ai,
+      AI_BUDGET: {
+        get: vi.fn(async (k: string) => store.get(k) ?? null),
+        put,
+      },
+      MAX_AI_CALLS_PER_DAY: "10",
+    });
+    const result = await tool(server, "ai_ask")({ question: "hi" });
+    expect(result.isError).toBeUndefined();
+    expect(ai.run).toHaveBeenCalledOnce();
+    expect(put).toHaveBeenCalledWith(today, "3", expect.any(Object));
+  });
+});
+
 describe("ai_ask", () => {
   it("returns the model's text answer", async () => {
     const { server, ai } = makeServer({ response: "the answer is 42" });

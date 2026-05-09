@@ -2,13 +2,25 @@ name = "danielsuchan-mcp"
 main = "src/index.ts"
 compatibility_date = "2026-01-01"
 compatibility_flags = ["nodejs_compat"]
+account_id = "7a5b37be42651e370f47927aca926b16"
 
 [[routes]]
 pattern = "mcp.danielsuchan.dev/*"
 zone_name = "danielsuchan.dev"
 
 # Workers AI binding — exposes env.AI to AI-powered tools (ai_ask, ai_summarize, etc).
-# Free tier: 10,000 Neurons/day (resets at 00:00 UTC). Per-call cost varies by
-# input/output length — see the Workers AI dashboard for actuals.
+# Free tier: 10,000 Neurons/day (resets at 00:00 UTC) — see the Workers AI dashboard for actuals.
 [ai]
 binding = "AI"
+
+# KV-based daily call counter that circuit-breaks AI tools before the
+# Workers AI free-tier quota is exhausted. See src/ai/budget.ts.
+[[kv_namespaces]]
+binding = "AI_BUDGET"
+id = "5431a4f0b3c54f69b9e01d7b4f0950bf"
+
+# Per-tool-call neuron estimate * MAX_AI_CALLS_PER_DAY must stay under the
+# Workers AI free tier (10,000 Neurons/day). Default ceiling is conservative:
+# 80 calls/day * ~100 neurons/call worst case = 8,000 neurons/day.
+[vars]
+MAX_AI_CALLS_PER_DAY = "80"

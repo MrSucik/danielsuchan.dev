@@ -11,6 +11,7 @@
 
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+import { parseLimit, reserveAiCall } from "./budget.js";
 import {
   type Bindings,
   type ChatMessage,
@@ -18,6 +19,8 @@ import {
   safeParseJson,
 } from "./client.js";
 import { MODEL_KEYS } from "./models.js";
+
+const DEFAULT_DAILY_LIMIT = 80;
 
 // Hard caps on user-controlled input lengths. Prevent quota-drain DoS on the
 // public unauthenticated endpoint and keep prompts within the default model's
@@ -45,11 +48,40 @@ export function registerAiTools(server: McpServer, env: Bindings): void {
     );
     return;
   }
+  if (!env.AI_BUDGET) {
+    console.warn(
+      "AI_BUDGET KV namespace not bound — daily call gating is DISABLED. This is fine for local dev; in production it lets a single attacker exhaust the Workers AI free tier."
+    );
+  }
   registerAsk(server, env);
   registerSummarize(server, env);
   registerClassify(server, env);
   registerExtractJson(server, env);
   registerTranslate(server, env);
+}
+
+async function reserveOrDeny(
+  env: Bindings
+): Promise<
+  | null
+  | {
+      content: Array<{ type: "text"; text: string }>;
+      isError: true;
+    }
+> {
+  const limit = parseLimit(env.MAX_AI_CALLS_PER_DAY, DEFAULT_DAILY_LIMIT);
+  const reservation = await reserveAiCall(env.AI_BUDGET, limit);
+  if (reservation.allowed) return null;
+  console.warn("AI tool call denied: daily budget reached", reservation);
+  return {
+    content: [
+      {
+        type: "text",
+        text: `AI tools are paused for today: daily budget of ${reservation.limit} calls has been reached on this server. Resets at 00:00 UTC.`,
+      },
+    ],
+    isError: true,
+  };
 }
 
 function registerAsk(server: McpServer, env: Bindings): void {
@@ -70,6 +102,8 @@ function registerAsk(server: McpServer, env: Bindings): void {
       model: modelArg,
     },
     async ({ question, system, model }) => {
+      const denied = await reserveOrDeny(env);
+      if (denied) return denied;
       const messages: ChatMessage[] = [];
       if (system) messages.push({ role: "system", content: system });
       messages.push({ role: "user", content: question });
@@ -108,6 +142,8 @@ function registerSummarize(server: McpServer, env: Bindings): void {
       model: modelArg,
     },
     async ({ text, length, style, model }) => {
+      const denied = await reserveOrDeny(env);
+      if (denied) return denied;
       // Belt-and-suspenders: Zod's `.default("medium")` populates `length`
       // when callers go through the SDK's tool-invocation pipeline, but
       // direct handler calls (tests, in-process integrations) bypass Zod.
@@ -147,6 +183,8 @@ function registerClassify(server: McpServer, env: Bindings): void {
       model: modelArg,
     },
     async ({ text, labels, model }) => {
+      const denied = await reserveOrDeny(env);
+      if (denied) return denied;
       let raw: string;
       try {
         raw = await runChat(
@@ -213,6 +251,8 @@ function registerExtractJson(server: McpServer, env: Bindings): void {
       model: modelArg,
     },
     async ({ text, schemaDescription, model }) => {
+      const denied = await reserveOrDeny(env);
+      if (denied) return denied;
       let raw: string;
       try {
         raw = await runChat(
@@ -288,6 +328,8 @@ function registerTranslate(server: McpServer, env: Bindings): void {
       model: modelArg,
     },
     async ({ text, targetLanguage, sourceLanguage, model }) => {
+      const denied = await reserveOrDeny(env);
+      if (denied) return denied;
       const sys = sourceLanguage
         ? `Translate from ${sourceLanguage} to ${targetLanguage}. Output the translation only — no commentary, no quotation marks. Preserve formatting, code blocks, and proper nouns.`
         : `Detect the source language and translate to ${targetLanguage}. Output the translation only — no commentary, no quotation marks. Preserve formatting, code blocks, and proper nouns.`;
