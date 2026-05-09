@@ -10,7 +10,9 @@ import { buildHeadMeta } from "../lib/seo";
 
 const data = bugFixesData as BugFixesData;
 
-const sortedFixes = [...data.fixes].sort((a, b) => b.date.localeCompare(a.date));
+const sortedFixes = [...data.fixes].sort((a, b) =>
+  b.date.localeCompare(a.date),
+);
 
 export const Route = createFileRoute("/bugs")({
   component: Bugs,
@@ -161,9 +163,7 @@ function BugField({
       </dt>
       <dd
         className={
-          accent
-            ? "text-[var(--text-bright)]"
-            : "text-[var(--text-muted)]"
+          accent ? "text-[var(--text-bright)]" : "text-[var(--text-muted)]"
         }
       >
         {value}

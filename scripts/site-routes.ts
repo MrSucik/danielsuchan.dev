@@ -50,7 +50,16 @@ export const STATIC_ROUTES: RouteSEO[] = [
     title: "Changelog – Daniel Suchan | Daily shipping log",
     description:
       "Daily log of features Daniel Suchan ships across Dzarvis, Blaze, JarvisCheck, and 20+ other projects.",
-    lastmod: "2026-05-02",
+    lastmod: "2026-05-09",
+    changefreq: "weekly",
+    priority: 0.7,
+  },
+  {
+    path: "/bugs",
+    title: "Bugs Fixed – Daniel Suchan | Production debugging log",
+    description:
+      "Curated production bug fixes Daniel has shipped — symptom, root cause, fix, and impact for each. Recent and verifiable from public commit history.",
+    lastmod: "2026-05-09",
     changefreq: "weekly",
     priority: 0.7,
   },

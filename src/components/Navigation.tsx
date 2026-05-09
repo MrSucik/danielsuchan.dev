@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/case-studies", label: "case studies" },
   { to: "/writing", label: "writing" },
   { to: "/changelog", label: "changelog" },
+  { to: "/bugs", label: "bugs" },
   { to: "/newsletter", label: "newsletter" },
 ] as const;
 

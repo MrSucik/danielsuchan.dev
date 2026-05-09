@@ -58,7 +58,17 @@ function Index() {
             Dzarvis
           </a>{" "}
           — a multi-agent assistant on Claude, in stealth and fine-tuning with
-          15 companies. {yearsExperience} years writing code, started at 16
+          15 companies. Public proof:{" "}
+          <a
+            href="https://mcp.danielsuchan.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
+          >
+            mcp.danielsuchan.dev
+          </a>{" "}
+          — a hardened MCP server with 5 Workers AI tools and a free-tier
+          circuit breaker. {yearsExperience} years writing code, started at 16
           with Czech court permission. CTO at Blaze, also running an{" "}
           <a
             href="https://suchan.capital"
@@ -82,6 +92,18 @@ function Index() {
             className="inline-flex items-center gap-2 rounded-md bg-[var(--accent)] px-5 py-2.5 text-xs font-semibold text-[var(--bg)] no-underline transition-opacity hover:opacity-90"
           >
             Projects <ArrowRight size={13} />
+          </Link>
+          <Link
+            to="/changelog"
+            className="inline-flex items-center gap-2 rounded-md border border-[var(--border-hover)] px-5 py-2.5 text-xs text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          >
+            Changelog
+          </Link>
+          <Link
+            to="/bugs"
+            className="inline-flex items-center gap-2 rounded-md border border-[var(--border-hover)] px-5 py-2.5 text-xs text-[var(--text-muted)] no-underline transition-colors hover:text-[var(--text)]"
+          >
+            Bugs
           </Link>
           <a
             href="https://calendly.com/mr-sucik"
