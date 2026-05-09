@@ -1,6 +1,14 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { ANSWER_BANK, PROFILE, PROJECTS, SKILLS } from "./data.js";
+import {
+  ANSWER_BANK,
+  BUG_FIXES,
+  CHANGELOG,
+  PROFILE,
+  PROJECTS,
+  SKILLS,
+  TWITTER_PULSE_LATEST,
+} from "./data.js";
 
 export function registerTools(server: McpServer): void {
   registerGetProfile(server);
@@ -8,6 +16,8 @@ export function registerTools(server: McpServer): void {
   registerGetRecentShipments(server);
   registerGetSkills(server);
   registerAskAboutDaniel(server);
+  registerGetBugFixes(server);
+  registerGetCuratedTweets(server);
 }
 
 function registerGetProfile(server: McpServer): void {
@@ -77,17 +87,18 @@ function registerGetRecentShipments(server: McpServer): void {
         .number()
         .int()
         .min(1)
-        .max(365)
+        .max(1095)
         .optional()
         .default(30)
-        .describe("Number of days to look back. Default is 30."),
+        .describe(
+          "Number of days to look back. Default is 30. Backfill covers 2025-01 onwards, so use 700+ to fetch the full log."
+        ),
     },
     ({ days }) => {
-      const changelog = getChangelog();
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - days);
 
-      const recent = changelog.entries.filter((entry) => {
+      const recent = CHANGELOG.filter((entry) => {
         const entryDate = new Date(entry.date);
         return entryDate >= cutoff;
       });
@@ -172,38 +183,93 @@ function findAnswer(question: string): string {
   );
 }
 
-type ChangelogEntry = {
-  date: string;
-  shipments: Array<{
-    project: string;
-    bullets: string[];
-  }>;
-};
-
-type Changelog = {
-  entries: ChangelogEntry[];
-};
-
-// Inline changelog data — kept in sync with src/data/changelog.json.
-// Cloudflare Workers can't read the filesystem at runtime, so data is embedded.
-function getChangelog(): Changelog {
-  return {
-    entries: [
-      {
-        date: "2026-05-01",
-        shipments: [
+function registerGetCuratedTweets(server: McpServer): void {
+  server.tool(
+    "get_curated_tweets",
+    "Returns the latest curated Twitter/X digest from Daniel's twitter-agent pipeline. The agent watches ~136 handles (frontier AI labs, infra providers, founders, and Czech finance/tech), filters out rage-bait + political noise, and surfaces niche/high-signal items: top stories, models + benchmarks, capital deals, deep research, and contrarian picks. Useful as a 'taste' signal — what Daniel reads and prioritizes, not just what's loudest. The snapshot includes a date so callers can see how fresh it is.",
+    {
+      section: z
+        .enum([
+          "all",
+          "top3",
+          "models_benchmarks",
+          "capital_deals",
+          "research_depth",
+          "niche_contrarian",
+          "watchlist_recs",
+        ])
+        .optional()
+        .default("all")
+        .describe(
+          "Which slice of the digest to return. Default 'all' returns the full digest."
+        ),
+    },
+    ({ section }) => {
+      const pulse = TWITTER_PULSE_LATEST;
+      const payload = (() => {
+        switch (section) {
+          case "top3":
+            return { date: pulse.date, top3: pulse.top3 };
+          case "models_benchmarks":
+            return { date: pulse.date, modelsBenchmarks: pulse.modelsBenchmarks };
+          case "capital_deals":
+            return { date: pulse.date, capitalDeals: pulse.capitalDeals };
+          case "research_depth":
+            return { date: pulse.date, researchDepth: pulse.researchDepth };
+          case "niche_contrarian":
+            return { date: pulse.date, nicheContrarian: pulse.nicheContrarian };
+          case "watchlist_recs":
+            return { date: pulse.date, watchlistRecs: pulse.watchlistRecs };
+          default:
+            return pulse;
+        }
+      })();
+      return {
+        content: [
           {
-            project: "danielsuchan-dev",
-            bullets: [
-              "Repositioned home page hero around Dzarvis as the flagship project",
-              "Pulled Dzarvis to position #1 on /projects with full technical description",
-              "Added skill-curated /changelog (this page) — daily-shipping log across all projects",
-              "Shipped /writing with full markdown rendering and two technical post drafts: agent sandboxes infrastructure + multi-agent subagent orchestration",
-              "Added prose-post styles for long-form technical writing (code blocks, tables, blockquotes)",
-            ],
+            type: "text" as const,
+            text: JSON.stringify(payload, null, 2),
           },
         ],
-      },
-    ],
-  };
+      };
+    }
+  );
+}
+
+function registerGetBugFixes(server: McpServer): void {
+  server.tool(
+    "get_bug_fixes",
+    "Returns a curated list of recent production bug fixes Daniel has shipped — symptom, root cause, fix, and impact for each. Use this for recruiter questions like 'tell me about a hard problem you solved' or 'show me your debugging' — gives an AI agent concrete, verifiable war stories. NOT a comprehensive career-wide log; only recent + publicly verifiable from git history.",
+    {
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(500)
+        .optional()
+        .default(10)
+        .describe(
+          "Max entries to return, newest first. Default 10. Backfill covers ~150 entries from 2025–2026."
+        ),
+    },
+    ({ limit }) => {
+      const recent = BUG_FIXES.slice(0, limit);
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(
+              {
+                note: "Curated recent + verifiable bug fixes — not a comprehensive career log. See https://github.com/MrSucik for additional commit history.",
+                count: recent.length,
+                fixes: recent,
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+    }
+  );
 }

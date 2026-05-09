@@ -1,19 +1,31 @@
 # Daniel Suchan
 
-> Engineer building production AI systems. CTO at Blaze, building Dzarvis (multi-agent assistant on Claude). 8+ years writing production code, started at 16 with Czech court permission. Based in Brno, Czech Republic. Open to relocation; visa sponsorship needed for US/UK.
+> Self-taught engineer (24, 8 years production experience). Builds and operates mcp.danielsuchan.dev — a public, free-tier-safe MCP server with 5 Cloudflare Workers AI tools, daily-budget circuit breaker, and 70+ unit tests. Co-Founder & CTO at Blaze (Czech 3-founder studio, 40% stake; sole programmer maintaining ~10 SaaS products). Flagship: Dzarvis — multi-agent assistant on Claude with narrow specialized subagents on top of a 208-tool MCP server, in stealth with 15 companies. Open to founding-engineer / staff IC roles at frontier AI labs. Based in Brno, Czech Republic. EU work authorization; visa sponsorship needed for US/UK/Israel/Japan/Singapore.
 
 ## About
 - [Profile](https://danielsuchan.dev/): Bio, projects, changelog
 - [Projects](https://danielsuchan.dev/projects): All shipped products and case studies
 - [Changelog](https://danielsuchan.dev/changelog): Daily shipping log across Dzarvis and 20+ other projects
+- [Bugs Fixed](https://danielsuchan.dev/bugs): Production debugging war stories — symptom, root cause, fix, impact, commit
 - [Writing](https://danielsuchan.dev/writing): Technical writing on multi-agent systems and AI infrastructure
+- [Case Studies](https://danielsuchan.dev/case-studies/dzarvis): Dzarvis architecture writeup
+- [Labs](https://danielsuchan.dev/labs): Subagent decomposer + MCP inspector demos
+
+## Public MCP server
+- Endpoint: `https://mcp.danielsuchan.dev/mcp` — Streamable HTTP transport
+- 12 tools: profile (get_profile, get_projects, get_recent_shipments, get_skills, ask_about_daniel, get_bug_fixes, get_curated_tweets) plus 5 Cloudflare Workers AI tools (ai_ask, ai_summarize, ai_classify, ai_extract_json, ai_translate)
+- Hardened: per-input length caps, sanitized public errors, KV-based daily-budget circuit breaker (80 calls/day → ~8K of 10K Neuron quota), 70+ unit tests
+- Connect from Claude Desktop: `npx mcp-remote https://mcp.danielsuchan.dev/mcp`
 
 ## Machine-readable
 - [profile.json](https://danielsuchan.dev/api/profile.json): JSON Resume schema (jsonresume.org)
 - [projects.json](https://danielsuchan.dev/api/projects.json): All projects as structured data
 - [changelog.json](https://danielsuchan.dev/api/changelog.json): Recent shipments
+- [bug-fixes.json](https://danielsuchan.dev/api/bug-fixes.json): Curated production bug fixes (symptom / root cause / fix / impact / commit)
 
 ## Contact
 - Email: mr.sucik@gmail.com
+- Phone: +420 777 783 404
 - LinkedIn: https://www.linkedin.com/in/daniel-suchan-6b8611162/
 - GitHub: https://github.com/MrSucik
+- Calendly: https://calendly.com/mr-sucik

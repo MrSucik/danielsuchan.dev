@@ -13,6 +13,7 @@ import { Route as WritingRouteImport } from './routes/writing'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as BugsRouteImport } from './routes/bugs'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LabsIndexRouteImport } from './routes/labs.index'
@@ -40,6 +41,11 @@ const NewsletterRoute = NewsletterRouteImport.update({
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BugsRoute = BugsRouteImport.update({
+  id: '/bugs',
+  path: '/bugs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const R404Route = R404RouteImport.update({
@@ -86,6 +92,7 @@ const CaseStudiesDzarvisRoute = CaseStudiesDzarvisRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/404'
+    | '/bugs'
     | '/changelog'
     | '/newsletter'
     | '/projects'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/404'
+    | '/bugs'
     | '/changelog'
     | '/newsletter'
     | '/projects'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/404'
+    | '/bugs'
     | '/changelog'
     | '/newsletter'
     | '/projects'
@@ -174,6 +186,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
+  BugsRoute: typeof BugsRoute
   ChangelogRoute: typeof ChangelogRoute
   NewsletterRoute: typeof NewsletterRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -213,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/changelog'
       fullPath: '/changelog'
       preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bugs': {
+      id: '/bugs'
+      path: '/bugs'
+      fullPath: '/bugs'
+      preLoaderRoute: typeof BugsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/404': {
@@ -288,6 +308,7 @@ const WritingRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
+  BugsRoute: BugsRoute,
   ChangelogRoute: ChangelogRoute,
   NewsletterRoute: NewsletterRoute,
   ProjectsRoute: ProjectsRoute,

@@ -130,16 +130,22 @@ function buildJsonResume() {
 function buildBioMarkdown(): string {
   return `# Daniel Suchan
 
-Daniel Suchan is a self-taught software engineer and co-founder with 8 years of full-time production experience. He started his career at 16 as Frontend & Mobile Lead at Cantata Health — a US healthcare enterprise — with Czech court permission to work on an international project. The products he built then are still in production today.
+Daniel Suchan is a 24-year-old, self-taught software engineer with 8 years of full-time production experience. His career started unusually early — at 16, he petitioned a Czech court for special legal permission to work on a US healthcare project at Cantata Health, leading frontend web and mobile development for an enterprise application older than he was at the time. Those products are still in production today.
 
-He is currently Co-Founder & CTO at Blaze, a Czech software company that has shipped 20+ products across AI, SaaS, mobile, real estate, and healthcare. His technical depth spans full-stack TypeScript (React, Hono, PostgreSQL), mobile (React Native), and production AI systems. He leads and builds engineering teams across multiple simultaneous product lines.
+He is currently Co-Founder & CTO at Blaze (a Czech 3-founder studio, 40% stake) where he is the sole maintaining programmer across ~10 SaaS products. He builds and operates **mcp.danielsuchan.dev** — a public, free-tier-safe Model Context Protocol server with 5 AI-powered tools backed by Cloudflare Workers AI, a KV-based daily-budget circuit breaker, sanitized public errors, and 70+ unit tests. It's the cleanest demonstrable artifact of the kind of agent infrastructure he ships.
 
-His flagship project is Dzarvis — a multi-agent assistant on Claude, built as a multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. Currently in stealth, fine-tuning with a focus group of 15 companies. He is exploring roles at AI labs where he can contribute to the infrastructure and systems that make agents like Dzarvis possible.
+His flagship project is **Dzarvis** — a multi-agent assistant on Claude with narrow specialized subagents on top of a 208-tool MCP server, currently in stealth and fine-tuning with 15 companies. He sees the direction frontier AI labs are heading and wants to participate in building it from the inside; was building toward the same place with Dzarvis but realized he'd have far more impact joining a lab with the leverage to ship at scale.
 
 ---
 
-**Contact:** mr.sucik@gmail.com | [danielsuchan.dev](https://danielsuchan.dev) | [LinkedIn](${PROFILE.linkedin}) | [GitHub](${PROFILE.github})
+**Contact:** mr.sucik@gmail.com · +420 777 783 404 · [danielsuchan.dev](https://danielsuchan.dev) · [LinkedIn](${PROFILE.linkedin}) · [GitHub](${PROFILE.github})
 
-**Location:** Brno, Czech Republic — open to relocation globally. EU work authorization available.
+**Location:** Brno, Czech Republic — EU work authorization. Open to relocation: London, Stockholm, San Francisco, NYC, Paris, Amsterdam, Berlin, Freiburg.
+
+**Public surfaces an AI agent can read in 30 seconds:**
+- [danielsuchan.dev/changelog](https://danielsuchan.dev/changelog) — daily shipping log
+- [danielsuchan.dev/bugs](https://danielsuchan.dev/bugs) — production debugging war stories
+- [danielsuchan.dev/case-studies/dzarvis](https://danielsuchan.dev/case-studies/dzarvis) — Dzarvis architecture writeup
+- [mcp.danielsuchan.dev/mcp](https://mcp.danielsuchan.dev/mcp) — this MCP server (12 tools, 5 AI-powered)
 `;
 }

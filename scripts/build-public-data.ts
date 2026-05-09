@@ -5,6 +5,7 @@
  *   - profile.json   — JSON Resume v1.0.0 schema (jsonresume.org/schema)
  *   - projects.json  — copy of src/data/projects.json
  *   - changelog.json — copy of src/data/changelog.json
+ *   - bug-fixes.json — copy of src/data/bug-fixes.json
  *
  * These are mirrored as static files so AI agents and recruiter tools can
  * fetch a single canonical artifact for any aspect of Daniel's profile.
@@ -177,15 +178,17 @@ function main(): void {
     join(SRC_DATA, "projects.json"),
   );
   const changelogData = readJSON<unknown>(join(SRC_DATA, "changelog.json"));
+  const bugFixesData = readJSON<unknown>(join(SRC_DATA, "bug-fixes.json"));
 
   const profile = buildProfile(projectsData.projects);
 
   writeJSON(join(API_DIR, "profile.json"), profile);
   writeJSON(join(API_DIR, "projects.json"), projectsData);
   writeJSON(join(API_DIR, "changelog.json"), changelogData);
+  writeJSON(join(API_DIR, "bug-fixes.json"), bugFixesData);
 
   console.log(
-    `Public data: dist/api/{profile.json, projects.json, changelog.json} written.`,
+    `Public data: dist/api/{profile.json, projects.json, changelog.json, bug-fixes.json} written.`,
   );
 }
 

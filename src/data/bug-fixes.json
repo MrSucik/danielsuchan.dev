@@ -1,0 +1,890 @@
+{
+  "fixes": [
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Workers AI rejects OpenAI-style response_format json_object",
+      "symptom": "ai_classify and ai_extract_json failed every call with '9015: invalid prompt: failed to parse prompt: unknown variant `json_object`, expected `json_schema`'",
+      "rootCause": "Cloudflare Workers AI in 2026 only accepts response_format type 'json_schema' with a concrete schema. The OpenAI-style 'json_object' is rejected \u2014 and ai_extract_json's schemaDescription is plain English from the user, so we can't construct one.",
+      "fix": "Removed the json flag from ChatOptions entirely. JSON-output tools now rely on system-prompt instructions + temperature 0 + safeParseJson with a new balanced-brace substring fallback that handles prose-wrapped JSON correctly (including escaped quotes inside string literals).",
+      "impact": "Restored all 5 AI tools end-to-end on mcp.danielsuchan.dev. Wrote a doc comment on the gotcha so future MCP integrations don't re-introduce the bug.",
+      "commit": "689be3a"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Health endpoint 500ed when env was undefined in vitest",
+      "symptom": "After exposing aiBudget on GET /, fetch-tests started returning 500 because c.env was undefined when the Worker was invoked outside Cloudflare.",
+      "rootCause": "Hono's c.env is undefined when app.fetch(req) is called without an env argument; reading c.env.MAX_AI_CALLS_PER_DAY threw 'cannot read properties of undefined'.",
+      "fix": "Added a defensive `(c.env ?? {}) as Partial<Bindings>` cast in the health-endpoint handler so vitest fetch-tests stay 200.",
+      "impact": "Tests can call app.fetch(new Request('/')) directly without staging a full Bindings shape. 66/66 tests green.",
+      "commit": "d1abadf"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Public MCP server leaked Workers AI internal trace IDs in error messages",
+      "symptom": "When the AI binding returned an unexpected shape, the thrown error message included up to 200 chars of the raw payload \u2014 surfacing internal trace IDs, account state, and partial prompt echoes to public callers.",
+      "rootCause": "extractText threw `new Error('Unexpected Workers AI response shape: ${JSON.stringify(raw).slice(0, 200)}')` and the MCP SDK piped error.message verbatim into the public CallToolResult.content.",
+      "fix": "Sanitized the message to a generic 'Workers AI returned an unexpected response shape' and console.error the raw shape server-side instead. Did the same for ai_classify and ai_extract_json's failure paths \u2014 log details, return generic isError to public callers.",
+      "impact": "Closed an info-leak vector on a public unauthenticated MCP endpoint. Operators still get full diagnostics in `wrangler tail`.",
+      "commit": "1c53bb6"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "dzarvis",
+      "title": "Wire configureFioBank mutation + extend deleteIntegration/setEnabled enums",
+      "commit": "c7fde9531"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "dzarvis",
+      "title": "Handle Fio date format, log unparseable rows, distinguish first-run from no-new-tx",
+      "commit": "95ee657f8"
+    },
+    {
+      "date": "2026-05-07",
+      "project": "dzarvis",
+      "title": "Persist skill_matched on first-turn short-circuit",
+      "commit": "e6eb7ca9f"
+    },
+    {
+      "date": "2026-05-07",
+      "project": "dzarvis",
+      "title": "Report raw value length in parse-failure warn log",
+      "commit": "cc0cdddad"
+    },
+    {
+      "date": "2026-05-07",
+      "project": "dzarvis",
+      "title": "Warn when JSON-shaped value fails to parse on structured namespace",
+      "commit": "beb6a18f1"
+    },
+    {
+      "date": "2026-05-07",
+      "project": "dzarvis",
+      "title": "Heal stringified value payloads at the tool boundary",
+      "commit": "b72e51144"
+    },
+    {
+      "date": "2026-05-07",
+      "project": "dzarvis",
+      "title": "Redact value content from parse-failure warn log",
+      "commit": "b36e61995"
+    },
+    {
+      "date": "2026-05-06",
+      "project": "dzarvis",
+      "title": "Isolate prompt to one skill on chip click + log model trace",
+      "commit": "cc08db8f5"
+    },
+    {
+      "date": "2026-05-06",
+      "project": "dzarvis",
+      "title": "Apply skill preferredModel before dispatch",
+      "commit": "ca44b385c"
+    },
+    {
+      "date": "2026-05-06",
+      "project": "dzarvis",
+      "title": "Use existing ChatMessage cost columns",
+      "commit": "579e3bf56"
+    },
+    {
+      "date": "2026-05-06",
+      "project": "dzarvis",
+      "title": "Force skill opening on chip-click + empty/greeting",
+      "commit": "51c5cb746"
+    },
+    {
+      "date": "2026-05-06",
+      "project": "dzarvis",
+      "title": "Pre-push skip also recognizes .claude/worktrees/ layout",
+      "commit": "2cd0499f6"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Tool_result events come via SDK user messages, not a top-level type",
+      "commit": "ea86ac8b5"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Drop assign-in-while-condition (biome lint)",
+      "commit": "ce2c49536"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Remove recurring \"Connect Google\" popup",
+      "commit": "c47c43258"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Drop inline jarvis_todo_write rendering, drawer-only",
+      "commit": "c20db5568"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Anchor engine handles label-then-line layout",
+      "commit": "b53de39eb"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Track tool calls by id so spinners flip per-row",
+      "commit": "9d5729882"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Stream token-level deltas from Claude Agent SDK",
+      "commit": "84cc81b0e"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Isolate prompt to chip-clicked skill + log model trace",
+      "commit": "72d26910b"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Claudecode-server passes wrong MCP transport literal to SDK",
+      "commit": "2dfe0f749"
+    },
+    {
+      "date": "2026-05-05",
+      "project": "dzarvis",
+      "title": "Stop silently remapping claude-agent and anthropic to OpenRouter",
+      "commit": "020fb9298"
+    },
+    {
+      "date": "2026-05-04",
+      "project": "dzarvis",
+      "title": "Coding-agent containers crash on startup \u2014 agent-server import path",
+      "commit": "fe9cd891a"
+    },
+    {
+      "date": "2026-05-04",
+      "project": "dzarvis",
+      "title": "Claudecode-server passes wrong MCP transport literal to SDK",
+      "commit": "d20c00757"
+    },
+    {
+      "date": "2026-05-04",
+      "project": "dzarvis",
+      "title": "Claudecode-server passes wrong tool option to SDK",
+      "commit": "b490ec5ef"
+    },
+    {
+      "date": "2026-05-04",
+      "project": "dzarvis",
+      "title": "Pass CLAUDE_CODE_OAUTH_TOKEN to coding-agent containers",
+      "commit": "ac1fb8d97"
+    },
+    {
+      "date": "2026-05-03",
+      "project": "dzarvis",
+      "title": "Enable Fargate capacity providers on cluster + clarify ECR comment",
+      "commit": "e93b27e30"
+    },
+    {
+      "date": "2026-05-03",
+      "project": "dzarvis",
+      "title": "Use /v1/health (GET) for healthcheck instead of /v1/about (HEAD)",
+      "commit": "d0741a113"
+    },
+    {
+      "date": "2026-05-03",
+      "project": "dzarvis",
+      "title": "T212 positions endpoint maxSell + fxPpl nullable",
+      "commit": "cdf50202a"
+    },
+    {
+      "date": "2026-05-03",
+      "project": "dzarvis",
+      "title": "Preserve favorites order when adding new static favorites",
+      "commit": "7fab48af5"
+    },
+    {
+      "date": "2026-05-02",
+      "project": "danielsuchan-dev",
+      "title": "Public site claimed Dzarvis features that weren't verifiable",
+      "symptom": "Site referenced specific subagent counts, $/day pricing, dual-review verification, content-hash caching, and per-domain trigger detection \u2014 none verifiable as shipped.",
+      "rootCause": "Earlier session populated copy from speculative architecture ideas rather than verified production behavior.",
+      "fix": "Stripped every unverified claim. Added a strict bio_canonical memory listing exactly which Dzarvis claims may appear in public artifacts ('multi-agent assistant on Claude', '208-tool MCP server', '15 fine-tuning companies', 'stealth mode') and which must NEVER appear.",
+      "impact": "Site now reflects only verifiable facts; future content generation has a clear allowlist/blocklist to ground against.",
+      "commit": "8071cc1"
+    },
+    {
+      "date": "2026-05-02",
+      "project": "dzarvis",
+      "title": "Drop response cache from fix-generation path",
+      "commit": "5c3cf0613"
+    },
+    {
+      "date": "2026-05-01",
+      "project": "dzarvis",
+      "title": "Narrow attendee write type and document race window",
+      "commit": "fae4701f2"
+    },
+    {
+      "date": "2026-05-01",
+      "project": "dzarvis",
+      "title": "Respond-to-event review fixes + unit tests",
+      "commit": "bd281c05e"
+    },
+    {
+      "date": "2026-04-30",
+      "project": "dzarvis",
+      "title": "Address pr-review findings",
+      "commit": "e16718c1a"
+    },
+    {
+      "date": "2026-04-30",
+      "project": "dzarvis",
+      "title": "Install node-gyp globally before compiling paste native addon",
+      "commit": "b72a60d28"
+    },
+    {
+      "date": "2026-04-30",
+      "project": "dzarvis",
+      "title": "Downgrade template user-input failures from error to warn",
+      "commit": "1ed202cb9"
+    },
+    {
+      "date": "2026-04-29",
+      "project": "dzarvis",
+      "title": "Only auto-promote skills whose keywords match the user message",
+      "commit": "6e578e7d5"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Reduce sentry noise from amundi/conversation/agent",
+      "commit": "b3c38237d"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Auto-enable sharing on pdf/xlsx/docx generate",
+      "commit": "7f17dc753"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Use account/cash for financial fields after API shape change",
+      "commit": "5b52d04f9"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Validate fill.filledAt and refresh quantity on order updates",
+      "commit": "4f8359f9b"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Address pr-review-toolkit findings on round-1",
+      "commit": "4507e3bc1"
+    },
+    {
+      "date": "2026-04-28",
+      "project": "dzarvis",
+      "title": "Handle nested {order, fill} shape from orders endpoint",
+      "commit": "20eb26236"
+    },
+    {
+      "date": "2026-04-27",
+      "project": "dzarvis",
+      "title": "Detect empty model responses in scheduled jobs and default kv_query action",
+      "commit": "b32bfcc9b"
+    },
+    {
+      "date": "2026-04-27",
+      "project": "dzarvis",
+      "title": "Narrow getAccessibleTemplateIds prisma type",
+      "commit": "ad4a97e55"
+    },
+    {
+      "date": "2026-04-27",
+      "project": "dzarvis",
+      "title": "Round-4 follow-up \u2014 unshare safety + skip ordering + sharedById rebind",
+      "commit": "80cce2003"
+    },
+    {
+      "date": "2026-04-27",
+      "project": "dzarvis",
+      "title": "Surface auth failures instead of swallowing them",
+      "commit": "34478b6c2"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Ship missing migrations for Google Drive/Contacts/Tasks tables",
+      "commit": "fc4f00f36"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Scrub Authorization headers from errors before pino/Sentry",
+      "commit": "f93c1fc6a"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Harden prod deploy against outage replayed on 2026-04-23",
+      "commit": "e0cf7c0bd"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Harden media path traversal and embedding hash",
+      "commit": "e08ee3219"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Take newest 50 messages for failure context",
+      "commit": "a7f21524b"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Reject partial account info to stop NaN cron crashes",
+      "commit": "8f614590a"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Enforce userId scoping on action-confirmation tokens",
+      "commit": "7280a61d0"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Revert schema comment to keep prisma diff empty",
+      "commit": "6f88188bf"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Import sonner styles to restore toast layout",
+      "commit": "65b22759a"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Harden SSRF redirects, rate limits, user-enumeration oracle",
+      "commit": "5fa91f8d0"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Drop orphaned kosik entry from DomainConfig",
+      "commit": "284ecbce4"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Scrub log secrets, harden Trading212 NaN, ship Drive/Tasks/Contacts migration",
+      "commit": "25c498423"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Preserve included relation type in schedule router factory",
+      "commit": "1f61ebf33"
+    },
+    {
+      "date": "2026-04-25",
+      "project": "dzarvis",
+      "title": "Use crypto.randomBytes for locks + temp paths, fail-closed on MCP token cache write",
+      "commit": "04689b3e8"
+    },
+    {
+      "date": "2026-04-23",
+      "project": "dzarvis",
+      "title": "TaskAuditHistory.user should SetNull to preserve audit trail on user delete",
+      "commit": "d16fbe373"
+    },
+    {
+      "date": "2026-04-23",
+      "project": "dzarvis",
+      "title": "Log user scoping divergence + discriminate token-not-found causes",
+      "commit": "d159f5fb4"
+    },
+    {
+      "date": "2026-04-23",
+      "project": "dzarvis",
+      "title": "Restore concrete Prisma return types in schedule router factory",
+      "commit": "c590eadd7"
+    },
+    {
+      "date": "2026-04-20",
+      "project": "dzarvis",
+      "title": "Use hybrid search instead of keyword-only fallback in qa",
+      "commit": "35e2b114f"
+    },
+    {
+      "date": "2026-04-16",
+      "project": "dzarvis",
+      "title": "Flag disconnect on Account instead of leaving a ghost",
+      "commit": "9e6420961"
+    },
+    {
+      "date": "2026-04-14",
+      "project": "dzarvis",
+      "title": "Start skill workflow immediately on empty initial message",
+      "commit": "ace159549"
+    },
+    {
+      "date": "2026-04-14",
+      "project": "dzarvis",
+      "title": "Correct stale-session error message to point at the right fix",
+      "commit": "20a981951"
+    },
+    {
+      "date": "2026-04-13",
+      "project": "dzarvis",
+      "title": "Replace opaque \"I encountered an issue\" fallback with actionable diagnostics",
+      "commit": "951d215f3"
+    },
+    {
+      "date": "2026-04-11",
+      "project": "dzarvis",
+      "title": "Stop replaying raw prior-run output into scheduled-job LLM context",
+      "commit": "6dbca0882"
+    },
+    {
+      "date": "2026-04-10",
+      "project": "dzarvis",
+      "title": "Add missing import for builtinPdfTemplates, increase confirmer timeout",
+      "commit": "a1270df97"
+    },
+    {
+      "date": "2026-04-10",
+      "project": "dzarvis",
+      "title": "Repair mobile-ios-ipa.yml workflow YAML parse error",
+      "commit": "134482f8a"
+    },
+    {
+      "date": "2026-04-08",
+      "project": "dzarvis",
+      "title": "Replace any types with proper types in chart components",
+      "commit": "32e20fbce"
+    },
+    {
+      "date": "2026-04-07",
+      "project": "dzarvis",
+      "title": "Disable iOS App Store link with coming soon label",
+      "commit": "8360d1eba"
+    },
+    {
+      "date": "2026-04-07",
+      "project": "dzarvis",
+      "title": "Restore minimized window on Cmd+Tab activate",
+      "commit": "405a59b2b"
+    },
+    {
+      "date": "2026-04-06",
+      "project": "dzarvis",
+      "title": "Add migration for 9 tables missing from RDS",
+      "commit": "adefdc33b"
+    },
+    {
+      "date": "2026-04-06",
+      "project": "dzarvis",
+      "title": "Read app version from git tag instead of stale package.json",
+      "commit": "1137f2671"
+    },
+    {
+      "date": "2026-04-05",
+      "project": "dzarvis",
+      "title": "Limit Gemini Live voice tools to voice-compatible domains",
+      "commit": "7e47a26a0"
+    },
+    {
+      "date": "2026-04-02",
+      "project": "dzarvis",
+      "title": "Add new free tier models to server-side curated whitelist",
+      "commit": "cf20497ec"
+    },
+    {
+      "date": "2026-04-02",
+      "project": "dzarvis",
+      "title": "Handle journal stats gracefully for new users with no entries",
+      "commit": "2be5ea62f"
+    },
+    {
+      "date": "2026-04-01",
+      "project": "dzarvis",
+      "title": "Remove non-existent /api/health/ready check from CI deploy",
+      "commit": "2978b0647"
+    },
+    {
+      "date": "2026-03-31",
+      "project": "dzarvis",
+      "title": "Show typing indicator dots when AI is processing",
+      "commit": "612632833"
+    },
+    {
+      "date": "2026-03-30",
+      "project": "dzarvis",
+      "title": "Resolve Outlook email display bugs",
+      "commit": "b0e0a7828"
+    },
+    {
+      "date": "2026-03-29",
+      "project": "dzarvis",
+      "title": "Store OAuth tokens server-side and fix premature cache deletion",
+      "commit": "ce2323db0"
+    },
+    {
+      "date": "2026-03-29",
+      "project": "dzarvis",
+      "title": "Prevent empty and malformed TRPCError messages in Sentry",
+      "commit": "1f05d5ee6"
+    },
+    {
+      "date": "2026-03-28",
+      "project": "dzarvis",
+      "title": "Resolve 3 App Store rejection issues for iOS 1.2.0",
+      "commit": "6a9422feb"
+    },
+    {
+      "date": "2026-03-27",
+      "project": "dzarvis",
+      "title": "Support ZodRecord schemas in Claude Agent SDK tool registration",
+      "commit": "089f17073"
+    },
+    {
+      "date": "2026-03-25",
+      "project": "nemoskop",
+      "title": "Add missing indexes (uq_listings_source_id) to startup migration",
+      "commit": "a4416cf"
+    },
+    {
+      "date": "2026-03-25",
+      "project": "dzarvis",
+      "title": "Increase subagent delegate timeout to 5 minutes",
+      "commit": "26029502d"
+    },
+    {
+      "date": "2026-03-24",
+      "project": "dzarvis",
+      "title": "Regenerate lockfile for cmdk dependency",
+      "commit": "babe433a0"
+    },
+    {
+      "date": "2026-03-24",
+      "project": "dzarvis",
+      "title": "Update infra test for 8GB memory",
+      "commit": "66c91e2f6"
+    },
+    {
+      "date": "2026-03-23",
+      "project": "dzarvis",
+      "title": "Remove background location to resolve App Store rejection 2.5.4",
+      "commit": "ea87336b0"
+    },
+    {
+      "date": "2026-03-23",
+      "project": "jarvischeck",
+      "title": "Add userId filter to domains API, validate limit, remove dead hooks",
+      "commit": "1a732f2"
+    },
+    {
+      "date": "2026-03-21",
+      "project": "dzarvis",
+      "title": "Prevent search bar overflow on narrow screens (390px)",
+      "commit": "9bcf4181c"
+    },
+    {
+      "date": "2026-03-20",
+      "project": "dzarvis",
+      "title": "Replace osascript keystroke with native CGEvent paste helper",
+      "commit": "f90912466"
+    },
+    {
+      "date": "2026-03-20",
+      "project": "dzarvis",
+      "title": "Use System Events to re-focus target app instead of direct activate",
+      "commit": "7ec14df6d"
+    },
+    {
+      "date": "2026-03-20",
+      "project": "dzarvis",
+      "title": "Add missing closing braces in snooze-email job config",
+      "commit": "409a3e397"
+    },
+    {
+      "date": "2026-03-19",
+      "project": "dzarvis",
+      "title": "Optimize dashboard rendering performance",
+      "commit": "a3481aff8"
+    },
+    {
+      "date": "2026-03-18",
+      "project": "dzarvis",
+      "title": "Disable native back gesture so left swipe opens web drawer",
+      "commit": "d6d3b5269"
+    },
+    {
+      "date": "2026-03-18",
+      "project": "dzarvis",
+      "title": "Move voice transcript preview to floating element above chat input",
+      "commit": "653c52d04"
+    },
+    {
+      "date": "2026-03-17",
+      "project": "dzarvis",
+      "title": "Upgrade react-native-reanimated to 4.2.2 for RN 0.81 Fabric fix",
+      "commit": "de2f32572"
+    },
+    {
+      "date": "2026-03-17",
+      "project": "dzarvis",
+      "title": "Convert Prisma Decimal averageRating to Number in series/movies stats",
+      "commit": "848264559"
+    },
+    {
+      "date": "2026-03-17",
+      "project": "dzarvis",
+      "title": "Use proper macOS template tray icons",
+      "commit": "2a1c726eb"
+    },
+    {
+      "date": "2026-03-16",
+      "project": "dzarvis",
+      "title": "Improve MCP server connection stability",
+      "commit": "44929cfc1"
+    },
+    {
+      "date": "2026-03-12",
+      "project": "dzarvis",
+      "title": "Correct IntegrationType enum values in remove_torrent_csfd migration",
+      "commit": "3ff55c2b4"
+    },
+    {
+      "date": "2026-03-10",
+      "project": "dzarvis",
+      "title": "Add scroll to tool picker dropdown",
+      "commit": "1c7aff661"
+    },
+    {
+      "date": "2026-03-07",
+      "project": "dzarvis",
+      "title": "Remove strict tool binding and surface LLM error details",
+      "commit": "5a21d6315"
+    },
+    {
+      "date": "2026-03-05",
+      "project": "dzarvis",
+      "title": "Use proper tray and notification icons for Jarvis desktop",
+      "commit": "8b17e0989"
+    },
+    {
+      "date": "2026-03-02",
+      "project": "dzarvis",
+      "title": "Reduce Sentry noise from expected errors (~550 events)",
+      "commit": "3e4fabb7d"
+    },
+    {
+      "date": "2026-02-26",
+      "project": "nemoskop",
+      "title": "Create OAuth tables via SQL on startup instead of drizzle-kit push",
+      "commit": "1432821"
+    },
+    {
+      "date": "2026-02-24",
+      "project": "dzarvis",
+      "title": "Increase SSM command timeout to 900s (15 min)",
+      "commit": "68dc106a8"
+    },
+    {
+      "date": "2026-02-21",
+      "project": "dzarvis",
+      "title": "Revert VITE_API_URL default to API subdomain",
+      "commit": "f6220434a"
+    },
+    {
+      "date": "2026-02-20",
+      "project": "dzarvis",
+      "title": "Add GitHub Packages auth to CI workflows and Dockerfiles",
+      "commit": "62137b94b"
+    },
+    {
+      "date": "2026-02-19",
+      "project": "dzarvis",
+      "title": "Resolve email verification redirect loop and add sign-out escape",
+      "commit": "b491eba00"
+    },
+    {
+      "date": "2026-02-18",
+      "project": "dzarvis",
+      "title": "Redirect to dashboard after email verification instead of API",
+      "commit": "ae40264b3"
+    },
+    {
+      "date": "2026-02-15",
+      "project": "dzarvis",
+      "title": "Correct heic-convert type declaration to use ArrayBuffer",
+      "commit": "fc8dc91c2"
+    },
+    {
+      "date": "2026-02-14",
+      "project": "nemoskop",
+      "title": "Replace title font and fix landing page layout issues",
+      "commit": "c625c1a"
+    },
+    {
+      "date": "2026-02-14",
+      "project": "nemoskop",
+      "title": "Decode RUIAN CSV as Windows-1250 and fix Bezrealitky HTML scraper",
+      "commit": "7dc5e7a"
+    },
+    {
+      "date": "2026-02-14",
+      "project": "uniklo",
+      "title": "Use normal document scrolling for mobile compatibility",
+      "commit": "26f9b62"
+    },
+    {
+      "date": "2026-02-12",
+      "project": "dzarvis",
+      "title": "Resolve 546 TypeScript errors across all packages",
+      "commit": "7d5b2a3bf"
+    },
+    {
+      "date": "2026-02-11",
+      "project": "dzarvis",
+      "title": "Remove Slack message sync page limit to fetch full history",
+      "commit": "16200c8b9"
+    },
+    {
+      "date": "2026-02-07",
+      "project": "dzarvis",
+      "title": "Make chat screen non-scrollable and fullscreen on desktop",
+      "commit": "edf37d5f4"
+    },
+    {
+      "date": "2026-02-05",
+      "project": "dzarvis",
+      "title": "Register sauna and invisalign routers, fix speedtest auth",
+      "commit": "f3659cf9a"
+    },
+    {
+      "date": "2026-02-02",
+      "project": "dzarvis",
+      "title": "Remove CalorieSettings from soft delete models",
+      "commit": "e964faff1"
+    },
+    {
+      "date": "2026-02-01",
+      "project": "dzarvis",
+      "title": "Use data-test-id selector for Wolt Continue button",
+      "commit": "c4f3eff04"
+    },
+    {
+      "date": "2026-02-01",
+      "project": "dzarvis",
+      "title": "Update Wolt scraper selectors for new UI structure",
+      "commit": "1b1aac88c"
+    },
+    {
+      "date": "2026-01-31",
+      "project": "dzarvis",
+      "title": "Update wolt scraper selectors for new login UI",
+      "commit": "95c2f9333"
+    },
+    {
+      "date": "2026-01-21",
+      "project": "dzarvis",
+      "title": "Allow GET stream session bootstrap",
+      "commit": "c7d8a312d"
+    },
+    {
+      "date": "2026-01-17",
+      "project": "dzarvis",
+      "title": "Remove invalid 'sleep' scope from Oura OAuth and add debug endpoint",
+      "commit": "afe361eb2"
+    },
+    {
+      "date": "2026-01-14",
+      "project": "dzarvis",
+      "title": "Resolve data source issues for personalities, skills, and memories",
+      "commit": "7f19d745f"
+    },
+    {
+      "date": "2026-01-09",
+      "project": "dzarvis",
+      "title": "Copy pnpm-lock.yaml and .npmrc to production stage for consistent dependency resolution",
+      "commit": "018414caf"
+    },
+    {
+      "date": "2026-01-06",
+      "project": "dzarvis",
+      "title": "Pass theme options directly to daisyui plugin call",
+      "commit": "abf92239c"
+    },
+    {
+      "date": "2026-01-05",
+      "project": "dzarvis",
+      "title": "Use expose instead of ports for ollama service",
+      "commit": "dfd0daacd"
+    },
+    {
+      "date": "2026-01-05",
+      "project": "dzarvis",
+      "title": "Improve login error handling and increase rate limit",
+      "commit": "018f7ec38"
+    },
+    {
+      "date": "2026-01-04",
+      "project": "dzarvis",
+      "title": "Add expo-network peer dependency for @better-auth/expo",
+      "commit": "536fb65e7"
+    },
+    {
+      "date": "2026-01-03",
+      "project": "dzarvis",
+      "title": "Tasks tab positioning and back button labels",
+      "commit": "26df68996"
+    },
+    {
+      "date": "2026-01-01",
+      "project": "dzarvis",
+      "title": "Add defaultValues to edit forms for Select prefill",
+      "commit": "b72e74a79"
+    },
+    {
+      "date": "2025-12-21",
+      "project": "dzarvis",
+      "title": "Add expose ports, healthchecks for Traefik routing",
+      "commit": "72cdf961c"
+    },
+    {
+      "date": "2025-09-26",
+      "project": "dzarvis",
+      "title": "Resolve TypeScript errors in GitHub and Clockify integrations",
+      "commit": "0890360b3"
+    },
+    {
+      "date": "2025-07-24",
+      "project": "jarvischeck",
+      "title": "Mobile overflow on status page",
+      "commit": "b41dfbf"
+    },
+    {
+      "date": "2025-03-08",
+      "project": "dzarvis",
+      "title": "Remove proforma",
+      "commit": "bef52bcc7"
+    }
+  ]
+}

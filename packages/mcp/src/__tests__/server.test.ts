@@ -16,6 +16,13 @@ const EXPECTED_TOOLS = [
   "get_recent_shipments",
   "get_skills",
   "ask_about_daniel",
+  "get_bug_fixes",
+  "get_curated_tweets",
+  "ai_ask",
+  "ai_summarize",
+  "ai_classify",
+  "ai_extract_json",
+  "ai_translate",
 ];
 
 const EXPECTED_RESOURCES = ["resume://daniel.json", "bio://daniel.md"];
@@ -23,10 +30,14 @@ const EXPECTED_RESOURCES = ["resume://daniel.json", "bio://daniel.md"];
 describe("MCP Server — tool registration", () => {
   it("exports all expected tool names in the manifest", async () => {
     const { registerTools } = await import("../tools.js");
+    const { registerAiTools } = await import("../ai/tools.js");
     const { McpServer } = await import("@modelcontextprotocol/sdk/server/mcp.js");
 
     const server = new McpServer({ name: "test", version: "0.0.1" });
     registerTools(server);
+    // AI tools require an env binding; supply a no-op stub since this test only
+    // verifies registration, never invokes the tools.
+    registerAiTools(server, { AI: { run: async () => ({ response: "" }) } });
 
     // Access registered tools via the internal map.
     // McpServer stores registered tools in _registeredTools (SDK v1.x).
