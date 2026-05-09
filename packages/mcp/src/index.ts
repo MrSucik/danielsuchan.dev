@@ -2,13 +2,19 @@ import { StreamableHTTPTransport } from "@hono/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import type { AIBinding } from "./ai/client.js";
+import { registerAiTools } from "./ai/tools.js";
 import { registerResources } from "./resources.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
-const SERVER_VERSION = "1.0.0";
+const SERVER_VERSION = "1.1.0";
 
-const app = new Hono();
+type Bindings = {
+  AI: AIBinding;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
 
 // Allow Claude Desktop and other MCP clients to connect cross-origin.
 app.use(
@@ -30,6 +36,7 @@ app.all("/mcp", async (c) => {
 
   registerTools(server);
   registerResources(server);
+  registerAiTools(server, { AI: c.env.AI });
 
   const transport = new StreamableHTTPTransport();
   await server.connect(transport);
@@ -49,6 +56,11 @@ app.get("/", (c) =>
       "get_recent_shipments",
       "get_skills",
       "ask_about_daniel",
+      "ai_ask",
+      "ai_summarize",
+      "ai_classify",
+      "ai_extract_json",
+      "ai_translate",
     ],
     resources: ["resume://daniel.json", "bio://daniel.md"],
   })

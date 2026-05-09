@@ -53,9 +53,16 @@ curl -X POST https://mcp.danielsuchan.dev/mcp \
 curl -X POST https://mcp.danielsuchan.dev/mcp \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"ask_about_daniel","arguments":{"question":"Is Daniel open to relocation?"}}}'
+
+# Summarize text via Workers AI
+curl -X POST https://mcp.danielsuchan.dev/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"ai_summarize","arguments":{"text":"<long text>","length":"short"}}}'
 ```
 
 ## Tools available
+
+### Profile tools (deterministic, no LLM)
 
 | Tool | Description |
 |------|-------------|
@@ -64,6 +71,20 @@ curl -X POST https://mcp.danielsuchan.dev/mcp \
 | `get_recent_shipments` | Recent entries from the public changelog. Default: last 30 days |
 | `get_skills` | Verified technical skills (production-verified, not self-reported) |
 | `ask_about_daniel` | Free-form question → curated answer. Covers experience, education, salary, location, visa, availability, remote, and more |
+
+### AI tools (Cloudflare Workers AI)
+
+These delegate to a small LLM running on Cloudflare Workers AI. Default model is `@cf/meta/llama-3.1-8b-instruct` — cheap, fast, ≈30–100 Neurons per call. Free tier covers ~10K Neurons/day.
+
+| Tool | Description |
+|------|-------------|
+| `ai_ask` | Free-form Q&A. Optional `system` prompt and `model` override. |
+| `ai_summarize` | Summarize text. `length` ∈ short/medium/long, optional `style` hint. |
+| `ai_classify` | Classify into one of provided `labels`. Returns `{label, rationale}` as structured content. |
+| `ai_extract_json` | Extract structured JSON from unstructured text given a plain-English `schema_description`. |
+| `ai_translate` | Translate to `target_language`. Source auto-detected unless `source_language` is given. |
+
+Available models (override per-call via `model` arg): `llama-3.1-8b` (default), `llama-3.3-70b`, `qwen-32b-coder`, `gemma-7b`.
 
 ## Resources available
 

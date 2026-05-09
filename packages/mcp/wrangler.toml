@@ -6,3 +6,8 @@ compatibility_flags = ["nodejs_compat"]
 [[routes]]
 pattern = "mcp.danielsuchan.dev/*"
 zone_name = "danielsuchan.dev"
+
+# Workers AI binding — exposes env.AI to AI-powered tools (ai_ask, ai_summarize, etc).
+# Free tier: ~10K Neurons/day. Default model llama-3.1-8b-instruct ≈ 30–100 neurons/call.
+[ai]
+binding = "AI"
