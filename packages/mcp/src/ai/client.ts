@@ -32,10 +32,16 @@ export type ChatOptions = {
   model?: ModelKey;
   maxTokens?: number;
   temperature?: number;
-  json?: boolean;
   /** Wall-clock timeout in ms. Defaults to 30s. */
   timeoutMs?: number;
 };
+
+// NOTE: We intentionally don't set Workers AI's `response_format` field.
+// As of 2026, Workers AI only accepts `{type: "json_schema", json_schema: {...}}`
+// with a concrete schema — the OpenAI-style `{type: "json_object"}` returns
+// `9015: invalid prompt: unknown variant 'json_object'`. Tools that need
+// JSON output rely on system-prompt instructions + safeParseJson + low
+// temperature, which is reliable enough for the small set we ship.
 
 const DEFAULT_TIMEOUT_MS = 30_000;
 
@@ -50,7 +56,6 @@ export async function runChat(
     // can override per-call when they legitimately need longer output.
     maxTokens = 512,
     temperature = 0.2,
-    json = false,
     timeoutMs = DEFAULT_TIMEOUT_MS,
   } = options;
 
@@ -59,9 +64,6 @@ export async function runChat(
     max_tokens: maxTokens,
     temperature,
   };
-  if (json) {
-    inputs.response_format = { type: "json_object" };
-  }
 
   const raw = await withTimeout(ai.run(resolveModel(model), inputs), timeoutMs);
   return extractText(raw);
@@ -97,10 +99,12 @@ function extractText(raw: unknown): string {
 }
 
 /**
- * Strips ```json fences the model occasionally adds despite system instructions,
- * then JSON.parses. Returns null on any failure or if the parsed value isn't a
- * plain object (arrays / primitives are rejected). Reasons are logged
- * server-side so operators can diagnose without leaking model output to clients.
+ * Best-effort JSON object extraction from raw model output. Tries in order:
+ *   1. Strip optional ```json / ``` fences and parse the whole string
+ *   2. Find the first balanced `{...}` substring and parse that
+ * Returns null if neither yields a plain object (arrays / primitives rejected).
+ * Reasons are logged server-side so operators can diagnose without leaking
+ * model output to public clients.
  */
 export function safeParseJson(raw: string): Record<string, unknown> | null {
   const stripped = raw
@@ -108,22 +112,59 @@ export function safeParseJson(raw: string): Record<string, unknown> | null {
     .replace(/^```json\s*/i, "")
     .replace(/^```\s*/, "")
     .replace(/\s*```$/, "");
-  let parsed: unknown;
+  const fromStripped = tryParseObject(stripped);
+  if (fromStripped) return fromStripped;
+  const fromBraces = extractBalancedObject(stripped);
+  if (fromBraces) {
+    const fromBracesParsed = tryParseObject(fromBraces);
+    if (fromBracesParsed) return fromBracesParsed;
+  }
+  console.warn("safeParseJson: no JSON object found", {
+    preview: stripped.slice(0, 120),
+  });
+  return null;
+}
+
+function tryParseObject(s: string): Record<string, unknown> | null {
   try {
-    parsed = JSON.parse(stripped);
-  } catch (err) {
-    console.warn("safeParseJson: JSON.parse failed", {
-      error: err instanceof Error ? err.message : String(err),
-      preview: stripped.slice(0, 120),
-    });
+    const parsed: unknown = JSON.parse(s);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as Record<string, unknown>;
+    }
+    return null;
+  } catch {
     return null;
   }
-  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
-    return parsed as Record<string, unknown>;
+}
+
+// Scans for the first `{...}` whose braces balance, ignoring braces inside
+// string literals. Cheap enough for Worker CPU budget on the inputs we accept.
+function extractBalancedObject(s: string): string | null {
+  const start = s.indexOf("{");
+  if (start === -1) return null;
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < s.length; i++) {
+    const c = s[i];
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (c === "\\") {
+      escape = true;
+      continue;
+    }
+    if (c === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (c === "{") depth++;
+    else if (c === "}") {
+      depth--;
+      if (depth === 0) return s.slice(start, i + 1);
+    }
   }
-  console.warn("safeParseJson: parsed value is not a plain object", {
-    type: typeof parsed,
-    isArray: Array.isArray(parsed),
-  });
   return null;
 }

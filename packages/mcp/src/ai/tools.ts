@@ -200,7 +200,7 @@ function registerClassify(server: McpServer, env: Bindings): void {
               content: `Labels: ${JSON.stringify(labels)}\n\nText:\n${text}`,
             },
           ],
-          { model, json: true, temperature: 0 }
+          { model, temperature: 0 }
         );
       } catch (err) {
         return aiErrorResult("ai_classify", err);
@@ -264,7 +264,7 @@ function registerExtractJson(server: McpServer, env: Bindings): void {
             },
             { role: "user", content: text },
           ],
-          { model, json: true, temperature: 0 }
+          { model, temperature: 0 }
         );
       } catch (err) {
         return aiErrorResult("ai_extract_json", err);

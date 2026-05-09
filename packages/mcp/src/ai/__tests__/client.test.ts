@@ -67,10 +67,9 @@ describe("runChat", () => {
     );
   });
 
-  it("forwards json + temperature options to the binding", async () => {
+  it("forwards temperature + maxTokens to the binding", async () => {
     const run = vi.fn().mockResolvedValue({ response: "ok" });
     await runChat({ run }, [{ role: "user", content: "hi" }], {
-      json: true,
       temperature: 0,
       maxTokens: 100,
     });
@@ -79,12 +78,11 @@ describe("runChat", () => {
       expect.objectContaining({
         max_tokens: 100,
         temperature: 0,
-        response_format: { type: "json_object" },
       })
     );
   });
 
-  it("omits response_format when json is false", async () => {
+  it("never sets response_format (Workers AI rejects json_object)", async () => {
     const run = vi.fn().mockResolvedValue({ response: "ok" });
     await runChat({ run }, [{ role: "user", content: "hi" }]);
     const inputs = run.mock.calls[0][1] as Record<string, unknown>;
@@ -128,5 +126,27 @@ describe("safeParseJson", () => {
 
   it("returns null on trailing-comma JSON (we don't tolerate JSON5)", () => {
     expect(safeParseJson('{"a": 1,}')).toBeNull();
+  });
+
+  it("extracts a balanced {...} from prose around it", () => {
+    expect(
+      safeParseJson('Here is your JSON:\n{"a": 1, "b": "ok"}\nHope this helps!')
+    ).toEqual({ a: 1, b: "ok" });
+  });
+
+  it("handles braces inside string literals when extracting", () => {
+    expect(
+      safeParseJson('Here: {"label": "greeting", "rationale": "{not real}"}!!')
+    ).toEqual({ label: "greeting", rationale: "{not real}" });
+  });
+
+  it("handles escaped quotes inside string literals", () => {
+    expect(safeParseJson('text {"a": "say \\"hi\\""} done')).toEqual({
+      a: 'say "hi"',
+    });
+  });
+
+  it("returns null when no balanced object exists", () => {
+    expect(safeParseJson("just some words { with one open brace")).toBeNull();
   });
 });
