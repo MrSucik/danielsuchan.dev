@@ -71,6 +71,8 @@ curl -X POST https://mcp.danielsuchan.dev/mcp \
 | `get_recent_shipments` | Recent entries from the public changelog. Default: last 30 days |
 | `get_skills` | Verified technical skills (production-verified, not self-reported) |
 | `ask_about_daniel` | Free-form question → curated answer. Covers experience, education, salary, location, visa, availability, remote, and more |
+| `get_bug_fixes` | Curated production bug fixes — symptom, root cause, fix, impact, commit. Recent and verifiable, not a comprehensive career log. |
+| `get_curated_tweets` | Latest snapshot from Daniel's twitter-agent pipeline (~136 handles, filtered for niche/high-signal AI + finance content). Slice via `section` arg. |
 
 ### AI tools (Cloudflare Workers AI)
 
