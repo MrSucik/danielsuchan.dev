@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 # screenshots
 newsletter-*.png
+coverage/
+packages/*/coverage/
