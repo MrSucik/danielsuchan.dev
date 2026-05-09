@@ -35,6 +35,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Typecheck MCP
+        run: pnpm --filter @danielsuchan/mcp typecheck
+
+      - name: Test MCP
+        run: pnpm --filter @danielsuchan/mcp test
+
       - name: Build SPA
         run: pnpm build
 
