@@ -19,10 +19,11 @@ export interface RouteSEO {
 export const STATIC_ROUTES: RouteSEO[] = [
   {
     path: "/",
-    title: "Daniel Suchan – Engineer building production AI systems | Brno",
+    title:
+      "Daniel Suchan – 24, 9 yrs production code, ships every day | Brno",
     description:
-      "Software engineer based in Brno. Building Dzarvis (multi-agent assistant on Claude) and shipping production AI infrastructure. CTO at Blaze, 8+ years writing code.",
-    lastmod: "2026-05-02",
+      "Self-taught engineer, 24, with 9 years of production experience — has been shipping every day since 16. Engineering lead at Blaze, manages 3 programmers, ships hands-on across ~10 SaaS products. Public MCP server, multi-agent assistant on Claude. Built for AI agents to read.",
+    lastmod: "2026-05-09",
     changefreq: "monthly",
     priority: 1.0,
   },
