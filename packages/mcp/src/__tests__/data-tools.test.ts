@@ -159,6 +159,128 @@ describe("get_bug_fixes", () => {
   });
 });
 
+describe("get_writing", () => {
+  it("returns the index without bodies by default", async () => {
+    const result = await tool(makeServer(), "get_writing")({});
+    const data = JSON.parse(result.content[0].text);
+    expect(data.count).toBeGreaterThan(0);
+    expect(data.posts[0].slug).toBeTruthy();
+    expect(data.posts[0].body).toBeUndefined();
+  });
+
+  it("returns full bodies when includeBodies=true", async () => {
+    const result = await tool(makeServer(), "get_writing")({ includeBodies: true });
+    const data = JSON.parse(result.content[0].text);
+    expect(data.posts[0].body.length).toBeGreaterThan(0);
+  });
+
+  it("returns a single post with body when slug is provided", async () => {
+    const result = await tool(makeServer(), "get_writing")({
+      slug: "agent-sandboxes-infra",
+    });
+    const post = JSON.parse(result.content[0].text);
+    expect(post.slug).toBe("agent-sandboxes-infra");
+    expect(post.body.length).toBeGreaterThan(0);
+  });
+
+  it("flags isError when slug is unknown", async () => {
+    const result = await tool(makeServer(), "get_writing")({
+      slug: "no-such-post-12345",
+    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toMatch(/No post with slug/);
+    expect(result.content[0].text).toContain("Available:");
+  });
+});
+
+describe("get_case_study", () => {
+  it("returns all studies when no slug", async () => {
+    const result = await tool(makeServer(), "get_case_study")({});
+    const data = JSON.parse(result.content[0].text);
+    expect(data.count).toBeGreaterThan(0);
+    expect(data.studies[0].slug).toBeTruthy();
+  });
+
+  it("returns a single study when slug is provided", async () => {
+    const result = await tool(makeServer(), "get_case_study")({
+      slug: "dzarvis",
+    });
+    const study = JSON.parse(result.content[0].text);
+    expect(study.slug).toBe("dzarvis");
+    expect(study.sections.length).toBeGreaterThan(0);
+  });
+
+  it("flags isError when slug is unknown", async () => {
+    const result = await tool(makeServer(), "get_case_study")({
+      slug: "no-such-study",
+    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toMatch(/No case study/);
+  });
+});
+
+describe("get_lab_demos", () => {
+  it("returns all demos with structured metadata", async () => {
+    const result = await tool(makeServer(), "get_lab_demos")({});
+    const data = JSON.parse(result.content[0].text);
+    expect(data.count).toBeGreaterThan(0);
+    for (const demo of data.demos) {
+      expect(demo.slug).toBeTruthy();
+      expect(demo.url).toMatch(/^https?:\/\//);
+      expect(demo.description.length).toBeGreaterThan(10);
+    }
+  });
+});
+
+describe("get_agent_guide", () => {
+  it("returns a decision tree mapping intents to tools", async () => {
+    const result = await tool(makeServer(), "get_agent_guide")({});
+    const guide = JSON.parse(result.content[0].text);
+    expect(Array.isArray(guide.intent)).toBe(true);
+    expect(guide.intent.length).toBeGreaterThan(5);
+    for (const i of guide.intent) {
+      expect(i.question).toBeTruthy();
+      expect(i.tool).toBeTruthy();
+    }
+  });
+
+  it("references all major MCP tools in the intent map", async () => {
+    const result = await tool(makeServer(), "get_agent_guide")({});
+    const guide = JSON.parse(result.content[0].text);
+    const referencedTools = guide.intent.map((i: { tool: string }) => i.tool).join(" ");
+    for (const expected of [
+      "get_profile",
+      "get_projects",
+      "get_recent_shipments",
+      "get_bug_fixes",
+      "get_writing",
+      "get_case_study",
+      "ask_about_daniel",
+    ]) {
+      expect(referencedTools).toContain(expected);
+    }
+  });
+
+  it("declares contract guarantees that match the production reality", async () => {
+    const result = await tool(makeServer(), "get_agent_guide")({});
+    const guide = JSON.parse(result.content[0].text);
+    expect(guide.contractGuarantees).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/verifiable/i),
+        expect.stringMatching(/sanitized/i),
+        expect.stringMatching(/free.tier/i),
+      ])
+    );
+  });
+
+  it("includes canonical contact info", async () => {
+    const result = await tool(makeServer(), "get_agent_guide")({});
+    const guide = JSON.parse(result.content[0].text);
+    expect(guide.contact.email).toBe("mr.sucik@gmail.com");
+    expect(guide.contact.website).toBe("https://danielsuchan.dev");
+  });
+});
+
 describe("get_curated_tweets", () => {
   it.each([
     "all",

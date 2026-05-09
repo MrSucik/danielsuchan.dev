@@ -58,7 +58,7 @@ describe("HTTP /mcp — protocol roundtrips", () => {
     const { status, rpc: r } = await rpc("tools/list");
     expect(status).toBe(200);
     const result = r?.result as { tools: Array<{ name: string }> } | undefined;
-    expect(result?.tools.length).toBe(12);
+    expect(result?.tools.length).toBe(16);
     const names = result?.tools.map((t) => t.name);
     expect(names).toEqual(
       expect.arrayContaining([
@@ -69,6 +69,10 @@ describe("HTTP /mcp — protocol roundtrips", () => {
         "ask_about_daniel",
         "get_bug_fixes",
         "get_curated_tweets",
+        "get_writing",
+        "get_case_study",
+        "get_lab_demos",
+        "get_agent_guide",
         "ai_ask",
         "ai_summarize",
         "ai_classify",
@@ -219,7 +223,7 @@ describe("HTTP / health endpoint", () => {
       aiBudget: { callsToday: number; limit: number; window: string };
     };
     expect(body.version).toMatch(/^\d+\.\d+\.\d+$/);
-    expect(body.tools.length).toBe(12);
+    expect(body.tools.length).toBe(16);
     expect(body.resources.length).toBe(2);
     expect(body.aiBudget.window).toBe("UTC day");
   });

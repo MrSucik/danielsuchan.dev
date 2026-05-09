@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WritingRouteImport } from './routes/writing'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as NewsletterRouteImport } from './routes/newsletter'
+import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as BugsRouteImport } from './routes/bugs'
 import { Route as R404RouteImport } from './routes/404'
@@ -36,6 +37,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const NewsletterRoute = NewsletterRouteImport.update({
   id: '/newsletter',
   path: '/newsletter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForAgentsRoute = ForAgentsRouteImport.update({
+  id: '/for-agents',
+  path: '/for-agents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChangelogRoute = ChangelogRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
+  '/for-agents': typeof ForAgentsRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
+  '/for-agents': typeof ForAgentsRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/bugs': typeof BugsRoute
   '/changelog': typeof ChangelogRoute
+  '/for-agents': typeof ForAgentsRoute
   '/newsletter': typeof NewsletterRoute
   '/projects': typeof ProjectsRoute
   '/writing': typeof WritingRouteWithChildren
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/bugs'
     | '/changelog'
+    | '/for-agents'
     | '/newsletter'
     | '/projects'
     | '/writing'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/bugs'
     | '/changelog'
+    | '/for-agents'
     | '/newsletter'
     | '/projects'
     | '/writing'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/bugs'
     | '/changelog'
+    | '/for-agents'
     | '/newsletter'
     | '/projects'
     | '/writing'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   BugsRoute: typeof BugsRoute
   ChangelogRoute: typeof ChangelogRoute
+  ForAgentsRoute: typeof ForAgentsRoute
   NewsletterRoute: typeof NewsletterRoute
   ProjectsRoute: typeof ProjectsRoute
   WritingRoute: typeof WritingRouteWithChildren
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/newsletter'
       fullPath: '/newsletter'
       preLoaderRoute: typeof NewsletterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-agents': {
+      id: '/for-agents'
+      path: '/for-agents'
+      fullPath: '/for-agents'
+      preLoaderRoute: typeof ForAgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/changelog': {
@@ -310,6 +330,7 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   BugsRoute: BugsRoute,
   ChangelogRoute: ChangelogRoute,
+  ForAgentsRoute: ForAgentsRoute,
   NewsletterRoute: NewsletterRoute,
   ProjectsRoute: ProjectsRoute,
   WritingRoute: WritingRouteWithChildren,

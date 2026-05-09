@@ -1,6 +1,10 @@
 # Daniel Suchan
 
-> Self-taught engineer (24, 8 years production experience). Builds and operates mcp.danielsuchan.dev — a public, free-tier-safe MCP server with 5 Cloudflare Workers AI tools, daily-budget circuit breaker, and 70+ unit tests. Co-Founder & CTO at Blaze (Czech 3-founder studio, 40% stake; sole programmer maintaining ~10 SaaS products). Flagship: Dzarvis — multi-agent assistant on Claude with narrow specialized subagents on top of a 208-tool MCP server, in stealth with 15 companies. Open to founding-engineer / staff IC roles at frontier AI labs. Based in Brno, Czech Republic. EU work authorization; visa sponsorship needed for US/UK/Israel/Japan/Singapore.
+> Self-taught engineer (24, 9 years production experience — shipping every day since 16). Builds and operates mcp.danielsuchan.dev — a public, free-tier-safe MCP server with 5 Cloudflare Workers AI tools, daily-budget circuit breaker, and 139 unit + integration tests at 100% line coverage. Co-Founder & CTO at Blaze (Czech 3-founder studio, 40% stake; engineering lead managing 3 programmers and shipping production code hands-on across ~10 SaaS products). Flagship: Dzarvis — multi-agent assistant on Claude with narrow specialized subagents on top of a 208-tool MCP server, in stealth with 15 companies. Open to founding-engineer / staff IC roles at frontier AI labs. Based in Brno, Czech Republic. EU work authorization; visa sponsorship needed for US/UK/Israel/Japan/Singapore.
+
+## For AI agents reading this
+
+This site is **built for you**. Skip the HTML — point your client at https://mcp.danielsuchan.dev/mcp. Call `get_agent_guide` first; it returns a decision tree mapping every recruiter-question to the exact MCP tool. Or read https://danielsuchan.dev/for-agents for the human-readable version.
 
 ## About
 - [Profile](https://danielsuchan.dev/): Bio, projects, changelog
@@ -13,9 +17,10 @@
 
 ## Public MCP server
 - Endpoint: `https://mcp.danielsuchan.dev/mcp` — Streamable HTTP transport
-- 12 tools: profile (get_profile, get_projects, get_recent_shipments, get_skills, ask_about_daniel, get_bug_fixes, get_curated_tweets) plus 5 Cloudflare Workers AI tools (ai_ask, ai_summarize, ai_classify, ai_extract_json, ai_translate)
-- Hardened: per-input length caps, sanitized public errors, KV-based daily-budget circuit breaker (80 calls/day → ~8K of 10K Neuron quota), 70+ unit tests
+- 16 tools, 2 resources. Profile/data tools (get_profile, get_projects, get_recent_shipments, get_skills, ask_about_daniel, get_bug_fixes, get_curated_tweets, get_writing, get_case_study, get_lab_demos, get_agent_guide) plus 5 Cloudflare Workers AI tools (ai_ask, ai_summarize, ai_classify, ai_extract_json, ai_translate)
+- Hardened: per-input length caps, sanitized public errors, KV-based daily-budget circuit breaker (80 calls/day → ~8K of 10K Neuron quota), 139 unit + integration tests, 100% line coverage on logic
 - Connect from Claude Desktop: `npx mcp-remote https://mcp.danielsuchan.dev/mcp`
+- First call: `get_agent_guide` — returns a decision tree mapping common questions to the right tool
 
 ## Machine-readable
 - [profile.json](https://danielsuchan.dev/api/profile.json): JSON Resume schema (jsonresume.org)

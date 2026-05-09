@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "slug": "agent-sandboxes-infra",
+      "title": "How to design agent sandboxes infra",
+      "date": "2026-05-01",
+      "status": "drafting",
+      "topic": "infrastructure",
+      "teaser": "What it actually takes to run untrusted agent code safely — sandbox isolation patterns, security boundaries, and the cost-vs-safety tradeoffs from production agent infrastructure work.",
+      "body": "# How to design agent sandboxes infra\n\n*Draft in progress.*\n\nWriting this one up properly. Topics I want to cover when it's ready:\n\n- The three layers of isolation — OS-level, process-level, network-level — and why collapsing them into one decision produces brittle systems.\n- When egress matters more than ingress, and why the metadata-IP block should be the first firewall rule, not an afterthought.\n- The cost-vs-safety frontier: latency, dollars, and developer ergonomics — you can't optimize all three.\n- Cross-user isolation in shared sandbox pools, and why cache keys are a tenancy boundary.\n\nFull version when I'm satisfied with what I can share publicly.\n\n— Daniel ([mr.sucik@gmail.com](mailto:mr.sucik@gmail.com))"
+    },
+    {
+      "slug": "subagent-orchestration",
+      "title": "How I orchestrate narrow subagents via LLM classification",
+      "date": "2026-05-01",
+      "status": "drafting",
+      "topic": "multi-agent",
+      "teaser": "Routing logic without hand-rolled if/else — how a multi-agent harness decides which subagent to spin up, when to spawn vs reuse, and the part nobody writes about — when NOT to call the model at all.",
+      "body": "# How I orchestrate narrow subagents via LLM classification\n\n*Draft in progress.*\n\nWriting this one up properly. Topics I want to cover when it's ready:\n\n- Why hand-rolled if/else routing breaks once real users start asking ambiguous questions.\n- Using a small, fast classifier model as the router — and why the classifier is the cheapest part of the loop, not the most expensive.\n- Spawn vs reuse: per-user persistence with aggressive resets, and why hard reset beats summarized reset.\n- Working memory split: structured (typed key-value) for verbatim recall, conversational (recent turns verbatim) for context, pattern (vector retrieval) only as a hint to the classifier.\n- The most important part of the orchestrator — the elimination layer that takes requests OUT of the model-call path entirely.\n\nFull version when I'm satisfied with what I can share publicly.\n\n— Daniel ([mr.sucik@gmail.com](mailto:mr.sucik@gmail.com))"
+    }
+  ]
+}

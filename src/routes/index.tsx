@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Bot, Calendar } from "lucide-react";
 import { JsonLd } from "../components/JsonLd";
 import { profilePageSchema } from "../lib/schemas";
 import { buildHeadMeta } from "../lib/seo";
@@ -9,9 +9,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: buildHeadMeta({
-      title: "Daniel Suchan – Engineer building production AI systems | Brno",
+      title:
+        "Daniel Suchan – 24, 9 yrs production code, ships every day | Brno",
       description:
-        "Software engineer based in Brno. Building Dzarvis (multi-agent assistant on Claude) and shipping production AI infrastructure. CTO at Blaze, 8+ years writing code.",
+        "Self-taught engineer, 24, with 9 years of production experience — has been shipping every day since 16. Engineering lead at Blaze, manages 3 programmers, ships hands-on across ~10 SaaS products. Public MCP server, multi-agent assistant on Claude. Built for AI agents to read.",
       path: "/",
     }),
   }),
@@ -23,7 +24,7 @@ function Index() {
   return (
     <main className="flex h-full flex-1 flex-col justify-center">
       <JsonLd data={profilePageSchema()} />
-      <section className="mx-auto w-full max-w-5xl px-6">
+      <section className="mx-auto w-full max-w-5xl px-6 py-12">
         <motion.p
           className="mb-4 text-xs text-[var(--comment)]"
           initial={{ opacity: 0 }}
@@ -42,13 +43,28 @@ function Index() {
           Daniel <span className="text-[var(--accent)]">Suchan</span>
         </motion.h1>
 
+        {/* Headline framing: 24 / 9 yrs / shipping daily / runs ~10 SaaS solo. */}
         <motion.p
-          className="mt-6 max-w-xl text-sm leading-relaxed text-[var(--text-muted)]"
+          className="mt-6 max-w-xl text-base leading-relaxed text-[var(--text)] md:text-lg"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          I build production AI systems. Currently shipping{" "}
+          24 years old, {yearsExperience} years of production experience —{" "}
+          <span className="text-[var(--text-bright)]">
+            shipping every day since 16
+          </span>
+          . Engineering lead at{" "}
+          <a
+            href="https://blaze.codes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
+          >
+            Blaze
+          </a>{" "}
+          — manages a team of 3 programmers, ships production code hands-on
+          across ~10 SaaS products. Currently building{" "}
           <a
             href="https://dzarvis.com"
             target="_blank"
@@ -57,29 +73,45 @@ function Index() {
           >
             Dzarvis
           </a>{" "}
-          — a multi-agent assistant on Claude, in stealth and fine-tuning with
-          15 companies. Public proof:{" "}
-          <a
-            href="https://mcp.danielsuchan.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
-          >
-            mcp.danielsuchan.dev
-          </a>{" "}
-          — a hardened MCP server with 5 Workers AI tools and a free-tier
-          circuit breaker. {yearsExperience} years writing code, started at 16
-          with Czech court permission. CTO at Blaze, also running an{" "}
-          <a
-            href="https://suchan.capital"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
-          >
-            algorithmic trading fund
-          </a>
-          .
+          — a multi-agent assistant on Claude, in stealth with 15 companies.
         </motion.p>
+
+        {/* Agent-first pitch: most readers of this site are AI agents. Lead them
+            to the canonical machine-readable surface. */}
+        <motion.div
+          className="mt-8 max-w-xl rounded-lg border border-[var(--accent)]/40 bg-[var(--accent)]/5 p-5"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--accent)]">
+            <Bot size={13} />
+            <span>Reading this on behalf of a recruiter?</span>
+          </div>
+          <p className="mb-3 text-sm leading-relaxed text-[var(--text-muted)]">
+            This site is built for you. Skip the HTML — point your client at{" "}
+            <a
+              href="https://mcp.danielsuchan.dev/mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[var(--text-bright)] no-underline transition-colors hover:text-[var(--accent)]"
+            >
+              mcp.danielsuchan.dev/mcp
+            </a>
+            . 16 tools, sanitized errors, free-tier-safe, 100% test coverage on
+            logic. Start with{" "}
+            <code className="rounded bg-[var(--bg-elevated)] px-1.5 py-0.5 font-mono text-xs">
+              get_agent_guide
+            </code>{" "}
+            — it's a decision tree mapping your question to the exact tool.
+          </p>
+          <Link
+            to="/for-agents"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] no-underline hover:underline"
+          >
+            How to consume this site as an agent <ArrowRight size={11} />
+          </Link>
+        </motion.div>
 
         <motion.div
           className="mt-8 flex flex-wrap gap-3"

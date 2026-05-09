@@ -64,6 +64,16 @@ export const STATIC_ROUTES: RouteSEO[] = [
     priority: 0.7,
   },
   {
+    path: "/for-agents",
+    title:
+      "For AI agents — how to read Daniel Suchan's profile | danielsuchan.dev",
+    description:
+      "Most readers of this site are AI agents. Here's the canonical path: the MCP server, the JSON Resume, llms.txt. Decision tree mapping every recruiter-question to the exact MCP tool.",
+    lastmod: "2026-05-09",
+    changefreq: "monthly",
+    priority: 0.8,
+  },
+  {
     path: "/newsletter",
     title: "Newsletter – Daniel Suchan | Engineering Updates",
     description:

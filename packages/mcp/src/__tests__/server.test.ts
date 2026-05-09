@@ -18,6 +18,10 @@ const EXPECTED_TOOLS = [
   "ask_about_daniel",
   "get_bug_fixes",
   "get_curated_tweets",
+  "get_writing",
+  "get_case_study",
+  "get_lab_demos",
+  "get_agent_guide",
   "ai_ask",
   "ai_summarize",
   "ai_classify",
@@ -93,7 +97,7 @@ describe("ask_about_daniel — answer bank", () => {
     const { ANSWER_BANK } = await import("../data.js");
     const entry = ANSWER_BANK.find((e) => e.keywords.includes("experience"));
     expect(entry).toBeDefined();
-    expect(entry?.answer).toContain("8 years");
+    expect(entry?.answer).toMatch(/9 years|started shipping at 16/);
   });
 
   it("returns education answer for 'college' keyword", async () => {
