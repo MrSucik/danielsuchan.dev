@@ -18,23 +18,64 @@ describe("runChat", () => {
     expect(out).toBe("hello");
   });
 
-  it("throws on unexpected shape", async () => {
+  it("throws a sanitized error on unexpected shape", async () => {
     await expect(
       runChat(ai({ unexpected: true }), [{ role: "user", content: "hi" }])
-    ).rejects.toThrow(/Unexpected Workers AI response/);
+    ).rejects.toThrow(/unexpected response shape/);
   });
 
-  it("forwards model + json + temperature options to the binding", async () => {
+  it("throws on null response", async () => {
+    await expect(
+      runChat(ai(null), [{ role: "user", content: "hi" }])
+    ).rejects.toThrow(/unexpected response shape/);
+  });
+
+  it("throws on non-string `response` field", async () => {
+    await expect(
+      runChat(ai({ response: 123 }), [{ role: "user", content: "hi" }])
+    ).rejects.toThrow(/unexpected response shape/);
+  });
+
+  it("does not leak the raw payload in the thrown message", async () => {
+    const secret = "cf-account-internals-trace-id-XYZ";
+    try {
+      await runChat(ai({ secret }), [{ role: "user", content: "hi" }]);
+      throw new Error("expected runChat to throw");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      expect(message).not.toContain(secret);
+    }
+  });
+
+  it("resolves model alias keys to the full Workers AI model id", async () => {
     const run = vi.fn().mockResolvedValue({ response: "ok" });
-    const binding: AIBinding = { run };
-    await runChat(binding, [{ role: "user", content: "hi" }], {
-      model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    await runChat({ run }, [{ role: "user", content: "hi" }], {
+      model: "llama-3.3-70b",
+    });
+    expect(run).toHaveBeenCalledWith(
+      "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      expect.any(Object)
+    );
+  });
+
+  it("uses llama-3.1-8b as the default when model is omitted", async () => {
+    const run = vi.fn().mockResolvedValue({ response: "ok" });
+    await runChat({ run }, [{ role: "user", content: "hi" }]);
+    expect(run).toHaveBeenCalledWith(
+      "@cf/meta/llama-3.1-8b-instruct",
+      expect.any(Object)
+    );
+  });
+
+  it("forwards json + temperature options to the binding", async () => {
+    const run = vi.fn().mockResolvedValue({ response: "ok" });
+    await runChat({ run }, [{ role: "user", content: "hi" }], {
       json: true,
       temperature: 0,
       maxTokens: 100,
     });
     expect(run).toHaveBeenCalledWith(
-      "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      expect.any(String),
       expect.objectContaining({
         max_tokens: 100,
         temperature: 0,
@@ -48,6 +89,13 @@ describe("runChat", () => {
     await runChat({ run }, [{ role: "user", content: "hi" }]);
     const inputs = run.mock.calls[0][1] as Record<string, unknown>;
     expect(inputs).not.toHaveProperty("response_format");
+  });
+
+  it("times out a stuck binding call", async () => {
+    const stuck: AIBinding = { run: vi.fn(() => new Promise(() => {})) };
+    await expect(
+      runChat(stuck, [{ role: "user", content: "hi" }], { timeoutMs: 25 })
+    ).rejects.toThrow(/timed out/);
   });
 });
 
@@ -76,5 +124,9 @@ describe("safeParseJson", () => {
     expect(safeParseJson("null")).toBeNull();
     expect(safeParseJson("42")).toBeNull();
     expect(safeParseJson('"hi"')).toBeNull();
+  });
+
+  it("returns null on trailing-comma JSON (we don't tolerate JSON5)", () => {
+    expect(safeParseJson('{"a": 1,}')).toBeNull();
   });
 });

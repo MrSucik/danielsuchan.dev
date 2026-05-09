@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a public, read-only [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server deployed at `mcp.danielsuchan.dev`. It exposes structured, machine-readable information about Daniel Suchan — his profile, projects, skills, recent shipments, and answers to common recruiter questions.
+This is a public, read-only [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server deployed at `mcp.danielsuchan.dev`. It exposes structured, machine-readable information about Daniel Suchan — his profile, projects, skills, recent shipments, and answers to common recruiter questions — plus a set of generic AI-powered tools backed by Cloudflare Workers AI.
 
 Recruiters and hiring engineers at AI labs increasingly use Claude/GPT to triage candidates. With this server live, a hiring engineer can point Claude Desktop at `mcp.danielsuchan.dev/mcp` and ask "tell me about Daniel" — and get instant structured answers. This server is designed to be the first thing an AI agent reads.
 
@@ -74,17 +74,19 @@ curl -X POST https://mcp.danielsuchan.dev/mcp \
 
 ### AI tools (Cloudflare Workers AI)
 
-These delegate to a small LLM running on Cloudflare Workers AI. Default model is `@cf/meta/llama-3.1-8b-instruct` — cheap, fast, ≈30–100 Neurons per call. Free tier covers ~10K Neurons/day.
+These delegate to a small LLM running on Cloudflare Workers AI (default `@cf/meta/llama-3.1-8b-instruct`). Free tier: 10,000 Neurons/day (resets at 00:00 UTC) — see the Workers AI dashboard for actual per-call cost.
 
 | Tool | Description |
 |------|-------------|
 | `ai_ask` | Free-form Q&A. Optional `system` prompt and `model` override. |
 | `ai_summarize` | Summarize text. `length` ∈ short/medium/long, optional `style` hint. |
-| `ai_classify` | Classify into one of provided `labels`. Returns `{label, rationale}` as structured content. |
-| `ai_extract_json` | Extract structured JSON from unstructured text given a plain-English `schema_description`. |
-| `ai_translate` | Translate to `target_language`. Source auto-detected unless `source_language` is given. |
+| `ai_classify` | Classify into one of provided `labels`. Returns `{label, rationale}` as structured content; flags `isError` on out-of-set labels. |
+| `ai_extract_json` | Extract a top-level JSON object from text given `schemaDescription`. Detects model error envelopes. |
+| `ai_translate` | Translate to `targetLanguage`. Source auto-detected unless `sourceLanguage` is given. |
 
-Available models (override per-call via `model` arg): `llama-3.1-8b` (default), `llama-3.3-70b`, `qwen-32b-coder`, `gemma-7b`.
+Available models (override per-call via `model` arg, see `src/ai/models.ts` for the canonical list): `llama-3.1-8b` (default), `llama-3.3-70b`, `qwen-32b-coder`, `gemma-7b`.
+
+All AI tool inputs have hard length caps to prevent quota-drain abuse. Errors are sanitized: details are logged server-side, the public response surface only carries generic messages.
 
 ## Resources available
 
@@ -103,38 +105,41 @@ This server is the natural expression of that knowledge — and a proof of work.
 
 ## Deployment
 
-Deployed as a Docker container on the Hetzner Coolify host. The included `Dockerfile` produces a small Node 22 Alpine image; Coolify handles TLS via Let's Encrypt and routes `mcp.danielsuchan.dev` to the container via Traefik.
+Deployed as a Cloudflare Worker. The `[ai]` binding in `wrangler.toml` provides Workers AI inference at the edge; Cloudflare manages TLS and routing automatically via the `mcp.danielsuchan.dev` route binding.
 
-### First-time deploy (Coolify UI)
+### Deploy
 
-1. In Coolify dashboard → **+ New Resource** → **Public Repository**
-2. Repository: `https://github.com/MrSucik/danielsuchan.dev`, branch `master`
-3. Build pack: **Dockerfile**
-4. Base directory: `packages/mcp`
-5. Dockerfile location: `packages/mcp/Dockerfile`
-6. Domain: `mcp.danielsuchan.dev` — Coolify will request a Let's Encrypt cert automatically
-7. Port: `3000`
-8. Healthcheck: `GET /` returns 200
-9. Click **Deploy**
+```bash
+# from the repo root, deploy the @danielsuchan/mcp package
+pnpm --filter @danielsuchan/mcp deploy
+# or, from packages/mcp/:
+pnpm deploy
+```
 
-### DNS
-
-Point `mcp.danielsuchan.dev` at the Hetzner host IP via an `A` record at whichever DNS provider hosts `danielsuchan.dev`. No proxying or tunnel needed — Coolify's Traefik handles HTTPS directly on port 443.
+Wrangler reads `packages/mcp/wrangler.toml` for the route, AI binding, and compatibility flags. First-time deploys require `wrangler login` and that the `danielsuchan.dev` zone exist in your Cloudflare account.
 
 ### Local dev
 
 ```bash
 cd packages/mcp
 pnpm install
-pnpm build
-PORT=3000 pnpm start
-# Server runs at http://localhost:3000
-curl http://localhost:3000/
+pnpm dev
+# Wrangler dev server runs at http://localhost:8787 by default
+curl http://localhost:8787/
 ```
+
+`wrangler dev` proxies the `[ai]` binding to Cloudflare's remote Workers AI, so AI tools work locally and consume the same daily Neuron budget. To force pure-local mode without the AI binding, omit the `[ai]` block — the server will register profile tools only and log a warning.
 
 ### Verify deploy
 
 ```bash
 curl https://mcp.danielsuchan.dev/
-# Should return {"name":"daniel-suchan-mcp","endpoint":"/mcp",...}
+# Should return {"name":"daniel-suchan-mcp","version":"1.1.0","endpoint":"/mcp",...}
+```
+
+### Tests + typecheck
+
+```bash
+pnpm test         # vitest unit tests
+pnpm typecheck    # tsc --noEmit
 ```

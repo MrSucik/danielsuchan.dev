@@ -2,17 +2,13 @@ import { StreamableHTTPTransport } from "@hono/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import type { AIBinding } from "./ai/client.js";
+import type { Bindings } from "./ai/client.js";
 import { registerAiTools } from "./ai/tools.js";
 import { registerResources } from "./resources.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
 const SERVER_VERSION = "1.1.0";
-
-type Bindings = {
-  AI: AIBinding;
-};
 
 const app = new Hono<{ Bindings: Bindings }>();
 

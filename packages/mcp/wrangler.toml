@@ -8,6 +8,7 @@ pattern = "mcp.danielsuchan.dev/*"
 zone_name = "danielsuchan.dev"
 
 # Workers AI binding — exposes env.AI to AI-powered tools (ai_ask, ai_summarize, etc).
-# Free tier: ~10K Neurons/day. Default model llama-3.1-8b-instruct ≈ 30–100 neurons/call.
+# Free tier: 10,000 Neurons/day (resets at 00:00 UTC). Per-call cost varies by
+# input/output length — see the Workers AI dashboard for actuals.
 [ai]
 binding = "AI"
