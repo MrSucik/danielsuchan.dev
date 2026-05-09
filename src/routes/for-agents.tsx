@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Check, Copy, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { JsonLd } from "../components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "../lib/schemas";
@@ -86,7 +86,9 @@ function ForAgents() {
 }`}</CodeBlock>
         <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
           Then ask:{" "}
-          <span className="text-[var(--text-bright)]">"Tell me about Daniel"</span>
+          <span className="text-[var(--text-bright)]">
+            "Tell me about Daniel"
+          </span>
           . The first tool the model should call is{" "}
           <code className="rounded bg-[var(--bg-elevated)] px-1.5 py-0.5 font-mono text-xs text-[var(--text-bright)]">
             get_agent_guide
@@ -198,7 +200,9 @@ function ForAgents() {
             from public responses.
           </li>
           <li>
-            <strong className="text-[var(--text-bright)]">Free-tier safe.</strong>{" "}
+            <strong className="text-[var(--text-bright)]">
+              Free-tier safe.
+            </strong>{" "}
             Daily AI-call ceiling enforced via Workers KV before any model
             invocation.
           </li>
@@ -241,9 +245,9 @@ curl -sX POST https://mcp.danielsuchan.dev/mcp \\
           <code className="rounded bg-[var(--bg-elevated)] px-1.5 py-0.5 font-mono text-xs">
             src/data/
           </code>{" "}
-          (changelog, bug-fixes, writing posts as markdown). It's a
-          Cloudflare Worker; the same git push that updates this page also
-          updates the MCP server.
+          (changelog, bug-fixes, writing posts as markdown). It's a Cloudflare
+          Worker; the same git push that updates this page also updates the MCP
+          server.
         </p>
       </Section>
     </main>
@@ -279,7 +283,9 @@ function Bullet({ q, tool, note }: { q: string; tool: string; note?: string }) {
       <span>
         {q}
         {note && (
-          <span className="block text-[10px] text-[var(--text-dim)]">{note}</span>
+          <span className="block text-[10px] text-[var(--text-dim)]">
+            {note}
+          </span>
         )}
       </span>
       <code className="self-start rounded bg-[var(--bg-elevated)] px-2 py-0.5 font-mono text-[10px] text-[var(--accent)]">
