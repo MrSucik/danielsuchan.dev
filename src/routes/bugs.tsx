@@ -145,7 +145,9 @@ function Bugs() {
               </header>
 
               <dl className="space-y-3 text-xs leading-relaxed">
-                {fix.symptom && <BugField label="Symptom" value={fix.symptom} />}
+                {fix.symptom && (
+                  <BugField label="Symptom" value={fix.symptom} />
+                )}
                 {fix.rootCause && (
                   <BugField label="Root cause" value={fix.rootCause} />
                 )}
@@ -169,44 +171,45 @@ function Bugs() {
       </p>
       <div className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)]">
         <ul className="divide-y divide-[var(--border)]">
-          {sortedFixes.filter((f) => !isDetailed(f)).map((fix) => {
-            const meta = getProjectMeta(fix.project);
-            return (
-              <li
-                key={`${fix.date}-${fix.commit}`}
-                className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-3 text-xs"
-              >
-                <time
-                  className="w-20 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]"
-                  dateTime={fix.date}
+          {sortedFixes
+            .filter((f) => !isDetailed(f))
+            .map((fix) => {
+              const meta = getProjectMeta(fix.project);
+              return (
+                <li
+                  key={`${fix.date}-${fix.commit}`}
+                  className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-3 text-xs"
                 >
-                  {fix.date}
-                </time>
-                <span className="w-32 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]">
-                  {meta.name}
-                </span>
-                <span className="min-w-0 flex-1 text-[var(--text-muted)]">
-                  {fix.title}
-                </span>
-                {fix.commit && (
-                  fix.repo ? (
-                    <a
-                      href={commitUrl(fix.repo, fix.commit)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-[10px] text-[var(--text-dim)] no-underline hover:text-[var(--accent)]"
-                    >
-                      {fix.commit.slice(0, 7)}
-                    </a>
-                  ) : (
-                    <span className="font-mono text-[10px] text-[var(--text-dim)]">
-                      {fix.commit.slice(0, 7)}
-                    </span>
-                  )
-                )}
-              </li>
-            );
-          })}
+                  <time
+                    className="w-20 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]"
+                    dateTime={fix.date}
+                  >
+                    {fix.date}
+                  </time>
+                  <span className="w-32 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]">
+                    {meta.name}
+                  </span>
+                  <span className="min-w-0 flex-1 text-[var(--text-muted)]">
+                    {fix.title}
+                  </span>
+                  {fix.commit &&
+                    (fix.repo ? (
+                      <a
+                        href={commitUrl(fix.repo, fix.commit)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-[10px] text-[var(--text-dim)] no-underline hover:text-[var(--accent)]"
+                      >
+                        {fix.commit.slice(0, 7)}
+                      </a>
+                    ) : (
+                      <span className="font-mono text-[10px] text-[var(--text-dim)]">
+                        {fix.commit.slice(0, 7)}
+                      </span>
+                    ))}
+                </li>
+              );
+            })}
         </ul>
       </div>
     </main>

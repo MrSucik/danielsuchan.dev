@@ -241,12 +241,6 @@
     {
       "date": "2026-04-30",
       "project": "dzarvis",
-      "title": "Address coderabbit pass 3 findings on hermes-cli pr",
-      "commit": "f515be395"
-    },
-    {
-      "date": "2026-04-30",
-      "project": "dzarvis",
       "title": "Address pr-review findings",
       "commit": "e16718c1a"
     },
@@ -259,38 +253,14 @@
     {
       "date": "2026-04-30",
       "project": "dzarvis",
-      "title": "Address coderabbit findings",
-      "commit": "a69497c5a"
-    },
-    {
-      "date": "2026-04-30",
-      "project": "dzarvis",
       "title": "Downgrade template user-input failures from error to warn",
       "commit": "1ed202cb9"
     },
     {
       "date": "2026-04-29",
       "project": "dzarvis",
-      "title": "Address pr review findings on hermes-cli provider",
-      "commit": "f646a5818"
-    },
-    {
-      "date": "2026-04-29",
-      "project": "dzarvis",
       "title": "Only auto-promote skills whose keywords match the user message",
       "commit": "6e578e7d5"
-    },
-    {
-      "date": "2026-04-29",
-      "project": "dzarvis",
-      "title": "Address coderabbit review on hermes-cli pr",
-      "commit": "2790d676c"
-    },
-    {
-      "date": "2026-04-29",
-      "project": "dzarvis",
-      "title": "Scrollable empty-state + scope-fence cestak skill leak",
-      "commit": "27251f90a"
     },
     {
       "date": "2026-04-28",
@@ -331,12 +301,6 @@
     {
       "date": "2026-04-27",
       "project": "dzarvis",
-      "title": "Address PR review \u2014 generation visibility, manual share preservation, transactional cascade",
-      "commit": "eeaa21670"
-    },
-    {
-      "date": "2026-04-27",
-      "project": "dzarvis",
       "title": "Detect empty model responses in scheduled jobs and default kv_query action",
       "commit": "b32bfcc9b"
     },
@@ -345,12 +309,6 @@
       "project": "dzarvis",
       "title": "Narrow getAccessibleTemplateIds prisma type",
       "commit": "ad4a97e55"
-    },
-    {
-      "date": "2026-04-27",
-      "project": "dzarvis",
-      "title": "Address CodeRabbit review on PR #2097",
-      "commit": "a95b6e4b9"
     },
     {
       "date": "2026-04-27",
@@ -495,12 +453,6 @@
       "project": "dzarvis",
       "title": "Replace opaque \"I encountered an issue\" fallback with actionable diagnostics",
       "commit": "951d215f3"
-    },
-    {
-      "date": "2026-04-13",
-      "project": "dzarvis",
-      "title": "Address coderabbit review \u2014 paginate drafts + defer initial chat render",
-      "commit": "0f0f327da"
     },
     {
       "date": "2026-04-11",
@@ -735,12 +687,6 @@
       "project": "dzarvis",
       "title": "Use proper tray and notification icons for Jarvis desktop",
       "commit": "8b17e0989"
-    },
-    {
-      "date": "2026-03-03",
-      "project": "dzarvis",
-      "title": "Address coderabbit major/minor findings batch 3",
-      "commit": "d51952a4f"
     },
     {
       "date": "2026-03-02",

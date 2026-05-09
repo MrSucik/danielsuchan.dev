@@ -21,10 +21,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Report raw value length in parse-failure warn log (#2183)",
-            "Redact value content from parse-failure warn log (#2182)",
-            "Persist skill_matched on first-turn short-circuit (#2181)",
-            "Heal stringified value payloads at the tool boundary (#2180)"
+            "Report raw value length in parse-failure warn log",
+            "Redact value content from parse-failure warn log",
+            "Persist skill_matched on first-turn short-circuit",
+            "Heal stringified value payloads at the tool boundary"
           ]
         }
       ]
@@ -35,10 +35,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Deterministic first-turn template (no LLM round-trip) (#2178)",
-            "Wire OLAOLA_ESHOP_EXPORT_HASH and OLAOLA_NOTION_TOKEN as ECS secrets (#2179)",
-            "Live product feed sync into KV (#2176)",
-            "Force skill opening on chip-click + empty/greeting (#2177)"
+            "Deterministic first-turn template (no LLM round-trip)",
+            "Live product feed sync into KV",
+            "Force skill opening on chip-click + empty/greeting"
           ]
         }
       ]
@@ -49,10 +48,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Isolate prompt to chip-clicked skill + log model trace (#2174)",
-            "Force agents to surface shareUrl + parallel fan-out (#2173)",
-            "FillTitleAlso anchor flag + agent missing-field guidance (#2172)",
-            "Anchor engine handles label-then-line layout (#2171)"
+            "Isolate prompt to chip-clicked skill + log model trace",
+            "Force agents to surface shareUrl + parallel fan-out",
+            "FillTitleAlso anchor flag + agent missing-field guidance",
+            "Anchor engine handles label-then-line layout"
           ]
         }
       ]
@@ -63,10 +62,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Local woocommerce bench + Gemini LLM benchmark (#2158)",
-            "Claudecode-server passes wrong tool option to SDK (#2157)",
-            "Pass CLAUDE_CODE_OAUTH_TOKEN to coding-agent containers (#2156)",
-            "Coding-agent containers crash on startup \u2014 agent-server import path (#2155)"
+            "Local woocommerce bench + Gemini LLM benchmark",
+            "Claudecode-server passes wrong tool option to SDK",
+            "Pass CLAUDE_CODE_OAUTH_TOKEN to coding-agent containers",
+            "Coding-agent containers crash on startup \u2014 agent-server import path"
           ]
         }
       ]
@@ -127,10 +126,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Install node-gyp globally before compiling paste native addon (#2110)",
-            "Zod-validate API responses + add contract tests (#2111)",
-            "Downgrade template user-input failures from error to warn (#2109)",
-            "Add hermes-cli as default local provider (#2106)"
+            "Install node-gyp globally before compiling paste native addon",
+            "Zod-validate API responses + add contract tests",
+            "Downgrade template user-input failures from error to warn",
+            "Add hermes-cli as default local provider"
           ]
         }
       ]
@@ -141,10 +140,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Only auto-promote skills whose keywords match the user message (#2105)",
-            "Scrollable empty-state + scope-fence cestak skill leak (#2104)",
-            "Address coderabbit review on hermes-cli pr",
-            "Address pr review findings on hermes-cli provider"
+            "Only auto-promote skills whose keywords match the user message"
           ]
         }
       ]
@@ -155,10 +151,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Reduce sentry noise from amundi/conversation/agent (#2101)",
-            "Validate fill.filledAt and refresh quantity on order updates (#2103)",
-            "Handle nested {order, fill} shape from orders endpoint (#2102)",
-            "Use account/cash for financial fields after API shape change (#2100)"
+            "Reduce sentry noise from amundi/conversation/agent",
+            "Validate fill.filledAt and refresh quantity on order updates",
+            "Handle nested {order, fill} shape from orders endpoint",
+            "Use account/cash for financial fields after API shape change"
           ]
         }
       ]
@@ -169,9 +165,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Per-user template sharing + skill\u2192template association (#2097)",
-            "Detect empty model responses in scheduled jobs and default kv_query action (#2098)",
-            "Surface auth failures instead of swallowing them (#2096)",
+            "Per-user template sharing + skill\u2192template association",
+            "Detect empty model responses in scheduled jobs and default kv_query action",
+            "Surface auth failures instead of swallowing them",
             "Detect empty model responses in scheduled jobs and default kv_query action"
           ]
         }
@@ -183,10 +179,8 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Autonomous skill-from-failure loop (#2094)",
-            "LLM-synthesized Q&A with grounded citations (CZ/EN) (#2069)",
-            "Add Track 4 PR1 regulatory label catalog (#2046)",
-            "Customer-insight rollup + daily-alert skills (Track 5 PR1) (#2044)"
+            "Autonomous skill-from-failure loop",
+            "LLM-synthesized Q&A with grounded citations (CZ/EN)"
           ]
         }
       ]
@@ -197,7 +191,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Use account-currency positionsValue + expose freeCash (#2092)",
+            "Use account-currency positionsValue + expose freeCash",
             "Harden prod deploy against outage replayed on 2026-04-23",
             "Import sonner styles to restore toast layout",
             "Enforce single-use on confirmed action tokens"
@@ -211,7 +205,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Report totalValue in account currency, not CZK (#2078)",
+            "Report totalValue in account currency, not CZK",
             "Harden SSRF redirects, rate limits, and user-enumeration oracle",
             "Enforce userId scoping on action-confirmation tokens",
             "Use crypto.randomBytes for locks + temp paths, fail-closed on MCP token cache write"
@@ -225,7 +219,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Stream body + cap bytes on the fly; test GoogleSheetsFetchTool (#2077)",
+            "Stream body + cap bytes on the fly; test GoogleSheetsFetchTool",
             "Drop orphaned kosik entry from DomainConfig",
             "Use accountInfo.total as authoritative portfolio total",
             "Report totalValue in account currency, not CZK"
@@ -239,10 +233,8 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add general google_sheets_fetch and deprecate olaola_looker_report_fetch (#2075)",
-            "Add read-only MCP tools for OlaOla Ecomail (#2074)",
-            "Extend Woo MCPs \u2014 get_order, get_customer, list_order_notes, list_order_refunds (#2073)",
-            "Looker Studio / Sheets CSV fetch MCP wrapper (#2061)"
+            "Extend Woo MCPs \u2014 get_order, get_customer, list_order_notes, list_order_refunds",
+            "Looker Studio / Sheets CSV fetch MCP wrapper"
           ]
         }
       ]
@@ -253,10 +245,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Subagent_delegate respects skill loading (#2043)",
-            "Correct non-existent tool names in builtin skills + researcher personality (#2042)",
-            "Monthly $ budgets + orchestrator registry + scheduled-job correlation (#2040)",
-            "Add LLM-judge meta-reply detector with auto-disable (#2041)"
+            "Subagent_delegate respects skill loading",
+            "Correct non-existent tool names in builtin skills + researcher personality",
+            "Monthly $ budgets + orchestrator registry + scheduled-job correlation",
+            "Add LLM-judge meta-reply detector with auto-disable"
           ]
         }
       ]
@@ -267,10 +259,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add amortization fields, update + record-payment tools (#2028)",
-            "Add run-now + in-place schedule edit for scheduled jobs (#2027)",
-            "Add MCP tools for recurring outflows (#2026)",
-            "Add AI-emitted artifacts with streaming panel rendering (#2025)"
+            "Add amortization fields, update + record-payment tools",
+            "Add run-now + in-place schedule edit for scheduled jobs",
+            "Add MCP tools for recurring outflows",
+            "Add AI-emitted artifacts with streaming panel rendering"
           ]
         }
       ]
@@ -281,10 +273,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add shareableFileId + hint to generate response (#2012)",
-            "Enable OpenRouter Anthropic prompt caching (#2003)",
-            "Jarvis-loop must pass days>=1 to calendar_upcoming (#2005)",
-            "Downgrade moltbook autopost model from Opus to Sonnet 4.5 (#2004)"
+            "Add shareableFileId + hint to generate response",
+            "Enable OpenRouter Anthropic prompt caching",
+            "Jarvis-loop must pass days>=1 to calendar_upcoming",
+            "Downgrade moltbook autopost model from Opus to Sonnet 4.5"
           ]
         }
       ]
@@ -295,10 +287,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Raise LLM iteration cap from 90 s to 240 s (#2010)",
-            "Google card stops claiming Gmail connected for Outlook-only users (#2009)",
-            "Flag disconnect on Account instead of leaving a ghost (#2008)",
-            "Collapse duplicate built-in jobs at seed time (#2007)"
+            "Raise LLM iteration cap from 90 s to 240 s",
+            "Google card stops claiming Gmail connected for Outlook-only users",
+            "Flag disconnect on Account instead of leaving a ghost",
+            "Collapse duplicate built-in jobs at seed time"
           ]
         }
       ]
@@ -309,10 +301,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Guard empty agent responses + default to Gemini 2.5 Pro (#2000)",
-            "Extract tokens from LangChain usage_metadata + OpenAI native usage (#1997)",
-            "Make impersonationStatus.getImpersonationStatus public (#1996)",
-            "Gate auto-match behind SKILL_AUTO_MATCH_ENABLED env (default off) (#1995)"
+            "Guard empty agent responses + default to Gemini 2.5 Pro",
+            "Extract tokens from LangChain usage_metadata + OpenAI native usage",
+            "Make impersonationStatus.getImpersonationStatus public",
+            "Gate auto-match behind SKILL_AUTO_MATCH_ENABLED env (default off)"
           ]
         }
       ]
@@ -323,10 +315,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Correct stale-session error message to point at the right fix (#1994)",
-            "Drop Intel Mac from system requirements card (#1993)",
-            "Use 'close' instead of 'exit' to avoid dropping trailing stdout (#1990)",
-            "Delete + merge MCP tools, UI delete button, executions viewer (#1989)"
+            "Correct stale-session error message to point at the right fix",
+            "Drop Intel Mac from system requirements card",
+            "Use 'close' instead of 'exit' to avoid dropping trailing stdout",
+            "Delete + merge MCP tools, UI delete button, executions viewer"
           ]
         }
       ]
@@ -337,10 +329,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Route bare \"owner/model\" specs to OpenRouter + unblock typecheck (#1933)",
-            "Replace non-ASCII arrow in opencode SG rule description (#1937)",
-            "Drop invalid apt packages from opencode Dockerfile (#1935)",
-            "Add opencode-cloud provider with ECS Fargate deployment (#1919)"
+            "Route bare \"owner/model\" specs to OpenRouter + unblock typecheck",
+            "Replace non-ASCII arrow in opencode SG rule description",
+            "Drop invalid apt packages from opencode Dockerfile",
+            "Add opencode-cloud provider with ECS Fargate deployment"
           ]
         }
       ]
@@ -351,10 +343,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Escape no longer exits conversation when closing sidebar or dialogs (#1884)",
+            "Escape no longer exits conversation when closing sidebar or dialogs",
             "Simplify textarea disable \u2014 no isStreaming exception",
             "Escape no longer exits conversation when closing sidebar or dialogs",
-            "Hide install banner on mobile web + cleanup after stream errors (#1882)"
+            "Hide install banner on mobile web + cleanup after stream errors"
           ]
         }
       ]
@@ -366,9 +358,9 @@
           "project": "dzarvis",
           "bullets": [
             "Add app-sidebar toggle to mobile chat conversation toolbar",
-            "Adopt Stagehand browser automation techniques (#1825)",
-            "Resolve 4 sentry issues \u2014 gemini model, geo errors, dev noise (#1830)",
-            "Remove broken OpenRouter models + enable GPT-5/o-series (#1827)"
+            "Adopt Stagehand browser automation techniques",
+            "Resolve 4 sentry issues \u2014 gemini model, geo errors, dev noise",
+            "Remove broken OpenRouter models + enable GPT-5/o-series"
           ]
         }
       ]
@@ -379,10 +371,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add partial unique index for built-in skills and personalities (#1805)",
-            "Bell indicator for chats with unanswered dispatched questions (#1804)",
-            "Show recently used skills with show-more on chat landing (#1803)",
-            "Calibrate memory system \u2014 kill meta-memory noise, fix ranking, add credential filtering (#1801)"
+            "Add partial unique index for built-in skills and personalities",
+            "Bell indicator for chats with unanswered dispatched questions",
+            "Show recently used skills with show-more on chat landing",
+            "Calibrate memory system \u2014 kill meta-memory noise, fix ranking, add credential filtering"
           ]
         }
       ]
@@ -393,10 +385,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add Tauri v2 desktop app (Phase 1) (#1752)",
-            "Multi-user security hardening (#1753)",
-            "Add full rich media support for Telegram channel (#1749)",
-            "Add iOS web distribution via IPA sideloading (#1750)"
+            "Add Tauri v2 desktop app (Phase 1)",
+            "Multi-user security hardening",
+            "Add full rich media support for Telegram channel",
+            "Add iOS web distribution via IPA sideloading"
           ]
         }
       ]
@@ -407,10 +399,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Migrate email automation from reactions to scheduled jobs (#1728)",
-            "Add Google Contacts, Drive, and Tasks integrations (#1726)",
-            "Resolve sentry flow-tracking and habit-insights errors (#1725)",
-            "Replace any types with proper types in chart components (#1724)"
+            "Migrate email automation from reactions to scheduled jobs",
+            "Add Google Contacts, Drive, and Tasks integrations",
+            "Resolve sentry flow-tracking and habit-insights errors",
+            "Replace any types with proper types in chart components"
           ]
         }
       ]
@@ -421,10 +413,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add skill scanner pipeline (#1714)",
-            "Treat 404 as expected error in calendar sync (#1706)",
-            "Add BaseMessage type annotations to context-trimmer tests (#1704)",
-            "Handle undefined toolCalls arguments in flow classifier (#1702)"
+            "Add skill scanner pipeline",
+            "Treat 404 as expected error in calendar sync",
+            "Add BaseMessage type annotations to context-trimmer tests",
+            "Handle undefined toolCalls arguments in flow classifier"
           ]
         }
       ]
@@ -435,10 +427,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Pass app version to Docker build via build-arg (#1645)",
-            "Add HTTP auth and DOM mutation monitoring to browser extension (#1644)",
-            "Use ref pattern for right-click tool and add retry/network to wait-for (#1643)",
-            "Read app version from git tag instead of stale package.json (#1642)"
+            "Pass app version to Docker build via build-arg",
+            "Add HTTP auth and DOM mutation monitoring to browser extension",
+            "Use ref pattern for right-click tool and add retry/network to wait-for",
+            "Read app version from git tag instead of stale package.json"
           ]
         },
         {
@@ -456,9 +448,9 @@
           "project": "dzarvis",
           "bullets": [
             "Add valkey8 parameter group for redis-to-valkey migration",
-            "Add agent execution metrics tracking and observability (#1606)",
-            "Add Santa Method dual verification for high-stakes agent responses (#1607)",
-            "Add S3 bucket management and expand logs scope for CDK custom resources (#1603)"
+            "Add agent execution metrics tracking and observability",
+            "Add Santa Method dual verification for high-stakes agent responses",
+            "Add S3 bucket management and expand logs scope for CDK custom resources"
           ]
         }
       ]
@@ -469,10 +461,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Fix AI cost tracking and optimize chat suggestions (#1505)",
-            "Add admin copy reset link and dropdown for password reset actions (#1504)",
-            "Add Google Flights search via Python sidecar (#1503)",
-            "Add transit routing and Czech carrier search tools (#1501)"
+            "Fix AI cost tracking and optimize chat suggestions",
+            "Add admin copy reset link and dropdown for password reset actions",
+            "Add Google Flights search via Python sidecar",
+            "Add transit routing and Czech carrier search tools"
           ]
         }
       ]
@@ -483,8 +475,8 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add attendees support to calendar MCP tools (#1495)",
-            "Derive desktop version from run number instead of pushing to master (#1494)"
+            "Add attendees support to calendar MCP tools",
+            "Derive desktop version from run number instead of pushing to master"
           ]
         }
       ]
@@ -495,10 +487,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add missing dialog accessibility attributes (#1493)",
-            "Reduce jarvis loop frequency to 9am/11am/5pm workdays only (#1491)",
-            "Add admin user detail page with usage analytics and complete user management (#1490)",
-            "Reduce email agent frequency to 9am/11am/5pm workdays only (#1489)"
+            "Add missing dialog accessibility attributes",
+            "Reduce jarvis loop frequency to 9am/11am/5pm workdays only",
+            "Add admin user detail page with usage analytics and complete user management",
+            "Reduce email agent frequency to 9am/11am/5pm workdays only"
           ]
         }
       ]
@@ -509,7 +501,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Real-time voice conversations (Gemini Live + ElevenLabs TTS) (#1466)",
+            "Real-time voice conversations (Gemini Live + ElevenLabs TTS)",
             "Remove non-existent /api/health/ready check from CI deploy",
             "Update lockfile after removing semantic-release/git and exec deps",
             "Remove semantic-release git plugin to fix branch protection push failure"
@@ -523,10 +515,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Prevent chat message disappearing after cancel + immediate re-send (#1449)",
-            "Add GPT-5.4 Mini High, GLM-5, and Qwen 3.6 Plus as free-tier models (#1448)",
-            "Add Gemini 3.1 Flash and Pro as free-tier models via OpenRouter (#1446)",
-            "Prevent desktop DMG deletion and auto-bump race condition (#1444)"
+            "Prevent chat message disappearing after cancel + immediate re-send",
+            "Add GPT-5.4 Mini High, GLM-5, and Qwen 3.6 Plus as free-tier models",
+            "Add Gemini 3.1 Flash and Pro as free-tier models via OpenRouter",
+            "Prevent desktop DMG deletion and auto-bump race condition"
           ]
         }
       ]
@@ -537,10 +529,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Address review feedback for email display reliability (#1419)",
             "Add missing id destructuring in MessageBubble causing prod crash",
-            "Resolve Outlook email display bugs (#1418)",
-            "Align __contentBlocks key between tool-base and tool-pipeline (#1416)"
+            "Resolve Outlook email display bugs",
+            "Align __contentBlocks key between tool-base and tool-pipeline"
           ]
         },
         {
@@ -560,10 +551,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Resolve all biome warnings blocking semantic-release (#1394)",
-            "Resolve lint warnings blocking semantic-release (#1379)",
-            "Add strict tool schemas and server-side web search (#1368)",
-            "Enable adaptive thinking and effort parameter for anthropic provider (#1367)"
+            "Resolve all biome warnings blocking semantic-release",
+            "Resolve lint warnings blocking semantic-release",
+            "Add strict tool schemas and server-side web search",
+            "Enable adaptive thinking and effort parameter for anthropic provider"
           ]
         },
         {
@@ -597,9 +588,9 @@
           "project": "dzarvis",
           "bullets": [
             "Add unpacked extension ID to CHROME_EXTENSION_ID allowlist in CDK",
-            "Resolve IMAP/SMTP integration bugs and add multi-folder sync (#1275)",
-            "Add PTY interactive terminal support for desktop app (#1279)",
-            "Add Apple Calendar (iCloud) two-way sync (#1280)"
+            "Resolve IMAP/SMTP integration bugs and add multi-folder sync",
+            "Add PTY interactive terminal support for desktop app",
+            "Add Apple Calendar (iCloud) two-way sync"
           ]
         }
       ]
@@ -610,10 +601,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add retry logic for OpenRouter fetch failures and expand fallback chains (#1268)",
-            "Resolve WebSocket auth race condition for Chrome extension (#1265)",
-            "Make Verification.identifier unique for Better Auth magic link verify (#1267)",
-            "Resolve PdfDocument IDs in file sharing tools (#1264)"
+            "Add retry logic for OpenRouter fetch failures and expand fallback chains",
+            "Resolve WebSocket auth race condition for Chrome extension",
+            "Make Verification.identifier unique for Better Auth magic link verify",
+            "Resolve PdfDocument IDs in file sharing tools"
           ]
         },
         {
@@ -632,10 +623,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add AI disclaimers and legal links to chat (#1257)",
-            "Safety net fires onError instead of onDone, add logging (#1259)",
-            "Resolve chat streaming bugs \u2014 stuck generation, double messages (#1258)",
-            "Resolve production TLS certificate verification failure (#1256)"
+            "Add AI disclaimers and legal links to chat",
+            "Safety net fires onError instead of onDone, add logging",
+            "Resolve chat streaming bugs \u2014 stuck generation, double messages",
+            "Resolve production TLS certificate verification failure"
           ]
         },
         {
@@ -655,10 +646,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add polling for chat messages and filter system role messages (#1170)",
-            "Browser extension snapshot returns empty when cookie consent overlay present (#1169)",
-            "Show all scheduled jobs in sidebar + add archive to context menu (#1168)",
-            "Address review findings for browser evaluate PR (#1141)"
+            "Add polling for chat messages and filter system role messages",
+            "Browser extension snapshot returns empty when cookie consent overlay present",
+            "Show all scheduled jobs in sidebar + add archive to context menu"
           ]
         },
         {
@@ -678,7 +668,6 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Address review findings from retroactive R12 review",
             "Add startup delay and retry for offscreen-to-service-worker messaging",
             "Align sidebar header padding (px-3) with menu group",
             "Align sidebar logo icon size (16px) with menu item icons"
@@ -702,7 +691,7 @@
           "project": "dzarvis",
           "bullets": [
             "Use createdAt for SlackMessage backfill (no updatedAt column)",
-            "Add jarvis_emails_get_attachment MCP tool for downloading email attachments (#941)",
+            "Add jarvis_emails_get_attachment MCP tool for downloading email attachments",
             "Set maxTokens to 512 for local models (not 0, not 4096)",
             "Don't set maxTokens for local models, let vLLM auto-calculate"
           ]
@@ -718,7 +707,7 @@
             "Add 1288 tests + unify UI patterns",
             "Resolve TypeScript errors in test files",
             "Add select clause to all email upserts and make since param work as fallback",
-            "Group integrations page by category with section headers (#932)"
+            "Group integrations page by category with section headers"
           ]
         }
       ]
@@ -744,8 +733,8 @@
           "project": "dzarvis",
           "bullets": [
             "Replace chat sidebar icon button with full-width \"New Chat\" button",
-            "Add interactive question widget for chat (#810)",
-            "Add skills to slash commands in chat (#811)",
+            "Add interactive question widget for chat",
+            "Add skills to slash commands in chat",
             "Derive settings tool enums from source constants"
           ]
         }
@@ -757,10 +746,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Improve chat sidebar with day grouping and attachment indicators (#766)",
-            "Use e.code for keyboard shortcut recording to handle macOS Option key (#763)",
-            "Add Perplexity as server-level LLM provider (#760)",
-            "Handle undefined tool result in MCP adapter (#758)"
+            "Improve chat sidebar with day grouping and attachment indicators",
+            "Use e.code for keyboard shortcut recording to handle macOS Option key",
+            "Add Perplexity as server-level LLM provider",
+            "Handle undefined tool result in MCP adapter"
           ]
         }
       ]
@@ -771,7 +760,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Resolve schema drift with missing migration (#696)",
+            "Resolve schema drift with missing migration",
             "Suppress TypeScript null context errors in Catchall bridge component",
             "Reset LocationContext to prevent nested router error in catchall",
             "Move hooks above early return in CookieConsentBanner"
@@ -785,10 +774,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Configurable dashboard with drag-and-drop reordering (#609)",
-            "Add per-user usage credits for TTS and AI messages (#608)",
-            "Allow Google OAuth flow inside Electron desktop window (#604)",
-            "Audit log error serialization and invite FK violation (#607)"
+            "Configurable dashboard with drag-and-drop reordering",
+            "Add per-user usage credits for TTS and AI messages",
+            "Allow Google OAuth flow inside Electron desktop window",
+            "Audit log error serialization and invite FK violation"
           ]
         }
       ]
@@ -799,10 +788,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add admin invite MCP tools for listing and creating invites (#592)",
-            "Replace Redis sidecar with managed ElastiCache (#584)",
-            "Address DB views PR review \u2014 staleness, per-asset charts, error handling (#588)",
-            "Address code review findings \u2014 whisper lang, pipefail, error handling (#591)"
+            "Add admin invite MCP tools for listing and creating invites",
+            "Replace Redis sidecar with managed ElastiCache",
+            "Address DB views PR review \u2014 staleness, per-asset charts, error handling",
+            "Address code review findings \u2014 whisper lang, pipefail, error handling"
           ]
         }
       ]
@@ -827,10 +816,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add data migration system for Coolify to AWS transfer (#568)",
-            "Add live browser viewer panel in chat (#569)",
-            "Bypass broken better-auth oAuthConsent for MCP consent flow (#567)",
-            "Upgrade better-auth to 1.5.4 to fix MCP consent flow (#566)"
+            "Add data migration system for Coolify to AWS transfer",
+            "Add live browser viewer panel in chat",
+            "Upgrade better-auth to 1.5.4 to fix MCP consent flow"
           ]
         }
       ]
@@ -841,10 +829,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Make chat the default landing page (#554)",
-            "Add scroll to tool picker dropdown (#553)",
-            "Add JarvisCert stack to CI deploy pipeline (#551)",
-            "Prevent HealthKit crash on iPad + version bumps (#552)"
+            "Make chat the default landing page",
+            "Add scroll to tool picker dropdown",
+            "Add JarvisCert stack to CI deploy pipeline",
+            "Prevent HealthKit crash on iPad + version bumps"
           ]
         }
       ]
@@ -869,10 +857,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add Jarvis Lite WebView wrapper mobile app (#534)",
-            "Hide wheat from dashboard time tracking (#525)",
-            "Gate non-core features for Mac App Store builds (#533)",
-            "Hide model selector for non-admin users (#532)"
+            "Add Jarvis Lite WebView wrapper mobile app",
+            "Hide wheat from dashboard time tracking",
+            "Gate non-core features for Mac App Store builds",
+            "Hide model selector for non-admin users"
           ]
         }
       ]
@@ -883,7 +871,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add episode video storage to series (#531)",
+            "Add episode video storage to series",
             "Stream video files from disk instead of loading into memory",
             "Add credentials to video player CORS for cross-origin auth",
             "Increase stuck torrent threshold from 30min to 2h"
@@ -900,7 +888,7 @@
             "Skip HTTPS redirect for health check paths",
             "Bootstrap ECS with desiredCount 0 to avoid chicken-and-egg",
             "Use process.env instead of Prisma env() for DATABASE_URL",
-            "Migrate AWS deployment from EC2 to ECS Fargate (#523)"
+            "Migrate AWS deployment from EC2 to ECS Fargate"
           ]
         }
       ]
@@ -925,10 +913,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add PDF Studio \u2014 template-based generation and editing (#510)",
-            "Remove unused organizations and teams feature (#300)",
-            "Add multi-user E2E test infrastructure and auth/sharing specs (#290)",
-            "Route voice through AI agent with TTS response loop (#507)"
+            "Add PDF Studio \u2014 template-based generation and editing",
+            "Remove unused organizations and teams feature",
+            "Add multi-user E2E test infrastructure and auth/sharing specs",
+            "Route voice through AI agent with TTS response loop"
           ]
         }
       ]
@@ -939,7 +927,6 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Address coderabbit major/minor findings batch 3 (#515)",
             "Set whisper-cpp threads to 1 to avoid OpenBLAS contention",
             "Show exact recordedAt timestamp in recordings list",
             "Open recording detail instead of edit form from calendar view"
@@ -953,10 +940,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add email reactions for AI-triggered automation (#406)",
-            "Add demo mode for AI-driven live presentations (#373)",
+            "Add email reactions for AI-triggered automation",
+            "Add demo mode for AI-driven live presentations",
             "Add multi-user E2E test infrastructure and auth/sharing specs",
-            "Revert media sidebar nesting to flat items (#299)"
+            "Revert media sidebar nesting to flat items"
           ]
         }
       ]
@@ -967,21 +954,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Correct tailwind content path for hoisted @blaze-it/ui package",
-            "Add milestone CRUD MCP tools (#262)",
-            "Abstract TTS into provider pattern and add ElevenLabs support (#245)",
-            "Top-notch file upload system with presigned S3, streaming assembly, and resilience (#236)"
-          ]
-        }
-      ]
-    },
-    {
-      "date": "2026-02-27",
-      "shipments": [
-        {
-          "project": "dzarvis",
-          "bullets": [
-            "Address CodeRabbit retroactive review findings (#187)"
+            "Add milestone CRUD MCP tools",
+            "Abstract TTS into provider pattern and add ElevenLabs support",
+            "Top-notch file upload system with presigned S3, streaming assembly, and resilience"
           ]
         }
       ]
@@ -993,8 +968,7 @@
           "project": "dzarvis",
           "bullets": [
             "Pass invite token to sign-up API + adopt shared packages round 6",
-            "Address CodeRabbit review findings \u2014 type safety, stale closures, routing",
-            "Resolve chat streaming bugs \u2014 message disappearance and silent errors (#177)",
+            "Resolve chat streaming bugs \u2014 message disappearance and silent errors",
             "Prevent consumed request body in MCP session recovery path"
           ]
         },
@@ -1024,7 +998,7 @@
             "Minor UI fixes in speed-test, effort-progress, and team dashboard",
             "Add S3 env vars to AWS compose and git to Dockerfile",
             "Add developer hub grouping GitHub and Claude Code under /developer",
-            "Replace guest user system with album sharing (#172)"
+            "Replace guest user system with album sharing"
           ]
         }
       ]
@@ -1145,7 +1119,6 @@
           "bullets": [
             "Close NZ\u00da Light and HOUSEnerg (funds exhausted Nov 2025)",
             "Hide scraped HOUSEnerg duplicate (modfond-31)",
-            "Force-close nzu-babicce and auto-close expired grants",
             "Add admin ETL trigger endpoint"
           ]
         }
@@ -1288,7 +1261,6 @@
           "bullets": [
             "Resolve MCP scope not persisting through consent flow",
             "Add scope selection to MCP consent page",
-            "Grant full MCP access when client omits scope parameter",
             "Use absolute frontend URLs for MCP OAuth consent/login redirects"
           ]
         },
@@ -1297,8 +1269,7 @@
           "bullets": [
             "Complete Apple-inspired UI overhaul",
             "Add full-screen map explorer with server-side clustering",
-            "RUIAN ETL pipeline calibrated against real CUZK data",
-            "Address CodeRabbit review findings"
+            "RUIAN ETL pipeline calibrated against real CUZK data"
           ]
         },
         {
@@ -1316,9 +1287,9 @@
           "project": "dzarvis",
           "bullets": [
             "Add missing scope metadata for flights, search, slack",
-            "Add deep linking for notifications and jarvis:// URLs (#147)",
-            "Redesign mobile menu with expanded items and swipe-to-open (#145)",
-            "Add voice selection for TTS message playback (#143)"
+            "Add deep linking for notifications and jarvis:// URLs",
+            "Redesign mobile menu with expanded items and swipe-to-open",
+            "Add voice selection for TTS message playback"
           ]
         },
         {
@@ -1337,7 +1308,7 @@
           "bullets": [
             "Remove Slack message sync page limit to fetch full history",
             "Add SlackUser table and SlackMessage files/replyCount columns",
-            "Enhance mobile and Mac menus with organized sections matching web sidebar (#132)",
+            "Enhance mobile and Mac menus with organized sections matching web sidebar",
             "Add Slack UI enhancements - emoji, avatars, attachments, threads"
           ]
         }
@@ -1455,8 +1426,7 @@
         {
           "project": "jarvischeck",
           "bullets": [
-            "Add externalId field for external system integration (#8)",
-            "Address PR review feedback",
+            "Add externalId field for external system integration",
             "Add v1 API with token authentication",
             "Add externalId field for external system integration"
           ]
@@ -1483,7 +1453,6 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Address PR review issues across integrations",
             "Add multi-account Google Calendar schema support",
             "Add rides page for Bolt, Uber, and Grab ride history",
             "Add Bolt, Uber, and Grab integrations to settings page"
@@ -1551,7 +1520,7 @@
           "project": "dzarvis",
           "bullets": [
             "Allow Sentry upload failure to prevent build errors",
-            "Add native Sentry initialization for early crash capture (#101)"
+            "Add native Sentry initialization for early crash capture"
           ]
         }
       ]
@@ -1600,7 +1569,7 @@
           "bullets": [
             "Improve error handling and date consistency across modules",
             "Add location tracking and nicotine modules",
-            "Add timezone support, streaming backup, and CSP improvements (#97)",
+            "Add timezone support, streaming backup, and CSP improvements",
             "Activity graph now shows all-time data without infinite scroll"
           ]
         }
@@ -1640,10 +1609,10 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add time estimates to tasks (#91)",
-            "Return full provider:model format for default model selection (#85)",
-            "Add book tracking module with reading progress, notes, and highlights (#92)",
-            "Remove max-w-2xl constraint from section containers (#83)"
+            "Add time estimates to tasks",
+            "Return full provider:model format for default model selection",
+            "Add book tracking module with reading progress, notes, and highlights",
+            "Remove max-w-2xl constraint from section containers"
           ]
         }
       ]
@@ -1654,7 +1623,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Resolve data source issues for personalities, skills, and memories (#79)"
+            "Resolve data source issues for personalities, skills, and memories"
           ]
         }
       ]
@@ -1666,9 +1635,9 @@
           "project": "dzarvis",
           "bullets": [
             "Add expo packages for enhanced functionality",
-            "Enhance tasks with infinite scroll, bulk operations, and time tracking (#77)",
-            "Prevent infinite rerender and improve consistency on heart rate page (#76)",
-            "Add missing UI for tracked database features (#75)"
+            "Enhance tasks with infinite scroll, bulk operations, and time tracking",
+            "Prevent infinite rerender and improve consistency on heart rate page",
+            "Add missing UI for tracked database features"
           ]
         }
       ]
@@ -1680,9 +1649,9 @@
           "project": "dzarvis",
           "bullets": [
             "Remove merge conflict markers from prisma schema",
-            "Add file storage integration with S3 and Nextcloud migration (#57)",
-            "Add logging and error handling abstraction with Sentry integration (#58)",
-            "Add heart rate, wellness, workouts, and sessions UI pages (#66)"
+            "Add file storage integration with S3 and Nextcloud migration",
+            "Add logging and error handling abstraction with Sentry integration",
+            "Add heart rate, wellness, workouts, and sessions UI pages"
           ]
         }
       ]
@@ -1694,7 +1663,7 @@
           "project": "dzarvis",
           "bullets": [
             "Safely delete deprecated integration types before enum migration",
-            "Add heart rate synchronization from Oura Ring (#56)",
+            "Add heart rate synchronization from Oura Ring",
             "Add file storage UI with S3 and Nextcloud support",
             "Add file storage integration with S3 and Nextcloud migration"
           ]
@@ -1707,7 +1676,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Move useConfirm hook before early return in task detail dialog (#48)",
+            "Move useConfirm hook before early return in task detail dialog",
             "Add pushups tracking module"
           ]
         }
@@ -1855,7 +1824,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Resolve TypeScript and linting issues (#27)",
+            "Resolve TypeScript and linting issues",
             "Add BMR, TDEE, and Target reference lines to daily intake chart"
           ]
         }
@@ -1867,7 +1836,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add Clockify sync for calorie tracker (#25)"
+            "Add Clockify sync for calorie tracker"
           ]
         }
       ]
@@ -1879,7 +1848,7 @@
           "project": "dzarvis",
           "bullets": [
             "Use hardcoded BTC balance instead of blockchain.info API",
-            "Amundi Terms of Use dialog, TypeScript errors, and Sentry init (#24)"
+            "Amundi Terms of Use dialog, TypeScript errors, and Sentry init"
           ]
         }
       ]
@@ -1890,7 +1859,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add in-code cron jobs using Croner (#23)"
+            "Add in-code cron jobs using Croner"
           ]
         }
       ]
@@ -1901,7 +1870,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add calorie tracking to lifestyle section (#22)"
+            "Add calorie tracking to lifestyle section"
           ]
         }
       ]
@@ -1914,7 +1883,7 @@
           "bullets": [
             "Correct .DS_Store case in .gitignore",
             "Remove external port exposure from PostgreSQL service",
-            "Add PostgreSQL service to Docker Compose (#21)",
+            "Add PostgreSQL service to Docker Compose",
             "Migrate to Prisma 7 config format with prisma.config.ts"
           ]
         }
@@ -1926,7 +1895,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Sync full Todoist history with proper task dates (#18)",
+            "Sync full Todoist history with proper task dates",
             "Update hardcoded btc balance to 0.01269828"
           ]
         }
@@ -1949,9 +1918,9 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add weekly calendar view for recordings (#17)",
-            "Sync recordings to Clockify as time entries (#16)",
-            "Add audio recordings with subtitles and transcriptions (#15)",
+            "Add weekly calendar view for recordings",
+            "Sync recordings to Clockify as time entries",
+            "Add audio recordings with subtitles and transcriptions",
             "Resolve CI biome and TypeScript errors"
           ]
         }
@@ -1966,13 +1935,13 @@
             "Convert remaining nested routes to flat file format",
             "Convert auth routes to flat file format for React Router v7",
             "Convert resources routes to flat file format for React Router v7",
-            "Convert all integrations to system-wide configuration (#13)"
+            "Convert all integrations to system-wide configuration"
           ]
         },
         {
           "project": "jarvischeck",
           "bullets": [
-            "Add Turnstile protection and fix IPv6 rate-limiting (#7)"
+            "Add Turnstile protection and fix IPv6 rate-limiting"
           ]
         }
       ]
@@ -1983,7 +1952,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Remove GitHub, Google Sheets, Slack integrations and Employees (#11)"
+            "Remove GitHub, Google Sheets, Slack integrations and Employees"
           ]
         }
       ]
@@ -2006,7 +1975,7 @@
           "project": "dzarvis",
           "bullets": [
             "Add value tracking and charts to inventory system",
-            "Add physical inventory management system (#8)"
+            "Add physical inventory management system"
           ]
         }
       ]
@@ -2032,7 +2001,7 @@
           "project": "dzarvis",
           "bullets": [
             "Change hourly rate currency from USD to CZK",
-            "Add employee tracking functionality (#5)"
+            "Add employee tracking functionality"
           ]
         }
       ]
@@ -2067,7 +2036,7 @@
           "bullets": [
             "Resolve TypeScript errors in GitHub and Clockify integrations",
             "Add GitHub tracking with personal repos support & fix type issues",
-            "Add GitHub tracking module (#4)"
+            "Add GitHub tracking module"
           ]
         }
       ]
@@ -2116,7 +2085,7 @@
         {
           "project": "jarvischeck",
           "bullets": [
-            "Add public API for premium users (#6)"
+            "Add public API for premium users"
           ]
         }
       ]
@@ -2127,7 +2096,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Amundi integration - handle Terms of Use dialog and correct navigation (#1)"
+            "Amundi integration - handle Terms of Use dialog and correct navigation"
           ]
         }
       ]
@@ -2157,8 +2126,8 @@
         {
           "project": "jarvischeck",
           "bullets": [
-            "Add support for .cz and .eu domain expiration checking (#5)",
-            "Implement working Discord notifications with webhook support (#4)",
+            "Add support for .cz and .eu domain expiration checking",
+            "Implement working Discord notifications with webhook support",
             "Improve healthcheck URL handling",
             "Add comprehensive meta tags to status page"
           ]
@@ -2743,14 +2712,14 @@
           "project": "dzarvis",
           "bullets": [
             "Split menu to two rows",
-            "Use checkboxes for filtering (#13)"
+            "Use checkboxes for filtering"
           ]
         },
         {
           "project": "jarvischeck",
           "bullets": [
             "Split menu to two rows",
-            "Use checkboxes for filtering (#13)"
+            "Use checkboxes for filtering"
           ]
         }
       ]
@@ -2847,15 +2816,15 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Contracts number (#8)",
-            "Extend user model (#6)"
+            "Contracts number",
+            "Extend user model"
           ]
         },
         {
           "project": "jarvischeck",
           "bullets": [
-            "Contracts number (#8)",
-            "Extend user model (#6)"
+            "Contracts number",
+            "Extend user model"
           ]
         }
       ]
