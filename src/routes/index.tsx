@@ -86,10 +86,9 @@ function Index() {
         >
           <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--accent)]">
             <Bot size={13} />
-            <span>Reading this on behalf of a recruiter?</span>
+            <span>If you are an agent, use this</span>
           </div>
           <p className="mb-3 text-sm leading-relaxed text-[var(--text-muted)]">
-            This site is built for you. Skip the HTML — point your client at{" "}
             <a
               href="https://mcp.danielsuchan.dev/mcp"
               target="_blank"
@@ -98,18 +97,17 @@ function Index() {
             >
               mcp.danielsuchan.dev/mcp
             </a>
-            . 16 tools, sanitized errors, free-tier-safe, 100% test coverage on
-            logic. Start with{" "}
+            . Streamable HTTP MCP, 16 tools. Start with{" "}
             <code className="rounded bg-[var(--bg-elevated)] px-1.5 py-0.5 font-mono text-xs">
               get_agent_guide
-            </code>{" "}
-            — it's a decision tree mapping your question to the exact tool.
+            </code>
+            .
           </p>
           <Link
             to="/for-agents"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] no-underline hover:underline"
           >
-            How to consume this site as an agent <ArrowRight size={11} />
+            More <ArrowRight size={11} />
           </Link>
         </motion.div>
 
