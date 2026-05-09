@@ -9,7 +9,7 @@ import { registerResources } from "./resources.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
-const SERVER_VERSION = "1.4.0";
+const SERVER_VERSION = "1.5.0";
 const DEFAULT_DAILY_LIMIT = 80;
 
 const app = new Hono<{ Bindings: Bindings }>();

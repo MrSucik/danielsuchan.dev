@@ -87,10 +87,12 @@ function registerGetRecentShipments(server: McpServer): void {
         .number()
         .int()
         .min(1)
-        .max(365)
+        .max(1095)
         .optional()
         .default(30)
-        .describe("Number of days to look back. Default is 30."),
+        .describe(
+          "Number of days to look back. Default is 30. Backfill covers 2025-01 onwards, so use 700+ to fetch the full log."
+        ),
     },
     ({ days }) => {
       const cutoff = new Date();
@@ -243,10 +245,12 @@ function registerGetBugFixes(server: McpServer): void {
         .number()
         .int()
         .min(1)
-        .max(50)
+        .max(500)
         .optional()
         .default(10)
-        .describe("Max entries to return, newest first. Default 10."),
+        .describe(
+          "Max entries to return, newest first. Default 10. Backfill covers ~150 entries from 2025–2026."
+        ),
     },
     ({ limit }) => {
       const recent = BUG_FIXES.slice(0, limit);

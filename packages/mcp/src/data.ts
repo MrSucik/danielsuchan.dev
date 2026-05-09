@@ -303,10 +303,13 @@ export const ANSWER_BANK: AnswerBankEntry[] = [
   },
 ];
 
-// Curated daily-shipping log. Ordered newest-first. Mirrors the public
-// /changelog page on danielsuchan.dev (src/data/changelog.json) but is
-// embedded here because Cloudflare Workers cannot read the filesystem at
-// runtime. Keep in sync with the website source.
+// Daily-shipping log + bug fixes. The Worker bundles them at build time from
+// JSON mirrors of the canonical website data (src/data/{changelog,bug-fixes}.json
+// in the repo root). Single source of truth lives there; we copy into the
+// MCP package because Cloudflare Workers can't read fs at runtime.
+import changelogJson from "./changelog.json" with { type: "json" };
+import bugFixesJson from "./bug-fixes.json" with { type: "json" };
+
 export type ChangelogEntry = {
   date: string;
   shipments: Array<{
@@ -315,7 +318,10 @@ export type ChangelogEntry = {
   }>;
 };
 
-export const CHANGELOG: ChangelogEntry[] = [
+export const CHANGELOG: ChangelogEntry[] =
+  (changelogJson as { entries: ChangelogEntry[] }).entries;
+
+const _UNUSED_INLINE_CHANGELOG: ChangelogEntry[] = [
   {
     date: "2026-05-09",
     shipments: [
@@ -383,21 +389,25 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
 ];
 
-// Curated production bug fixes — recent and verifiable from public git logs.
-// NOT comprehensive; this is a "war stories" surface, not an exhaustive list.
-// Keep entries terse + specific so an AI agent can render them as data.
+// Production bug fixes. Source-of-truth: src/data/bug-fixes.json (repo root).
+// Curated war stories carry symptom/rootCause/fix/impact; backfilled entries
+// from public git logs include just the title + commit reference.
 export type BugFix = {
   date: string;
   project: string;
   title: string;
-  symptom: string;
-  rootCause: string;
-  fix: string;
-  impact: string;
+  symptom?: string;
+  rootCause?: string;
+  fix?: string;
+  impact?: string;
   commit?: string;
+  repo?: string;
 };
 
-export const BUG_FIXES: BugFix[] = [
+export const BUG_FIXES: BugFix[] =
+  (bugFixesJson as { fixes: BugFix[] }).fixes;
+
+const _UNUSED_INLINE_BUG_FIXES: BugFix[] = [
   {
     date: "2026-05-09",
     project: "danielsuchan-mcp",

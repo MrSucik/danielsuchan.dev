@@ -37,8 +37,15 @@ function formatDate(iso: string): string {
   });
 }
 
-function commitUrl(commit: string): string {
-  return `https://github.com/MrSucik/danielsuchan.dev/commit/${commit}`;
+function commitUrl(repo: string | undefined, commit: string): string {
+  // Default to the public danielsuchan.dev repo when no `repo` field is set;
+  // backfilled entries from private repos (dzarvis, jarvischeck) just show
+  // the short SHA without a clickable link.
+  return `https://github.com/${repo ?? "MrSucik/danielsuchan.dev"}/commit/${commit}`;
+}
+
+function isDetailed(fix: BugFixesData["fixes"][number]): boolean {
+  return Boolean(fix.symptom || fix.rootCause || fix.fix || fix.impact);
 }
 
 function Bugs() {
@@ -80,8 +87,12 @@ function Bugs() {
         comprehensive career log; recent and concrete.
       </motion.p>
 
-      <div className="space-y-6">
-        {sortedFixes.map((fix, i) => {
+      {/* Detailed war stories first, then a compact log of recent fix commits. */}
+      <h2 className="mb-4 text-xs uppercase tracking-wider text-[var(--text-dim)]">
+        War stories
+      </h2>
+      <div className="mb-12 space-y-6">
+        {sortedFixes.filter(isDetailed).map((fix, i) => {
           const meta = getProjectMeta(fix.project);
           return (
             <motion.article
@@ -94,9 +105,9 @@ function Bugs() {
             >
               <header className="mb-4 flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--border)] pb-3">
                 <div className="flex flex-wrap items-baseline gap-3">
-                  <h2 className="text-base font-semibold text-[var(--text-bright)]">
+                  <h3 className="text-base font-semibold text-[var(--text-bright)]">
                     {fix.title}
-                  </h2>
+                  </h3>
                   {meta.url ? (
                     <a
                       href={meta.url}
@@ -116,12 +127,12 @@ function Bugs() {
                 <div className="flex items-center gap-3">
                   {fix.commit && (
                     <a
-                      href={commitUrl(fix.commit)}
+                      href={commitUrl(fix.repo, fix.commit)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-[10px] text-[var(--text-dim)] no-underline hover:text-[var(--accent)]"
                     >
-                      {fix.commit}
+                      {fix.commit.slice(0, 7)}
                     </a>
                   )}
                   <time
@@ -134,14 +145,69 @@ function Bugs() {
               </header>
 
               <dl className="space-y-3 text-xs leading-relaxed">
-                <BugField label="Symptom" value={fix.symptom} />
-                <BugField label="Root cause" value={fix.rootCause} />
-                <BugField label="Fix" value={fix.fix} />
-                <BugField label="Impact" value={fix.impact} accent />
+                {fix.symptom && <BugField label="Symptom" value={fix.symptom} />}
+                {fix.rootCause && (
+                  <BugField label="Root cause" value={fix.rootCause} />
+                )}
+                {fix.fix && <BugField label="Fix" value={fix.fix} />}
+                {fix.impact && (
+                  <BugField label="Impact" value={fix.impact} accent />
+                )}
               </dl>
             </motion.article>
           );
         })}
+      </div>
+
+      <h2 className="mb-4 text-xs uppercase tracking-wider text-[var(--text-dim)]">
+        Recent fix commits
+      </h2>
+      <p className="mb-6 text-xs text-[var(--text-muted)]">
+        A backfill from public + private repo `fix:` commits over 2025–2026.
+        Title-only entries linking to the underlying commit. Some repos are
+        private, so those rows show the short SHA without a hyperlink.
+      </p>
+      <div className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)]">
+        <ul className="divide-y divide-[var(--border)]">
+          {sortedFixes.filter((f) => !isDetailed(f)).map((fix) => {
+            const meta = getProjectMeta(fix.project);
+            return (
+              <li
+                key={`${fix.date}-${fix.commit}`}
+                className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-3 text-xs"
+              >
+                <time
+                  className="w-20 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]"
+                  dateTime={fix.date}
+                >
+                  {fix.date}
+                </time>
+                <span className="w-32 flex-shrink-0 font-mono text-[10px] text-[var(--text-dim)]">
+                  {meta.name}
+                </span>
+                <span className="min-w-0 flex-1 text-[var(--text-muted)]">
+                  {fix.title}
+                </span>
+                {fix.commit && (
+                  fix.repo ? (
+                    <a
+                      href={commitUrl(fix.repo, fix.commit)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[10px] text-[var(--text-dim)] no-underline hover:text-[var(--accent)]"
+                    >
+                      {fix.commit.slice(0, 7)}
+                    </a>
+                  ) : (
+                    <span className="font-mono text-[10px] text-[var(--text-dim)]">
+                      {fix.commit.slice(0, 7)}
+                    </span>
+                  )
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </main>
   );
