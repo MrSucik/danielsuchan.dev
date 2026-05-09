@@ -1,25 +1,12 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { describe, expect, it } from "vitest";
 import { registerResources } from "../resources.js";
-
-type ResourceReader = (uri: URL) => Promise<{
-  contents: Array<{ uri: string; mimeType: string; text: string }>;
-}>;
+import { resource } from "./helpers.js";
 
 function makeServer() {
   const server = new McpServer({ name: "test", version: "0.0.1" });
   registerResources(server);
   return server;
-}
-
-function resource(server: McpServer, uri: string): ResourceReader {
-  const map = (
-    server as unknown as {
-      _registeredResources?: Record<string, { readCallback: ResourceReader }>;
-    }
-  )._registeredResources;
-  if (!map?.[uri]) throw new Error(`resource not registered: ${uri}`);
-  return map[uri].readCallback;
 }
 
 describe("registerResources", () => {

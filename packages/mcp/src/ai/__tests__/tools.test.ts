@@ -197,6 +197,18 @@ describe("ai_summarize", () => {
     };
     expect(m2.messages[0].content).not.toContain("Style:");
   });
+
+  it("returns a sanitized isError result when the AI call throws", async () => {
+    const ai: AIBinding = {
+      run: vi.fn().mockRejectedValue(new Error("AccountId=xyz quota exceeded")),
+    };
+    const server = new McpServer({ name: "test", version: "0.0.1" });
+    registerAiTools(server, { AI: ai });
+    const result = await tool(server, "ai_summarize")({ text: "lorem" });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).not.toContain("AccountId");
+    expect(result.content[0].text).toMatch(/AI call failed/i);
+  });
 });
 
 describe("ai_classify", () => {
@@ -310,6 +322,21 @@ describe("ai_extract_json", () => {
       error: "field missing",
       name: "ACME",
     });
+  });
+
+  it("returns a sanitized isError result when the AI call throws", async () => {
+    const ai: AIBinding = {
+      run: vi.fn().mockRejectedValue(new Error("AccountId=xyz")),
+    };
+    const server = new McpServer({ name: "test", version: "0.0.1" });
+    registerAiTools(server, { AI: ai });
+    const result = await tool(server, "ai_extract_json")({
+      text: "lorem",
+      schemaDescription: "object with field x",
+    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).not.toContain("AccountId");
+    expect(result.content[0].text).toMatch(/AI call failed/i);
   });
 });
 

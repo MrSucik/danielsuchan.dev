@@ -185,20 +185,30 @@ describeOrSkip("E2E live — Workers AI tools", () => {
   it(
     "ai_classify returns structured content within the label set",
     async () => {
+      const labels = ["positive", "negative", "neutral"];
       const { rpc: r } = await rpc("tools/call", {
         name: "ai_classify",
-        arguments: {
-          text: "this is wonderful",
-          labels: ["positive", "negative", "neutral"],
-        },
+        arguments: { text: "this is wonderful", labels },
       });
       const result = r?.result as
-        | { structuredContent?: { label: string }; isError?: boolean }
+        | {
+            structuredContent?: { label: string };
+            content: Array<{ text: string }>;
+            isError?: boolean;
+          }
         | undefined;
-      if (result?.isError) return; // model can occasionally produce off-set output; accept failure but don't fail the suite
-      expect(["positive", "negative", "neutral"]).toContain(
-        result?.structuredContent?.label
-      );
+      // Either the model returned a valid in-set label (happy path), or it
+      // returned an out-of-set label which the tool flags isError. Both are
+      // valid behavior — the contract is "return a label OR error cleanly".
+      // We assert at least one of these holds, never both.
+      if (result?.isError) {
+        expect(result.content[0].text).toMatch(
+          /classification failed|did not match/i
+        );
+        expect(result.structuredContent).toBeUndefined();
+      } else {
+        expect(labels).toContain(result?.structuredContent?.label);
+      }
     },
     TIMEOUT_MS
   );
