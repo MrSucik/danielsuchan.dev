@@ -1,0 +1,44 @@
+{
+  "fixes": [
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Workers AI rejects OpenAI-style response_format json_object",
+      "symptom": "ai_classify and ai_extract_json failed every call with '9015: invalid prompt: failed to parse prompt: unknown variant `json_object`, expected `json_schema`'",
+      "rootCause": "Cloudflare Workers AI in 2026 only accepts response_format type 'json_schema' with a concrete schema. The OpenAI-style 'json_object' is rejected — and ai_extract_json's schemaDescription is plain English from the user, so we can't construct one.",
+      "fix": "Removed the json flag from ChatOptions entirely. JSON-output tools now rely on system-prompt instructions + temperature 0 + safeParseJson with a new balanced-brace substring fallback that handles prose-wrapped JSON correctly (including escaped quotes inside string literals).",
+      "impact": "Restored all 5 AI tools end-to-end on mcp.danielsuchan.dev. Wrote a doc comment on the gotcha so future MCP integrations don't re-introduce the bug.",
+      "commit": "689be3a"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Health endpoint 500ed when env was undefined in vitest",
+      "symptom": "After exposing aiBudget on GET /, fetch-tests started returning 500 because c.env was undefined when the Worker was invoked outside Cloudflare.",
+      "rootCause": "Hono's c.env is undefined when app.fetch(req) is called without an env argument; reading c.env.MAX_AI_CALLS_PER_DAY threw 'cannot read properties of undefined'.",
+      "fix": "Added a defensive `(c.env ?? {}) as Partial<Bindings>` cast in the health-endpoint handler so vitest fetch-tests stay 200.",
+      "impact": "Tests can call app.fetch(new Request('/')) directly without staging a full Bindings shape. 66/66 tests green.",
+      "commit": "d1abadf"
+    },
+    {
+      "date": "2026-05-09",
+      "project": "danielsuchan-mcp",
+      "title": "Public MCP server leaked Workers AI internal trace IDs in error messages",
+      "symptom": "When the AI binding returned an unexpected shape, the thrown error message included up to 200 chars of the raw payload — surfacing internal trace IDs, account state, and partial prompt echoes to public callers.",
+      "rootCause": "extractText threw `new Error('Unexpected Workers AI response shape: ${JSON.stringify(raw).slice(0, 200)}')` and the MCP SDK piped error.message verbatim into the public CallToolResult.content.",
+      "fix": "Sanitized the message to a generic 'Workers AI returned an unexpected response shape' and console.error the raw shape server-side instead. Did the same for ai_classify and ai_extract_json's failure paths — log details, return generic isError to public callers.",
+      "impact": "Closed an info-leak vector on a public unauthenticated MCP endpoint. Operators still get full diagnostics in `wrangler tail`.",
+      "commit": "1c53bb6"
+    },
+    {
+      "date": "2026-05-02",
+      "project": "danielsuchan-dev",
+      "title": "Public site claimed Dzarvis features that weren't verifiable",
+      "symptom": "Site referenced specific subagent counts, $/day pricing, dual-review verification, content-hash caching, and per-domain trigger detection — none verifiable as shipped.",
+      "rootCause": "Earlier session populated copy from speculative architecture ideas rather than verified production behavior.",
+      "fix": "Stripped every unverified claim. Added a strict bio_canonical memory listing exactly which Dzarvis claims may appear in public artifacts ('multi-agent assistant on Claude', '208-tool MCP server', '15 fine-tuning companies', 'stealth mode') and which must NEVER appear.",
+      "impact": "Site now reflects only verifiable facts; future content generation has a clear allowlist/blocklist to ground against.",
+      "commit": "8071cc1"
+    }
+  ]
+}

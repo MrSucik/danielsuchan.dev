@@ -9,7 +9,7 @@ import { registerResources } from "./resources.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
-const SERVER_VERSION = "1.3.0";
+const SERVER_VERSION = "1.4.0";
 const DEFAULT_DAILY_LIMIT = 80;
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -60,6 +60,7 @@ app.get("/", async (c) => {
       "get_skills",
       "ask_about_daniel",
       "get_bug_fixes",
+      "get_curated_tweets",
       "ai_ask",
       "ai_summarize",
       "ai_classify",

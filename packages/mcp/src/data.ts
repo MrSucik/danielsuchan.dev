@@ -440,7 +440,7 @@ export const BUG_FIXES: BugFix[] = [
   {
     date: "2026-05-02",
     project: "danielsuchan-dev",
-    title: "Public site claimed Dzarvis features that weren't verifiable",
+    title: "Public site claimed Dzarvis features that weren't verifiable.",
     symptom:
       "Site referenced specific subagent counts, $/day pricing, dual-review verification, content-hash caching, and per-domain trigger detection — none verifiable as shipped.",
     rootCause:
@@ -451,3 +451,189 @@ export const BUG_FIXES: BugFix[] = [
     commit: "8071cc1",
   },
 ];
+
+// Curated daily Twitter/X digest snapshot. Source: Daniel's twitter-agent
+// pipeline at /Users/xxx/p/twitter, persisted to Jarvis KV namespace
+// `twitter-pulse` keyed by date. The agent filters 136 handles for niche /
+// high-signal AI + finance content (no rage-bait, no political noise).
+//
+// This is a snapshot of the most recent digest, embedded so the Worker can
+// serve it without a Jarvis round-trip. Long-term: a sync script will push
+// each new digest into Workers KV and this tool will read live. For now,
+// `latestSnapshot` is updated by hand or by a CI step.
+export type TwitterPulseEntry = {
+  handle: string;
+  link?: string;
+  detail?: string;
+  fact?: string;
+  headline?: string;
+};
+
+export type TwitterPulse = {
+  date: string;
+  source: string;
+  daySummary: string;
+  sentiment: number;
+  watchlistSize: number;
+  activeHandles: number;
+  silentHandles: number;
+  top3: TwitterPulseEntry[];
+  modelsBenchmarks: TwitterPulseEntry[];
+  capitalDeals: TwitterPulseEntry[];
+  researchDepth: TwitterPulseEntry[];
+  nicheContrarian: TwitterPulseEntry[];
+  watchlistRecs: {
+    add: Array<{ handle: string; reason: string }>;
+    prune: Array<{ handle: string; reason: string }>;
+  };
+};
+
+export const TWITTER_PULSE_LATEST: TwitterPulse = {
+  date: "2026-05-01",
+  source: "twitter-agent curation",
+  daySummary:
+    "Codex onboarding wave + ChatGPT Images 2.0 inflection + open-weights closing within 6 pts of frontier + e2b textbook security writeup. Sentiment +2. No rage-bait surfaced.",
+  sentiment: 2,
+  watchlistSize: 99,
+  activeHandles: 29,
+  silentHandles: 70,
+  top3: [
+    {
+      handle: "@ArtificialAnlys",
+      headline: "Grok 4.3 ships with massive agentic jump",
+      detail:
+        "53 on AA Intelligence Index, +321 ELO on GDPval-AA to 1500, ~40% cheaper input / ~60% cheaper output than Grok 4.20. $395 to run full benchmark suite.",
+      link: "https://x.com/ArtificialAnlys/status/2049987001655714250",
+    },
+    {
+      handle: "@OpenAI",
+      headline: "GPT-5.5 + Codex traction is real",
+      detail:
+        "Week-one API revenue 2x faster than any prior OpenAI release; Codex revenue doubled in <7 days. OpenAI shipped one-click migration from Claude Code (settings/plugins/agents/project config).",
+      link: "https://x.com/OpenAI/status/2050250926888468929",
+    },
+    {
+      handle: "@OpenAINewsroom",
+      headline: "ChatGPT Images 2.0 inflecting",
+      detail:
+        ">50% jump in image usage in a few weeks; ~60% of daily users newly logged-in. 360° viewer rolling out desktop now / mobile next week.",
+      link: "https://x.com/OpenAINewsroom/status/2050296741715706182",
+    },
+  ],
+  modelsBenchmarks: [
+    {
+      handle: "@ArtificialAnlys",
+      fact: "Open weights at 54: Kimi K2.6 (1T/32B, 256K) and Xiaomi MiMo V2.5 Pro (1T/42B, 1M) tie for #1; DeepSeek V4 Pro (1.6T/49B, 1M) at 52. GPT-5.5 xhigh at 60, Gemini 3.1 Pro Preview / Claude Opus 4.7 at 57. One year ago best open weights was 22.",
+      link: "https://x.com/ArtificialAnlys/status/2050096370200281539",
+    },
+    {
+      handle: "@AnthropicAI",
+      fact: "1M-conversation guidance/sycophancy study fed back into Opus 4.7 + Mythos Preview training",
+      link: "https://x.com/AnthropicAI/status/2049927618397614466",
+    },
+    {
+      handle: "@cursor_ai",
+      fact: "Cursor Security Review GA for Teams/Enterprise — per-PR Security Reviewer + Vulnerability Scanner posting to Slack",
+      link: "https://x.com/cursor_ai/status/2049926283061035254",
+    },
+    {
+      handle: "@lmsysorg",
+      fact: "SGLang DeepSeek V4 — only ~10% degradation at 1M ctx (ShadowRadix prefix cache + HiSparse KV)",
+      link: "https://x.com/lmsysorg/status/2049977433450045866",
+    },
+    {
+      handle: "@togethercompute",
+      fact: "DeepSeek V4 hybrid attention + sparse MoE cuts KV cache up to 90%, 1M-tok context",
+      link: "https://x.com/togethercompute/status/2049940598917087262",
+    },
+    {
+      handle: "@satyanadella",
+      fact: "Microsoft Agent 365 GA — extends enterprise identity/security/governance to every AI agent",
+      link: "https://x.com/satyanadella/status/2050251014691840015",
+    },
+    {
+      handle: "@runwayml",
+      fact: "Runway gen-video now on Android + iOS",
+      link: "https://x.com/runwayml/status/2050270993487212712",
+    },
+    {
+      handle: "@claudeai",
+      fact: "Code with Claude dev conference next week — livestream registration open",
+      link: "https://x.com/claudeai/status/2050252933866930339",
+    },
+  ],
+  capitalDeals: [
+    {
+      handle: "@MistralAI",
+      fact: "TIME100 Most Influential Companies 2026, top-10 for AI",
+      link: "https://x.com/MistralAI/status/2049988769928056852",
+    },
+    {
+      handle: "@Alibaba_Qwen",
+      fact: "Strategic partnership with Fireworks AI for production-ready Qwen closed-weights deployment",
+      link: "https://x.com/Alibaba_Qwen/status/2050232280082522505",
+    },
+    {
+      handle: "@nvidia",
+      fact: "OpenClaw → 250K GH stars in 60 days (fastest climb ever); NVIDIA partnered to enterprise-harden it",
+      link: "https://x.com/nvidia/status/2049971830513910054",
+    },
+    {
+      handle: "@DeepInfra",
+      fact: "Now first-class provider in OpenClaw — one key, every model",
+      link: "https://x.com/DeepInfra/status/2050294604654874973",
+    },
+    {
+      handle: "@togethercompute",
+      fact: "Scaled Cognition reports ~50% cost savings vs AWS post-switch",
+      link: "https://x.com/togethercompute/status/2050271746062721175",
+    },
+  ],
+  researchDepth: [
+    {
+      handle: "@e2b",
+      fact: "CVE-2026-31431 writeup — Linux kernel root flaw since 2017, cross-tenant on shared-kernel sandbox hosts. E2B unaffected by design (per-sandbox Firecracker microVMs, CONFIG_CRYPTO_USER never compiled). Textbook sandbox-security signal.",
+      link: "https://x.com/e2b/status/2049992833256374640",
+    },
+    {
+      handle: "@MSFTResearch",
+      fact: "Safe agents ≠ safe ecosystem — network-level risks in interconnected agents need new framing",
+      link: "https://x.com/MSFTResearch/status/2049972123901264027",
+    },
+    {
+      handle: "@togethercompute",
+      fact: "Super-Reliable Intelligence framing from @profdanklein — fluent + confident + wrong is the failure mode no one was tracking",
+      link: "https://x.com/togethercompute/status/2050272756906746241",
+    },
+  ],
+  nicheContrarian: [
+    {
+      handle: "@ArtificialAnlys",
+      fact: "Open weights gap on agentic coding still wide — TerminalBench Hard 43–46% vs GPT-5.5 @ 61%. Closing-the-gap narrative is partial.",
+    },
+    {
+      handle: "@huggingface",
+      fact: "DeepInfra now an HF Inference Provider (DeepSeek V4, Kimi-K2.6, GLM-5.1, 100+ models) — cheap-serving consolidation",
+      link: "https://x.com/huggingface/status/2050114293383737553",
+    },
+    {
+      handle: "@ollama",
+      fact: "People running Claude Code with local Ollama+Gemma to dodge API costs — local-first agent stack signal",
+    },
+  ],
+  watchlistRecs: {
+    add: [
+      {
+        handle: "@Xiaomi",
+        reason:
+          "MiMo V2.5 Pro ties for open-weights #1 on AA Intelligence Index; niche Chinese frontier lab not on list",
+      },
+      {
+        handle: "@OpenClaw",
+        reason:
+          "250K GH stars in 60 days, NVIDIA-partnered, now a routing hub (DeepInfra integrated)",
+      },
+    ],
+    prune: [{ handle: "@modal_labs", reason: "Confirmed suspended on X" }],
+  },
+};

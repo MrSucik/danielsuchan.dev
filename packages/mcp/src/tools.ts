@@ -7,6 +7,7 @@ import {
   PROFILE,
   PROJECTS,
   SKILLS,
+  TWITTER_PULSE_LATEST,
 } from "./data.js";
 
 export function registerTools(server: McpServer): void {
@@ -16,6 +17,7 @@ export function registerTools(server: McpServer): void {
   registerGetSkills(server);
   registerAskAboutDaniel(server);
   registerGetBugFixes(server);
+  registerGetCuratedTweets(server);
 }
 
 function registerGetProfile(server: McpServer): void {
@@ -176,6 +178,59 @@ function findAnswer(question: string): string {
   return (
     "That specific question is not in Daniel's public knowledge base. " +
     "For direct answers, reach out: mr.sucik@gmail.com or visit https://danielsuchan.dev/contact"
+  );
+}
+
+function registerGetCuratedTweets(server: McpServer): void {
+  server.tool(
+    "get_curated_tweets",
+    "Returns the latest curated Twitter/X digest from Daniel's twitter-agent pipeline. The agent watches ~136 handles (frontier AI labs, infra providers, founders, and Czech finance/tech), filters out rage-bait + political noise, and surfaces niche/high-signal items: top stories, models + benchmarks, capital deals, deep research, and contrarian picks. Useful as a 'taste' signal — what Daniel reads and prioritizes, not just what's loudest. The snapshot includes a date so callers can see how fresh it is.",
+    {
+      section: z
+        .enum([
+          "all",
+          "top3",
+          "models_benchmarks",
+          "capital_deals",
+          "research_depth",
+          "niche_contrarian",
+          "watchlist_recs",
+        ])
+        .optional()
+        .default("all")
+        .describe(
+          "Which slice of the digest to return. Default 'all' returns the full digest."
+        ),
+    },
+    ({ section }) => {
+      const pulse = TWITTER_PULSE_LATEST;
+      const payload = (() => {
+        switch (section) {
+          case "top3":
+            return { date: pulse.date, top3: pulse.top3 };
+          case "models_benchmarks":
+            return { date: pulse.date, modelsBenchmarks: pulse.modelsBenchmarks };
+          case "capital_deals":
+            return { date: pulse.date, capitalDeals: pulse.capitalDeals };
+          case "research_depth":
+            return { date: pulse.date, researchDepth: pulse.researchDepth };
+          case "niche_contrarian":
+            return { date: pulse.date, nicheContrarian: pulse.nicheContrarian };
+          case "watchlist_recs":
+            return { date: pulse.date, watchlistRecs: pulse.watchlistRecs };
+          default:
+            return pulse;
+        }
+      })();
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(payload, null, 2),
+          },
+        ],
+      };
+    }
   );
 }
 
