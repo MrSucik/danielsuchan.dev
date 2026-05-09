@@ -1,4 +1,5 @@
 import sandboxesRaw from "../data/writing/agent-sandboxes-infra.md?raw";
+import mcp208Raw from "../data/writing/mcp-208-tools.md?raw";
 import subagentRaw from "../data/writing/subagent-orchestration.md?raw";
 
 export type PostStatus = "drafting" | "published";
@@ -58,7 +59,7 @@ function parseFrontmatter(raw: string): { fm: PostFrontmatter; body: string } {
   };
 }
 
-const rawPosts = [sandboxesRaw, subagentRaw];
+const rawPosts = [mcp208Raw, sandboxesRaw, subagentRaw];
 
 export const posts: Post[] = rawPosts.map((raw) => {
   const { fm, body } = parseFrontmatter(raw);
