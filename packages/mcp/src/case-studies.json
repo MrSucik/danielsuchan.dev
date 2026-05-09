@@ -1,0 +1,28 @@
+{
+  "studies": [
+    {
+      "slug": "dzarvis",
+      "title": "Dzarvis — multi-agent assistant on Claude",
+      "url": "https://danielsuchan.dev/case-studies/dzarvis",
+      "teaser": "Architecture write-up for Dzarvis: a multi-agent harness with narrow specialized subagents on top of a 208-tool MCP server. In stealth, fine-tuning with a focus group of 15 companies.",
+      "sections": [
+        {
+          "heading": "What Dzarvis is",
+          "body": "A multi-agent assistant on Claude. Daniel runs the orchestrator + a swarm of narrow specialized subagents over a 208-tool MCP server. Currently in stealth, fine-tuning with 15 companies."
+        },
+        {
+          "heading": "Why a 208-tool MCP server",
+          "body": "Each tool is a contract: name + Zod-validated args + return shape. The orchestrator picks tools by name, the subagents are scoped to a narrow tool subset. This pushes routing logic into the type system rather than into hand-rolled if/else."
+        },
+        {
+          "heading": "Why narrow subagents",
+          "body": "A single mega-prompt with all 208 tools available to one agent collapses under context-window pressure and tool-selection noise. Narrow subagents get tighter prompts, smaller tool surfaces, and predictable failure modes."
+        },
+        {
+          "heading": "Trust boundary",
+          "body": "All LLM-emitted values that touch persistence go through Zod parsing first. URLs hit an allowlist before fetch. The system prompt explicitly tells the model to refuse with a structured error envelope when input is unparseable."
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,7 @@ const navLinks = [
   { to: "/writing", label: "writing" },
   { to: "/changelog", label: "changelog" },
   { to: "/bugs", label: "bugs" },
+  { to: "/for-agents", label: "for agents" },
   { to: "/newsletter", label: "newsletter" },
 ] as const;
 

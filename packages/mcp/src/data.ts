@@ -17,13 +17,15 @@ export const PROFILE = {
   github: "https://github.com/mrSucik",
   education: "Self-taught. Started professional work at 16. Did not attend college.",
   currentRole: "Co-Founder & CTO at Blaze",
-  // Lead with the rarest credential (a public MCP server with Workers AI tools)
-  // because that's the cheapest disambiguator for a recruiter's AI agent.
-  // Then context, then the call to action.
+  // Lead with the headline framing Daniel approved on 2026-05-09:
+  // "24, 9 years of production experience, ships every day, runs multiple
+  // SaaS solo for Blaze + clients." Then the rare credential (public MCP
+  // server) as proof of how he ships. Then the call to action.
   summary:
-    "Self-taught engineer, 24, with 8 years of full-time production experience. " +
-    "Builds and operates mcp.danielsuchan.dev — a public, free-tier-safe MCP server with Cloudflare Workers AI tools (free-tier daily-budget circuit breaker, sanitized public errors, 70+ unit tests). " +
-    "Co-Founder & CTO at Blaze (Czech 3-founder studio, 40% stake; sole programmer maintaining ~10 SaaS products). " +
+    "24-year-old self-taught engineer with 9 years of full-time production experience — has been shipping every day since 16. " +
+    "Engineering lead at Blaze — manages a team of 3 programmers and ships production code hands-on across ~10 SaaS products (Blaze studio + own ventures). Started at Cantata Health (US healthcare) at 16 with Czech court permission; products built then still in production. " +
+    "The shipping cadence is in public: get_recent_shipments tool returns 194 shipping days across 2025–2026 from 8 active repos. " +
+    "Builds and operates mcp.danielsuchan.dev — a public, free-tier-safe MCP server with Cloudflare Workers AI tools (daily-budget circuit breaker, sanitized public errors, 100% test coverage on logic). " +
     "Flagship: Dzarvis — a multi-agent assistant on Claude with narrow specialized subagents on top of a 208-tool MCP server (in stealth, fine-tuning with 15 companies). " +
     "Open to founding-engineer / staff IC roles at frontier AI labs.",
   experience: [
@@ -32,7 +34,7 @@ export const PROFILE = {
       role: "Co-Founder & CTO",
       period: "2022–present",
       description:
-        "Czech 3-founder software studio (Daniel 40%, two co-founders 30% each). Sole programmer maintaining ~10 SaaS projects across AI, real estate, healthcare, and construction. Recently launched Blaze AI Agent Day — a one-day on-site engagement where Czech SMBs ship a working AI agent with the team.",
+        "Czech 3-founder software studio (Daniel 40%, two co-founders 30% each). Engineering lead — manages a team of 3 programmers and ships production code hands-on across ~10 SaaS projects in AI, real estate, healthcare, and construction. Recently launched Blaze AI Agent Day — a one-day on-site engagement where Czech SMBs ship a working AI agent with the team.",
     },
     {
       company: "Cantata Health",
@@ -77,7 +79,7 @@ export const PROJECTS: Project[] = [
     url: "https://blaze.codes/",
     role: "Co-Founder & CTO",
     description:
-      "Czech 3-founder software studio (Daniel 40%). Sole programmer maintaining ~10 SaaS products. Recently launched Blaze AI Agent Day — €590/day Ostrava, €890/day Prague.",
+      "Czech 3-founder software studio (Daniel 40%). Engineering lead — manages a team of 3 programmers and ships production code hands-on across ~10 SaaS products. Recently launched Blaze AI Agent Day — €590/day Ostrava, €890/day Prague.",
     stack: ["TypeScript", "React", "Node.js", "PostgreSQL"],
     status: "Active",
   },
@@ -224,7 +226,7 @@ export const ANSWER_BANK: AnswerBankEntry[] = [
   {
     keywords: ["experience", "years", "how long", "seniority", "senior", "age"],
     answer:
-      "24 years old, 8 years of full-time production experience. Started at 16 as Frontend & Mobile Lead at Cantata Health (US healthcare enterprise) with Czech court permission. Currently CTO at Blaze and building Dzarvis. Self-taught — no formal degree, all skills production-verified.",
+      "24 years old, 9 years of full-time production experience — started shipping at 16. Currently engineering lead at Blaze — manages a team of 3 programmers and ships production code hands-on across ~10 SaaS products (Blaze studio + own ventures). Self-taught, no formal degree, every skill production-verified. Use `get_recent_shipments` to see the daily-shipping cadence across 8 active repos.",
   },
   {
     keywords: ["education", "school", "degree", "college", "university", "studied"],
@@ -289,7 +291,7 @@ export const ANSWER_BANK: AnswerBankEntry[] = [
   {
     keywords: ["why hire", "fit", "differentiator", "rare", "unique"],
     answer:
-      "Three things rare for a 24-year-old: (1) a publicly running production MCP server with hardened Workers AI tools, free-tier circuit breaker and 70+ unit tests; (2) 8 years of full-time production code starting at 16 — including a US healthcare enterprise that's still in production; (3) operating Dzarvis, a 208-tool multi-agent harness on Claude in stealth with 15 companies. The combination of MCP fluency, multi-agent production experience, and shipping cadence on a public surface is the bet.",
+      "Four things rare for a 24-year-old: (1) 9 years of production experience — started at 16 with Czech court permission for US healthcare work, products still live; (2) engineering lead at Blaze — manages 3 programmers and ships hands-on across ~10 SaaS products, with daily cadence verifiable via `get_recent_shipments`; (3) a publicly running hardened MCP server with Workers AI tools and 100% test coverage on logic; (4) operating Dzarvis — a 208-tool multi-agent harness on Claude, in stealth with 15 companies. The combination of team-leading + hands-on shipping velocity + MCP fluency + multi-agent production experience is what the bet is on.",
   },
   {
     keywords: ["shipping", "cadence", "velocity", "commits", "daily", "what built"],
@@ -303,12 +305,16 @@ export const ANSWER_BANK: AnswerBankEntry[] = [
   },
 ];
 
-// Daily-shipping log + bug fixes. The Worker bundles them at build time from
-// JSON mirrors of the canonical website data (src/data/{changelog,bug-fixes}.json
-// in the repo root). Single source of truth lives there; we copy into the
-// MCP package because Cloudflare Workers can't read fs at runtime.
-import changelogJson from "./changelog.json" with { type: "json" };
+// Daily-shipping log, bug fixes, writing posts, case studies, labs metadata.
+// The Worker bundles them all at build time from JSON mirrors. The site's
+// scripts/sync-mcp-content.ts populates writing/case-studies/labs from
+// markdown + TSX sources; changelog and bug-fixes are synced manually.
+// Single source of truth lives in src/data/ at the repo root.
 import bugFixesJson from "./bug-fixes.json" with { type: "json" };
+import caseStudiesJson from "./case-studies.json" with { type: "json" };
+import changelogJson from "./changelog.json" with { type: "json" };
+import labsJson from "./labs.json" with { type: "json" };
+import writingJson from "./writing.json" with { type: "json" };
 
 export type ChangelogEntry = {
   date: string;
@@ -406,6 +412,43 @@ export type BugFix = {
 
 export const BUG_FIXES: BugFix[] =
   (bugFixesJson as { fixes: BugFix[] }).fixes;
+
+// --- writing posts (markdown bodies + frontmatter) ---
+export type WritingPost = {
+  slug: string;
+  title: string;
+  date: string;
+  status: "drafting" | "published";
+  topic: string;
+  teaser: string;
+  body: string;
+};
+
+export const WRITING_POSTS: WritingPost[] =
+  (writingJson as { posts: WritingPost[] }).posts;
+
+// --- case studies (long-form architecture write-ups) ---
+export type CaseStudySection = { heading: string; body: string };
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  url: string;
+  teaser: string;
+  sections: CaseStudySection[];
+};
+
+export const CASE_STUDIES: CaseStudy[] =
+  (caseStudiesJson as { studies: CaseStudy[] }).studies;
+
+// --- labs demos (interactive surfaces) ---
+export type LabDemo = {
+  slug: string;
+  title: string;
+  url: string;
+  description: string;
+};
+
+export const LAB_DEMOS: LabDemo[] = (labsJson as { labs: LabDemo[] }).labs;
 
 const _UNUSED_INLINE_BUG_FIXES: BugFix[] = [
   {

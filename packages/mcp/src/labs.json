@@ -1,0 +1,16 @@
+{
+  "labs": [
+    {
+      "slug": "decomposer",
+      "title": "Subagent task decomposer",
+      "url": "https://danielsuchan.dev/labs/decomposer",
+      "description": "Type any task and see how a Dzarvis-style multi-agent system decomposes it into narrow specialized subagents with a live dependency graph."
+    },
+    {
+      "slug": "mcp",
+      "title": "MCP inspector",
+      "url": "https://danielsuchan.dev/labs/mcp",
+      "description": "Chat directly with Daniel's public MCP server. Ask about Dzarvis, projects, or background — routed through a live Streamable-HTTP MCP endpoint."
+    }
+  ]
+}
