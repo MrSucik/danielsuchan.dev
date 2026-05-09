@@ -2,30 +2,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { describe, expect, it } from "vitest";
 import { ANSWER_BANK, BUG_FIXES, CHANGELOG, PROJECTS } from "../data.js";
 import { registerTools } from "../tools.js";
-
-type ToolHandler = (
-  args: unknown,
-  extra?: unknown
-) => Promise<{
-  content: Array<{ type: string; text: string }>;
-  structuredContent?: Record<string, unknown>;
-  isError?: boolean;
-}>;
+import { tool } from "./helpers.js";
 
 function makeServer() {
   const server = new McpServer({ name: "test", version: "0.0.1" });
   registerTools(server);
   return server;
-}
-
-function tool(server: McpServer, name: string): ToolHandler {
-  const map = (
-    server as unknown as {
-      _registeredTools?: Record<string, { handler: ToolHandler }>;
-    }
-  )._registeredTools;
-  if (!map?.[name]) throw new Error(`tool not registered: ${name}`);
-  return map[name].handler;
 }
 
 describe("get_profile", () => {
@@ -87,20 +69,28 @@ describe("get_recent_shipments", () => {
     expect(entries[0].date >= entries[entries.length - 1].date).toBe(true);
   });
 
-  it("returns 'No shipments found' fallback when window is empty", async () => {
-    const result = await tool(makeServer(), "get_recent_shipments")({
-      days: 1,
-    });
-    // Window of 1 day may or may not contain anything depending on test date.
-    // Either it's a JSON array, or it's the fallback string.
-    expect(typeof result.content[0].text).toBe("string");
+  it("returns the fallback message when the window is empty", async () => {
+    // Force an empty window by clearing the in-memory CHANGELOG with vi spy
+    // would couple to internals; cleaner is to use a date guaranteed pre-data.
+    // The CHANGELOG starts 2025-01-02 — a 1-day window from 2024-01-01 has
+    // no entries, but tools use `new Date()` so we can't time-travel directly.
+    // Instead: pass days=0 → cutoff is now, no entries match.
+    const result = await tool(makeServer(), "get_recent_shipments")({ days: 0 });
+    expect(result.content[0].text).toMatch(/No shipments found/);
+    expect(result.content[0].text).toContain("https://danielsuchan.dev/changelog");
   });
 
-  it("default 30 days returns valid output", async () => {
+  it("days=30 returns recent entries in correct shape", async () => {
     const result = await tool(makeServer(), "get_recent_shipments")({
       days: 30,
     });
-    expect(result.content[0]).toBeDefined();
+    expect(result.content[0].type).toBe("text");
+    // 30-day window will have at least the recent backfill entries
+    const text = result.content[0].text;
+    if (!text.startsWith("No shipments")) {
+      const entries = JSON.parse(text);
+      expect(Array.isArray(entries)).toBe(true);
+    }
   });
 });
 
@@ -238,10 +228,11 @@ describe("data integrity checks", () => {
     }
   });
 
-  it("every bug-fix has a project + title", () => {
+  it("every bug-fix has a non-empty project + title", () => {
     for (const fix of BUG_FIXES) {
-      expect(fix.project).toBeTruthy();
-      expect(fix.title).toBeTruthy();
+      expect(typeof fix.project).toBe("string");
+      expect(fix.project.length).toBeGreaterThan(0);
+      expect(typeof fix.title).toBe("string");
       expect(fix.title.length).toBeGreaterThan(5);
     }
   });
