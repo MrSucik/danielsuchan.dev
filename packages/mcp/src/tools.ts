@@ -1,6 +1,13 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { ANSWER_BANK, PROFILE, PROJECTS, SKILLS } from "./data.js";
+import {
+  ANSWER_BANK,
+  BUG_FIXES,
+  CHANGELOG,
+  PROFILE,
+  PROJECTS,
+  SKILLS,
+} from "./data.js";
 
 export function registerTools(server: McpServer): void {
   registerGetProfile(server);
@@ -8,6 +15,7 @@ export function registerTools(server: McpServer): void {
   registerGetRecentShipments(server);
   registerGetSkills(server);
   registerAskAboutDaniel(server);
+  registerGetBugFixes(server);
 }
 
 function registerGetProfile(server: McpServer): void {
@@ -83,11 +91,10 @@ function registerGetRecentShipments(server: McpServer): void {
         .describe("Number of days to look back. Default is 30."),
     },
     ({ days }) => {
-      const changelog = getChangelog();
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - days);
 
-      const recent = changelog.entries.filter((entry) => {
+      const recent = CHANGELOG.filter((entry) => {
         const entryDate = new Date(entry.date);
         return entryDate >= cutoff;
       });
@@ -172,38 +179,38 @@ function findAnswer(question: string): string {
   );
 }
 
-type ChangelogEntry = {
-  date: string;
-  shipments: Array<{
-    project: string;
-    bullets: string[];
-  }>;
-};
-
-type Changelog = {
-  entries: ChangelogEntry[];
-};
-
-// Inline changelog data — kept in sync with src/data/changelog.json.
-// Cloudflare Workers can't read the filesystem at runtime, so data is embedded.
-function getChangelog(): Changelog {
-  return {
-    entries: [
-      {
-        date: "2026-05-01",
-        shipments: [
+function registerGetBugFixes(server: McpServer): void {
+  server.tool(
+    "get_bug_fixes",
+    "Returns a curated list of recent production bug fixes Daniel has shipped — symptom, root cause, fix, and impact for each. Use this for recruiter questions like 'tell me about a hard problem you solved' or 'show me your debugging' — gives an AI agent concrete, verifiable war stories. NOT a comprehensive career-wide log; only recent + publicly verifiable from git history.",
+    {
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(50)
+        .optional()
+        .default(10)
+        .describe("Max entries to return, newest first. Default 10."),
+    },
+    ({ limit }) => {
+      const recent = BUG_FIXES.slice(0, limit);
+      return {
+        content: [
           {
-            project: "danielsuchan-dev",
-            bullets: [
-              "Repositioned home page hero around Dzarvis as the flagship project",
-              "Pulled Dzarvis to position #1 on /projects with full technical description",
-              "Added skill-curated /changelog (this page) — daily-shipping log across all projects",
-              "Shipped /writing with full markdown rendering and two technical post drafts: agent sandboxes infrastructure + multi-agent subagent orchestration",
-              "Added prose-post styles for long-form technical writing (code blocks, tables, blockquotes)",
-            ],
+            type: "text" as const,
+            text: JSON.stringify(
+              {
+                note: "Curated recent + verifiable bug fixes — not a comprehensive career log. See https://github.com/MrSucik for additional commit history.",
+                count: recent.length,
+                fixes: recent,
+              },
+              null,
+              2
+            ),
           },
         ],
-      },
-    ],
-  };
+      };
+    }
+  );
 }

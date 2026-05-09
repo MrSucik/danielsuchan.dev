@@ -1,6 +1,56 @@
 {
   "entries": [
     {
+      "date": "2026-05-09",
+      "shipments": [
+        {
+          "project": "danielsuchan-mcp",
+          "bullets": [
+            "Shipped 5 AI-powered MCP tools (ai_ask, ai_summarize, ai_classify, ai_extract_json, ai_translate) backed by Cloudflare Workers AI",
+            "Added free-tier safety: KV-based daily-call circuit breaker (80 calls/day cap → ~8K of 10K Neuron quota), per-input length caps, sanitized public errors that don't leak account state",
+            "Fixed JSON-mode failure on Workers AI by dropping OpenAI-style response_format and adding a balanced-brace JSON extractor for prose-wrapped output",
+            "Hardened error handling — every tool wraps runChat in try/catch, safeParseJson logs failures server-side, registerAiTools fails fast if the AI binding is missing",
+            "70+ unit tests across budget, client, tools, and registration; deployed to mcp.danielsuchan.dev v1.2.0"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-05-03",
+      "shipments": [
+        {
+          "project": "danielsuchan-mcp",
+          "bullets": [
+            "Migrated MCP server from Hetzner Coolify back to Cloudflare Workers — cleaner deploy, edge TLS, native Workers AI binding access",
+            "Public MCP server live at mcp.danielsuchan.dev, listed on awesome-mcp-servers"
+          ]
+        },
+        {
+          "project": "danielsuchan-dev",
+          "bullets": [
+            "Added /labs section with subagent decomposer + MCP inspector demos",
+            "Shipped llms.txt, JSON Resume endpoints, and per-page JSON-LD for AI-agent readability",
+            "Added Dzarvis case study at /case-studies/dzarvis",
+            "Removed all blaze.codes URL leakage from public surface; registered case-studies/labs routes",
+            "Added Cantata Health to projects, removed closed it.blaze.codes"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-05-02",
+      "shipments": [
+        {
+          "project": "danielsuchan-dev",
+          "bullets": [
+            "Stripped unverified Dzarvis claims from public site after honest audit (no fabricated subagent counts, no fake pricing claims)",
+            "Hardened deploy pipeline + extended SEO surface",
+            "Refreshed route SEO meta + added /writing route"
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-05-01",
       "shipments": [
         {

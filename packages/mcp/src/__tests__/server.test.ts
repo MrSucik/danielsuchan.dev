@@ -16,6 +16,7 @@ const EXPECTED_TOOLS = [
   "get_recent_shipments",
   "get_skills",
   "ask_about_daniel",
+  "get_bug_fixes",
   "ai_ask",
   "ai_summarize",
   "ai_classify",
