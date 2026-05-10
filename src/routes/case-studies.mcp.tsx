@@ -148,20 +148,19 @@ function McpCaseStudy() {
         <SectionHeader>The problem</SectionHeader>
         <Prose>
           A personal MCP server is a strange thing to run. It is neither a
-          product nor a portfolio piece — it is a typed surface for AI agents
-          to read about Daniel without scraping HTML. The interesting design
-          question is how to expose it publicly without leaking sensitive
-          data, burning a Cloudflare bill on the first abusive caller, or
-          shipping something that breaks on contact with real-world MCP
-          clients.
+          product nor a portfolio piece — it is a typed surface for AI agents to
+          read about Daniel without scraping HTML. The interesting design
+          question is how to expose it publicly without leaking sensitive data,
+          burning a Cloudflare bill on the first abusive caller, or shipping
+          something that breaks on contact with real-world MCP clients.
         </Prose>
         <Prose>
           Three constraints made the problem non-trivial. First, public and
           unauthenticated — anyone can call any tool, no API key, no rate-limit
           gate beyond what the design itself provides. Second, free tier —
           Workers AI gives 10K Neurons of quota per day; running out is a hard
-          failure that takes the AI tools offline. Third, agent-first audience
-          — the reader is usually a model, not a person. Errors must be
+          failure that takes the AI tools offline. Third, agent-first audience —
+          the reader is usually a model, not a person. Errors must be
           self-explanatory. Surfaces must be discoverable.
         </Prose>
       </motion.section>
@@ -195,8 +194,8 @@ function McpCaseStudy() {
           <code className="font-mono text-[12px]">src/data/writing/*.md</code>{" "}
           and case-study/labs metadata from the site's TSX, then writes JSON
           into the MCP package. The Worker bundles those JSON files at build
-          time. One source of truth. No drift between site and MCP — CI fails
-          if the JSON is regenerated and differs from what was committed.
+          time. One source of truth. No drift between site and MCP — CI fails if
+          the JSON is regenerated and differs from what was committed.
         </Prose>
       </motion.section>
 
@@ -205,8 +204,8 @@ function McpCaseStudy() {
         <SectionHeader>Hardening</SectionHeader>
         <Prose>
           Public + unauthenticated + AI-backed is a recipe for either a
-          surprising Cloudflare invoice or a user-facing outage when the
-          quota runs dry. Four mechanical pieces close the worst-case paths.
+          surprising Cloudflare invoice or a user-facing outage when the quota
+          runs dry. Four mechanical pieces close the worst-case paths.
         </Prose>
 
         <motion.div
@@ -235,9 +234,8 @@ function McpCaseStudy() {
           <code className="font-mono text-[12px]">get_agent_guide</code> is the
           first-call tool. It returns a decision tree mapping common questions
           ("Quick overview", "What has Daniel built?", "Tell me about a hard
-          problem he solved") to the right specialized tool. An agent that
-          calls it once does not need to figure out the schema by trial and
-          error.
+          problem he solved") to the right specialized tool. An agent that calls
+          it once does not need to figure out the schema by trial and error.
         </Prose>
         <Prose>
           Static surfaces complement the MCP. The site exposes{" "}
@@ -260,10 +258,10 @@ function McpCaseStudy() {
           machine-readable surface.
         </Prose>
         <Prose>
-          The principle: never make an agent guess. Every claim on the site
-          has a queryable source. The recent-shipments tool maps to git log
-          entries; the bug-fixes tool maps to commit hashes; the changelog
-          tool maps to the public changelog page.
+          The principle: never make an agent guess. Every claim on the site has
+          a queryable source. The recent-shipments tool maps to git log entries;
+          the bug-fixes tool maps to commit hashes; the changelog tool maps to
+          the public changelog page.
         </Prose>
       </motion.section>
 
@@ -277,9 +275,9 @@ function McpCaseStudy() {
             </p>
             <p className="text-xs leading-relaxed text-[var(--text-muted)]">
               80 calls/day is a soft cap, not a security boundary. A determined
-              caller can rotate IPs and exhaust the budget. The real defense
-              is that exhausting it produces a clean 429 with no hidden cost
-              — the breaker preserves the wallet, not the availability.
+              caller can rotate IPs and exhaust the budget. The real defense is
+              that exhausting it produces a clean 429 with no hidden cost — the
+              breaker preserves the wallet, not the availability.
             </p>
           </div>
           <div>
@@ -288,12 +286,12 @@ function McpCaseStudy() {
             </p>
             <p className="text-xs leading-relaxed text-[var(--text-muted)]">
               Workers AI returns text. Sometimes that text is supposed to be
-              structured JSON (for ai_extract_json, ai_classify). Models lie
-              and wrap JSON in prose. The fix is layered — temperature 0,
+              structured JSON (for ai_extract_json, ai_classify). Models lie and
+              wrap JSON in prose. The fix is layered — temperature 0,
               system-prompt instructions, then a safeParseJson fallback that
-              extracts balanced-brace substrings from prose-wrapped output.
-              No model-level structured-output flag — Workers AI does not
-              accept OpenAI-style{" "}
+              extracts balanced-brace substrings from prose-wrapped output. No
+              model-level structured-output flag — Workers AI does not accept
+              OpenAI-style{" "}
               <code className="font-mono text-[11px]">json_object</code>; only{" "}
               <code className="font-mono text-[11px]">json_schema</code>, which
               the public ai_extract_json cannot construct from a free-form
@@ -306,10 +304,10 @@ function McpCaseStudy() {
             </p>
             <p className="text-xs leading-relaxed text-[var(--text-muted)]">
               Without the sync script, the site would say one thing about
-              Daniel's projects and the MCP would say another. The sync runs
-              as part of pnpm build. CI fails if regenerated JSON differs
-              from what was committed. The MCP and the site stay in lockstep
-              by construction.
+              Daniel's projects and the MCP would say another. The sync runs as
+              part of pnpm build. CI fails if regenerated JSON differs from what
+              was committed. The MCP and the site stay in lockstep by
+              construction.
             </p>
           </div>
         </div>

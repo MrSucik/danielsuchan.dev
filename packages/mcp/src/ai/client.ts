@@ -11,16 +11,48 @@ export type AIBinding = {
   run: (model: string, inputs: unknown, options?: unknown) => Promise<unknown>;
 };
 
+// Subset of the Vectorize binding we actually use. Duck-typed for the same
+// reason as AIBinding — tests provide a minimal mock.
+export type VectorizeMatch = {
+  id: string;
+  score: number;
+  values?: number[];
+  metadata?: Record<string, unknown>;
+};
+
+export type VectorizeBinding = {
+  query: (
+    vector: number[],
+    options?: {
+      topK?: number;
+      filter?: Record<string, unknown>;
+      returnMetadata?: "all" | "indexed" | "none" | boolean;
+      returnValues?: boolean;
+    }
+  ) => Promise<{ matches: VectorizeMatch[] }>;
+  upsert: (
+    vectors: Array<{
+      id: string;
+      values: number[];
+      metadata?: Record<string, unknown>;
+    }>
+  ) => Promise<unknown>;
+};
+
 // Worker bindings shape. Colocated here so index.ts and tools.ts can
 // import a single source of truth.
 //
-// AI_BUDGET and MAX_AI_CALLS_PER_DAY are optional at the type level so tests
-// and local dev don't need to provide them — the budget guard treats a
-// missing KV namespace as "no gating" and logs a warning at startup.
+// AI_BUDGET, MAX_AI_CALLS_PER_DAY, and VECTORIZE are optional at the type
+// level so tests and local dev don't need to provide them — the relevant
+// guards treat missing bindings as "feature unavailable" and surface a
+// graceful error to public callers.
 export type Bindings = {
   AI: AIBinding;
   AI_BUDGET?: BudgetStore;
   MAX_AI_CALLS_PER_DAY?: string;
+  VECTORIZE?: VectorizeBinding;
+  /** Shared secret for the gated /admin/backfill endpoint. */
+  BACKFILL_SECRET?: string;
 };
 
 export type ChatMessage = {

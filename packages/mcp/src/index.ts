@@ -5,11 +5,17 @@ import { cors } from "hono/cors";
 import { parseLimit, readDailyCalls } from "./ai/budget.js";
 import type { Bindings } from "./ai/client.js";
 import { registerAiTools } from "./ai/tools.js";
+import {
+  makeWorkerEmbedFn,
+  makeWorkerUpsertFn,
+  runBackfill,
+} from "./backfill.js";
 import { registerResources } from "./resources.js";
+import { registerSearchArchive } from "./search.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
-const SERVER_VERSION = "1.6.0";
+const SERVER_VERSION = "1.7.0";
 const DEFAULT_DAILY_LIMIT = 80;
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -35,6 +41,7 @@ app.all("/mcp", async (c) => {
   registerTools(server);
   registerResources(server);
   registerAiTools(server, c.env);
+  registerSearchArchive(server, c.env);
 
   const transport = new StreamableHTTPTransport();
   await server.connect(transport);
@@ -65,6 +72,7 @@ app.get("/", async (c) => {
       "get_case_study",
       "get_lab_demos",
       "get_agent_guide",
+      "search_archive",
       "ai_ask",
       "ai_summarize",
       "ai_classify",
@@ -80,6 +88,37 @@ app.get("/", async (c) => {
       window: "UTC day",
     },
   });
+});
+
+// Gated one-shot Vectorize backfill. Re-runnable: Vectorize.upsert is
+// idempotent on `id`, so calling this multiple times overwrites in place.
+// Requires `Authorization: Bearer <BACKFILL_SECRET>`. The secret is set via
+// `wrangler secret put BACKFILL_SECRET` and never leaves the Worker.
+app.post("/admin/backfill", async (c) => {
+  const secret = c.env?.BACKFILL_SECRET;
+  if (!secret) {
+    return c.json({ ok: false, error: "Backfill not configured" }, 503);
+  }
+  const auth = c.req.header("authorization");
+  if (auth !== `Bearer ${secret}`) {
+    return c.json({ ok: false, error: "Unauthorized" }, 401);
+  }
+  if (!c.env.AI || !c.env.VECTORIZE) {
+    return c.json(
+      { ok: false, error: "Required bindings (AI, VECTORIZE) missing" },
+      503
+    );
+  }
+  try {
+    const result = await runBackfill(
+      makeWorkerEmbedFn(c.env.AI),
+      makeWorkerUpsertFn(c.env.VECTORIZE)
+    );
+    return c.json(result);
+  } catch (err) {
+    console.error("backfill failed", err);
+    return c.json({ ok: false, error: "Backfill failed" }, 500);
+  }
 });
 
 export default app;
