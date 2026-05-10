@@ -27,6 +27,15 @@ const caseStudies = [
     stack: ["TypeScript", "Claude", "MCP", "PostgreSQL", "Hono"],
     status: "In stealth",
   },
+  {
+    slug: "mcp",
+    name: "mcp.danielsuchan.dev",
+    tagline: "Hardened public MCP server",
+    description:
+      "Public, free-tier-safe MCP server with 16 tools, KV-based budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
+    stack: ["TypeScript", "Hono", "Cloudflare Workers", "Workers AI", "MCP SDK"],
+    status: "Live",
+  },
 ];
 
 function CaseStudiesIndex() {
@@ -84,7 +93,11 @@ function CaseStudiesIndex() {
             transition={{ delay: i * 0.06, duration: 0.4 }}
           >
             <Link
-              to="/case-studies/dzarvis"
+              to={
+                study.slug === "dzarvis"
+                  ? "/case-studies/dzarvis"
+                  : "/case-studies/mcp"
+              }
               className="group block rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-6 no-underline transition-all duration-200 hover:border-[var(--border-hover)] hover:bg-[var(--bg-elevated)]/80"
             >
               <div className="mb-3 flex items-start justify-between">
