@@ -19,6 +19,7 @@ function fakeAi(embedding: number[]): AIBinding {
 function fakeVectorize(matches: VectorizeMatch[]): VectorizeBinding {
   return {
     query: vi.fn().mockResolvedValue({ matches }),
+    upsert: vi.fn().mockResolvedValue(undefined),
   };
 }
 
@@ -152,6 +153,7 @@ describe("searchArchive", () => {
     const ai = fakeAi([0.1]);
     const vec: VectorizeBinding = {
       query: vi.fn().mockRejectedValue(new Error("boom")),
+      upsert: vi.fn().mockResolvedValue(undefined),
     };
     const result = await searchArchive(
       { AI: ai, VECTORIZE: vec },

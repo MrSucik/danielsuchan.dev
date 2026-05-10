@@ -78,31 +78,32 @@ type Doc = {
 function collectDocuments(): Doc[] {
   const docs: Doc[] = [];
 
-  // CHANGELOG — one vector per (date, project, item)
+  // CHANGELOG — one vector per (date, project, bullet)
   const changelog = readJson<{
     entries?: Array<{
       date?: string;
-      project?: string;
-      items?: string[];
+      shipments?: Array<{ project?: string; bullets?: string[] }>;
     }>;
   }>("changelog.json");
   for (const entry of changelog.entries ?? []) {
     if (!entry.date) continue;
-    const items = entry.items ?? [];
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      if (!item) continue;
-      docs.push({
-        id: `changelog:${entry.date}:${entry.project ?? "unknown"}:${i}`,
-        text: `${entry.project ?? "project"} — ${item}`,
-        metadata: {
-          source: "changelog",
-          title: `${entry.project ?? "Project"} (${entry.date})`,
-          snippet: trimTo(item, 240),
-          url: `${SITE}/changelog`,
-          date: entry.date,
-        },
-      });
+    for (const ship of entry.shipments ?? []) {
+      const bullets = ship.bullets ?? [];
+      for (let i = 0; i < bullets.length; i++) {
+        const bullet = bullets[i];
+        if (!bullet) continue;
+        docs.push({
+          id: `changelog:${entry.date}:${ship.project ?? "unknown"}:${i}`,
+          text: `${ship.project ?? "project"} — ${bullet}`,
+          metadata: {
+            source: "changelog",
+            title: `${ship.project ?? "Project"} (${entry.date})`,
+            snippet: trimTo(bullet, 240),
+            url: `${SITE}/changelog`,
+            date: entry.date,
+          },
+        });
+      }
     }
   }
 

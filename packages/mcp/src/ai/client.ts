@@ -30,6 +30,13 @@ export type VectorizeBinding = {
       returnValues?: boolean;
     }
   ) => Promise<{ matches: VectorizeMatch[] }>;
+  upsert: (
+    vectors: Array<{
+      id: string;
+      values: number[];
+      metadata?: Record<string, unknown>;
+    }>
+  ) => Promise<unknown>;
 };
 
 // Worker bindings shape. Colocated here so index.ts and tools.ts can
@@ -44,6 +51,8 @@ export type Bindings = {
   AI_BUDGET?: BudgetStore;
   MAX_AI_CALLS_PER_DAY?: string;
   VECTORIZE?: VectorizeBinding;
+  /** Shared secret for the gated /admin/backfill endpoint. */
+  BACKFILL_SECRET?: string;
 };
 
 export type ChatMessage = {
