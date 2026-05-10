@@ -160,6 +160,42 @@ export function webPageSchema({
   };
 }
 
+export function mcpCaseStudySchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechnicalArticle",
+    headline: "mcp.danielsuchan.dev — A hardened public MCP server",
+    description:
+      "Architecture writeup for mcp.danielsuchan.dev: a public, free-tier-safe MCP server with 16 tools, KV-based budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
+    url: `${SITE_URL}/case-studies/mcp`,
+    datePublished: "2026-05-10",
+    dateModified: "2026-05-10",
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: "Daniel Suchan",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Daniel Suchan",
+      url: SITE_URL,
+    },
+    about: {
+      "@type": "SoftwareApplication",
+      name: "mcp.danielsuchan.dev",
+      url: "https://mcp.danielsuchan.dev/mcp",
+      description:
+        "Public, free-tier-safe MCP server with profile + Workers AI tools, daily-budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
+      applicationCategory: "DeveloperApplication",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/case-studies/mcp`,
+    },
+  };
+}
+
 export function dzarvisCaseStudySchema() {
   return {
     "@context": "https://schema.org",

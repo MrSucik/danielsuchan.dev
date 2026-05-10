@@ -103,6 +103,16 @@ export const STATIC_ROUTES: RouteSEO[] = [
     priority: 0.7,
   },
   {
+    path: "/case-studies/mcp",
+    title:
+      "mcp.danielsuchan.dev — Hardened public MCP server | Case Study – Daniel Suchan",
+    description:
+      "Architecture writeup for mcp.danielsuchan.dev: a public, free-tier-safe MCP server with 16 tools, KV-based budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
+    lastmod: "2026-05-10",
+    changefreq: "monthly",
+    priority: 0.8,
+  },
+  {
     path: "/labs",
     title: "Labs – Daniel Suchan | Live demos and interactive tools",
     description:
@@ -142,10 +152,9 @@ export const POST_ROUTES: RouteSEO[] = [
     title: "How to design agent sandboxes infra – Daniel Suchan",
     description:
       "What it actually takes to run untrusted agent code safely — sandbox isolation patterns, security boundaries, and the cost-vs-safety tradeoffs from production agent infrastructure work.",
-    lastmod: "2026-05-02",
+    lastmod: "2026-05-10",
     changefreq: "monthly",
     priority: 0.7,
-    noindex: true,
   },
   {
     path: "/writing/subagent-orchestration",
@@ -153,10 +162,9 @@ export const POST_ROUTES: RouteSEO[] = [
       "How I orchestrate narrow subagents via LLM classification – Daniel Suchan",
     description:
       "Routing logic without hand-rolled if/else — how a multi-agent harness decides which subagent to spin up, when to spawn vs reuse, and the part nobody writes about — when NOT to call the model at all.",
-    lastmod: "2026-05-02",
+    lastmod: "2026-05-10",
     changefreq: "monthly",
     priority: 0.7,
-    noindex: true,
   },
 ];
 

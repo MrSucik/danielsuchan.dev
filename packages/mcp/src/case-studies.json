@@ -23,6 +23,34 @@
           "body": "All LLM-emitted values that touch persistence go through Zod parsing first. URLs hit an allowlist before fetch. The system prompt explicitly tells the model to refuse with a structured error envelope when input is unparseable."
         }
       ]
+    },
+    {
+      "slug": "mcp",
+      "title": "mcp.danielsuchan.dev — A hardened public MCP server",
+      "url": "https://danielsuchan.dev/case-studies/mcp",
+      "teaser": "Architecture writeup for mcp.danielsuchan.dev: a public, free-tier-safe MCP server with 16 tools, KV-based budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
+      "sections": [
+        {
+          "heading": "The problem",
+          "body": "A personal MCP server is a strange thing to run — neither product nor portfolio piece, but a typed surface for AI agents to read about Daniel without scraping HTML. Three constraints made it non-trivial: public + unauthenticated (anyone can call any tool), free tier (10K Workers AI Neurons/day), and agent-first audience (the reader is usually a model)."
+        },
+        {
+          "heading": "Architecture",
+          "body": "One Cloudflare Worker on Hono with the modern Streamable HTTP MCP transport. Tools are Zod-validated handlers in tools.ts. Static profile data plus generated JSON synced from the site's source-of-truth (changelog, bug-fixes, writing, case-studies, labs). Workers KV for the daily-budget counter, Workers AI bound directly to the Worker. A build-time sync script keeps site and MCP in lockstep."
+        },
+        {
+          "heading": "Hardening",
+          "body": "Four pieces close the worst-case paths: (1) KV-backed daily budget circuit breaker — 80 calls/day caps Workers AI usage at ~8K of 10K Neurons; (2) sanitized errors at the trust boundary — internal failures to wrangler tail, public callers see a generic envelope with no trace IDs; (3) per-input length caps via Zod; (4) 139 tests at 100% line coverage on logic, 97% branch."
+        },
+        {
+          "heading": "Agent-first surfaces",
+          "body": "get_agent_guide is the first-call tool — returns a decision tree mapping common questions to the right specialized tool. Static surfaces complement the MCP: /api/profile.json (JSON Resume v1.0.0), /llms.txt (AI-crawler convention), and /for-agents (human-readable doc page). Every claim on the site has a queryable source — the MCP is the API for those claims."
+        },
+        {
+          "heading": "Hard problems",
+          "body": "Free-tier abuse: 80 calls/day is a soft cap, not a security boundary; the real defense is that exhaustion produces a clean 429 with no hidden cost. LLM output trust: Workers AI doesn't accept OpenAI-style json_object, only json_schema, which the public ai_extract_json can't construct from free-form input — so the fix is layered (temperature 0 + system prompt + safeParseJson with balanced-brace fallback). Site/MCP drift: the build-time sync script writes JSON into the MCP package; CI fails if regenerated JSON differs from what was committed."
+        }
+      ]
     }
   ]
 }
