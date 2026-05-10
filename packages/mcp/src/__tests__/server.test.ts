@@ -22,6 +22,7 @@ const EXPECTED_TOOLS = [
   "get_case_study",
   "get_lab_demos",
   "get_agent_guide",
+  "search_archive",
   "ai_ask",
   "ai_summarize",
   "ai_classify",
@@ -39,9 +40,12 @@ describe("MCP Server — tool registration", () => {
 
     const server = new McpServer({ name: "test", version: "0.0.1" });
     registerTools(server);
+    const noopAi = { AI: { run: async () => ({ response: "" }) } };
     // AI tools require an env binding; supply a no-op stub since this test only
     // verifies registration, never invokes the tools.
-    registerAiTools(server, { AI: { run: async () => ({ response: "" }) } });
+    registerAiTools(server, noopAi);
+    const { registerSearchArchive } = await import("../search.js");
+    registerSearchArchive(server, noopAi);
 
     // Access registered tools via the internal map.
     // McpServer stores registered tools in _registeredTools (SDK v1.x).

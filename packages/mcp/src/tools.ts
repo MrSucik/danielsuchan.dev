@@ -362,6 +362,13 @@ function registerGetAgentGuide(server: McpServer): void {
         notes: "4 detailed war stories + 141 backfilled fix-commits with hashes",
       },
       {
+        question:
+          "Search across everything he's shipped (e.g. \"how does Daniel handle X?\")",
+        tool: "search_archive",
+        notes:
+          "Semantic search over changelog + bugs + writing + case-studies + labs. Pass source='all' (default) or restrict to one domain.",
+      },
+      {
         question: "What does he write about?",
         tool: "get_writing",
         notes: "Pass slug=<id> to fetch full markdown body of a single post",

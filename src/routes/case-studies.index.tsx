@@ -33,7 +33,13 @@ const caseStudies = [
     tagline: "Hardened public MCP server",
     description:
       "Public, free-tier-safe MCP server with 16 tools, KV-based budget circuit breaker, sanitized errors, and 100% line coverage on logic.",
-    stack: ["TypeScript", "Hono", "Cloudflare Workers", "Workers AI", "MCP SDK"],
+    stack: [
+      "TypeScript",
+      "Hono",
+      "Cloudflare Workers",
+      "Workers AI",
+      "MCP SDK",
+    ],
     status: "Live",
   },
 ];

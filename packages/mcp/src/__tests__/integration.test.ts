@@ -54,11 +54,11 @@ async function rpc(
 }
 
 describe("HTTP /mcp — protocol roundtrips", () => {
-  it("tools/list returns the expected 12 tools", async () => {
+  it("tools/list returns the expected 17 tools", async () => {
     const { status, rpc: r } = await rpc("tools/list");
     expect(status).toBe(200);
     const result = r?.result as { tools: Array<{ name: string }> } | undefined;
-    expect(result?.tools.length).toBe(16);
+    expect(result?.tools.length).toBe(17);
     const names = result?.tools.map((t) => t.name);
     expect(names).toEqual(
       expect.arrayContaining([
@@ -223,7 +223,7 @@ describe("HTTP / health endpoint", () => {
       aiBudget: { callsToday: number; limit: number; window: string };
     };
     expect(body.version).toMatch(/^\d+\.\d+\.\d+$/);
-    expect(body.tools.length).toBe(16);
+    expect(body.tools.length).toBe(17);
     expect(body.resources.length).toBe(2);
     expect(body.aiBudget.window).toBe("UTC day");
   });

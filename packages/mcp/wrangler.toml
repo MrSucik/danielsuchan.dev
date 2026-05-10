@@ -23,3 +23,10 @@ id = "5431a4f0b3c54f69b9e01d7b4f0950bf"
 # 80 calls/day * ~100 neurons/call worst case = 8,000 neurons/day.
 [vars]
 MAX_AI_CALLS_PER_DAY = "80"
+
+# Vectorize index — semantic search across changelog + bugs + writing +
+# case-studies + labs. 384-dim cosine; populated by scripts/backfill-vectorize.ts
+# on content changes. Free tier handles our scale trivially (~300 stored vectors).
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "danielsuchan-archive"

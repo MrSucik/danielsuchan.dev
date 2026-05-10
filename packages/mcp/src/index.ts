@@ -6,10 +6,11 @@ import { parseLimit, readDailyCalls } from "./ai/budget.js";
 import type { Bindings } from "./ai/client.js";
 import { registerAiTools } from "./ai/tools.js";
 import { registerResources } from "./resources.js";
+import { registerSearchArchive } from "./search.js";
 import { registerTools } from "./tools.js";
 
 const SERVER_NAME = "daniel-suchan-mcp";
-const SERVER_VERSION = "1.6.0";
+const SERVER_VERSION = "1.7.0";
 const DEFAULT_DAILY_LIMIT = 80;
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -35,6 +36,7 @@ app.all("/mcp", async (c) => {
   registerTools(server);
   registerResources(server);
   registerAiTools(server, c.env);
+  registerSearchArchive(server, c.env);
 
   const transport = new StreamableHTTPTransport();
   await server.connect(transport);
@@ -65,6 +67,7 @@ app.get("/", async (c) => {
       "get_case_study",
       "get_lab_demos",
       "get_agent_guide",
+      "search_archive",
       "ai_ask",
       "ai_summarize",
       "ai_classify",
