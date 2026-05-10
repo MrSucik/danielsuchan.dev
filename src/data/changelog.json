@@ -7,10 +7,19 @@
           "project": "danielsuchan-mcp",
           "bullets": [
             "Shipped 5 AI-powered MCP tools (ai_ask, ai_summarize, ai_classify, ai_extract_json, ai_translate) backed by Cloudflare Workers AI",
-            "Added free-tier safety: KV-based daily-call circuit breaker (80 calls/day cap \u2192 ~8K of 10K Neuron quota), per-input length caps, sanitized public errors that don't leak account state",
+            "Added free-tier safety: KV-based daily-call circuit breaker (80 calls/day cap → ~8K of 10K Neuron quota), per-input length caps, sanitized public errors that don't leak account state",
             "Fixed JSON-mode failure on Workers AI by dropping OpenAI-style response_format and adding a balanced-brace JSON extractor for prose-wrapped output",
-            "Hardened error handling \u2014 every tool wraps runChat in try/catch, safeParseJson logs failures server-side, registerAiTools fails fast if the AI binding is missing",
+            "Hardened error handling — every tool wraps runChat in try/catch, safeParseJson logs failures server-side, registerAiTools fails fast if the AI binding is missing",
             "70+ unit tests across budget, client, tools, and registration; deployed to mcp.danielsuchan.dev v1.2.0"
+          ]
+        },
+        {
+          "project": "danielsuchan-dev",
+          "bullets": [
+            "Agent-first home page redesign — inverted info architecture, dropped recruiter-targeted framing",
+            "Refreshed SEO: home title + meta description in static-routes for sharper search snippets",
+            "Shipped public MCP server with /bugs and /for-agents pages exposing agent-friendly tooling",
+            "Fixed /for-agents clipboard error handling and a CodeRabbit-flagged comment typo"
           ]
         }
       ]
@@ -65,7 +74,7 @@
             "Local woocommerce bench + Gemini LLM benchmark",
             "Claudecode-server passes wrong tool option to SDK",
             "Pass CLAUDE_CODE_OAUTH_TOKEN to coding-agent containers",
-            "Coding-agent containers crash on startup \u2014 agent-server import path"
+            "Coding-agent containers crash on startup — agent-server import path"
           ]
         }
       ]
@@ -76,7 +85,7 @@
         {
           "project": "danielsuchan-mcp",
           "bullets": [
-            "Migrated MCP server from Hetzner Coolify back to Cloudflare Workers \u2014 cleaner deploy, edge TLS, native Workers AI binding access",
+            "Migrated MCP server from Hetzner Coolify back to Cloudflare Workers — cleaner deploy, edge TLS, native Workers AI binding access",
             "Public MCP server live at mcp.danielsuchan.dev, listed on awesome-mcp-servers"
           ]
         },
@@ -113,7 +122,7 @@
           "bullets": [
             "Repositioned home page hero around Dzarvis as the flagship project",
             "Pulled Dzarvis to position #1 on /projects with full technical description",
-            "Added skill-curated /changelog (this page) \u2014 daily-shipping log across all projects",
+            "Added skill-curated /changelog (this page) — daily-shipping log across all projects",
             "Shipped /writing with full markdown rendering and two technical post drafts: agent sandboxes infrastructure + multi-agent subagent orchestration",
             "Added prose-post styles for long-form technical writing (code blocks, tables, blockquotes)"
           ]
@@ -165,7 +174,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Per-user template sharing + skill\u2192template association",
+            "Per-user template sharing + skill→template association",
             "Detect empty model responses in scheduled jobs and default kv_query action",
             "Surface auth failures instead of swallowing them",
             "Detect empty model responses in scheduled jobs and default kv_query action"
@@ -233,7 +242,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Extend Woo MCPs \u2014 get_order, get_customer, list_order_notes, list_order_refunds",
+            "Extend Woo MCPs — get_order, get_customer, list_order_notes, list_order_refunds",
             "Looker Studio / Sheets CSV fetch MCP wrapper"
           ]
         }
@@ -344,7 +353,7 @@
           "project": "dzarvis",
           "bullets": [
             "Escape no longer exits conversation when closing sidebar or dialogs",
-            "Simplify textarea disable \u2014 no isStreaming exception",
+            "Simplify textarea disable — no isStreaming exception",
             "Escape no longer exits conversation when closing sidebar or dialogs",
             "Hide install banner on mobile web + cleanup after stream errors"
           ]
@@ -359,7 +368,7 @@
           "bullets": [
             "Add app-sidebar toggle to mobile chat conversation toolbar",
             "Adopt Stagehand browser automation techniques",
-            "Resolve 4 sentry issues \u2014 gemini model, geo errors, dev noise",
+            "Resolve 4 sentry issues — gemini model, geo errors, dev noise",
             "Remove broken OpenRouter models + enable GPT-5/o-series"
           ]
         }
@@ -374,7 +383,7 @@
             "Add partial unique index for built-in skills and personalities",
             "Bell indicator for chats with unanswered dispatched questions",
             "Show recently used skills with show-more on chat landing",
-            "Calibrate memory system \u2014 kill meta-memory noise, fix ranking, add credential filtering"
+            "Calibrate memory system — kill meta-memory noise, fix ranking, add credential filtering"
           ]
         }
       ]
@@ -538,7 +547,7 @@
           "project": "nemoskop",
           "bullets": [
             "Use full bazos URL path (/inzerat/{id}/{slug}.php) instead of /{id}.php",
-            "Add missing 'Skr\u00fdt sd\u00edlen\u00e9' toggle button to filter bar",
+            "Add missing 'Skrýt sdílené' toggle button to filter bar",
             "Detect per-bed/per-room pricing and flag shared living",
             "Use working URL formats for source links"
           ]
@@ -625,7 +634,7 @@
           "bullets": [
             "Add AI disclaimers and legal links to chat",
             "Safety net fires onError instead of onDone, add logging",
-            "Resolve chat streaming bugs \u2014 stuck generation, double messages",
+            "Resolve chat streaming bugs — stuck generation, double messages",
             "Resolve production TLS certificate verification failure"
           ]
         },
@@ -635,7 +644,7 @@
             "Add Bazos scraper to ETL scheduler + fix rent coverage",
             "Reduce Sreality to 10 pages/category to ensure rent categories finish",
             "Reduce Sreality max pages to 30 so rent categories run within 1hr timeout",
-            "Add rich listing details \u2014 photo gallery, metadata, source links"
+            "Add rich listing details — photo gallery, metadata, source links"
           ]
         }
       ]
@@ -790,8 +799,8 @@
           "bullets": [
             "Add admin invite MCP tools for listing and creating invites",
             "Replace Redis sidecar with managed ElastiCache",
-            "Address DB views PR review \u2014 staleness, per-asset charts, error handling",
-            "Address code review findings \u2014 whisper lang, pipefail, error handling"
+            "Address DB views PR review — staleness, per-asset charts, error handling",
+            "Address code review findings — whisper lang, pipefail, error handling"
           ]
         }
       ]
@@ -913,7 +922,7 @@
         {
           "project": "dzarvis",
           "bullets": [
-            "Add PDF Studio \u2014 template-based generation and editing",
+            "Add PDF Studio — template-based generation and editing",
             "Remove unused organizations and teams feature",
             "Add multi-user E2E test infrastructure and auth/sharing specs",
             "Route voice through AI agent with TTS response loop"
@@ -968,7 +977,7 @@
           "project": "dzarvis",
           "bullets": [
             "Pass invite token to sign-up API + adopt shared packages round 6",
-            "Resolve chat streaming bugs \u2014 message disappearance and silent errors",
+            "Resolve chat streaming bugs — message disappearance and silent errors",
             "Prevent consumed request body in MCP session recovery path"
           ]
         },
@@ -1066,7 +1075,7 @@
         {
           "project": "dotacni-sniper",
           "bullets": [
-            "Add SFPI barrier-free, HOUSEnerg main, and Kotl\u00edkov\u00e9 dotace programs",
+            "Add SFPI barrier-free, HOUSEnerg main, and Kotlíkové dotace programs",
             "Add PVGIS solar potential estimate to calculator results",
             "Remove measures step from calculator, assume all measures",
             "Show exhausted programs in results, add FVE 2026, enhance lead capture"
@@ -1089,7 +1098,7 @@
         {
           "project": "dotacni-sniper",
           "bullets": [
-            "Use 'exhausted' status for NZ\u00da programs (Vy\u010derp\u00e1no badge)"
+            "Use 'exhausted' status for NZÚ programs (Vyčerpáno badge)"
           ]
         }
       ]
@@ -1117,7 +1126,7 @@
         {
           "project": "dotacni-sniper",
           "bullets": [
-            "Close NZ\u00da Light and HOUSEnerg (funds exhausted Nov 2025)",
+            "Close NZÚ Light and HOUSEnerg (funds exhausted Nov 2025)",
             "Hide scraped HOUSEnerg duplicate (modfond-31)",
             "Add admin ETL trigger endpoint"
           ]
